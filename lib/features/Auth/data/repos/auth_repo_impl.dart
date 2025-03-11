@@ -12,7 +12,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<String, UserModel>> signUp(
       String name, String email, String password, String phone) async {
-    // 🔍 1. Validate input using regex
+    // 1. Validate input using regex
     if (name.isEmpty || email.isEmpty || password.isEmpty || phone.isEmpty) {
       return const Left("All fields are required.");
     }
@@ -28,7 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
     }
 
     try {
-      // 🔥 2. Call Firebase sign-up method
+      // 2. Call Firebase sign-up method
       final user = await remoteDataSource.signUp(name, email, password, phone);
 
       if (user == null) {
@@ -48,7 +48,7 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
-  // 🛑 3. Handle Firebase errors properly
+  // 3. Handle Firebase errors properly
   String _mapFirebaseError(FirebaseAuthException e) {
     switch (e.code) {
       case 'email-already-in-use':
