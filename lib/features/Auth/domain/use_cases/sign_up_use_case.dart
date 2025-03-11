@@ -6,7 +6,8 @@ class SignUpUseCase {
   final AuthRepositoryImpl repository;
 
   SignUpUseCase(this.repository);
-  Future<Either<String, UserModel>> call(String name, String email, String password, String phone) {
+  Future<Either<String, UserModel>> call(
+      String name, String email, String password, String phone) {
     return repository.signUp(name, email, password, phone);
   }
 }
