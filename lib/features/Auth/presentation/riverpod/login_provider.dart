@@ -3,7 +3,6 @@ import 'package:prepai/features/Auth/data/repositories/auth_repository.dart';
 import 'package:prepai/features/Auth/domain/entities/user_entity.dart';
 import 'package:prepai/features/Auth/domain/use_cases/login_usecase.dart';
 
-//login branch - first commit
 enum LoginState { initial, loading, success, error }
 
 class LoginNotifier extends StateNotifier<LoginState> {
