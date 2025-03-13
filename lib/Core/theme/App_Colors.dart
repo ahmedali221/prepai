@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color secondaryColor = Color.fromRGBO(26, 63, 1, 0);
+  static const Color secondaryColor = Color(0xff001A3F);
   static const Color scaffoldBackgroundColor = Colors.white;
   static const Color primeryColor = Colors.white;
   static const Color SelectedButtonTextColor = Colors.white;
