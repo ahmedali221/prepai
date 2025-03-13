@@ -29,7 +29,7 @@ final route = GoRouter(
       ),
       GoRoute(
         path: AppRouter.kMealPage,
-        builder: (context, state) => MealPage(),
+        builder: (context, state) => Mealpage(),
       ),
       GoRoute(
         path: AppRouter.kLogin,
