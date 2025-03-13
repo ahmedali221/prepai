@@ -70,9 +70,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       text: AppConsts.RemebermeText,
                       value: isChecked,
                       onChanged: (bool? newValue) {
-                        setState(() {
-                          isChecked = newValue!;
-                        });
+                        setState(
+                          () {
+                            isChecked = newValue!;
+                          },
+                        );
                       },
                     ),
                     SizedBox(
