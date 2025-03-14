@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:prepai/Core/utils/assets.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/widgets/scaling_Logo.dart';
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/widgets/scaling_Logo.dart';
 
 class SplashPageBody extends StatefulWidget {
   const SplashPageBody({super.key});
@@ -32,6 +33,6 @@ class _SplashPageBodyState extends State<SplashPageBody>
     slidingAnimation =
         Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
             .animate(animationController);
-    animationController.forward();
+    animationController.forward().then((value) => context.go('/onBoarding'));
   }
 }

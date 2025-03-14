@@ -4,7 +4,7 @@ class AppConsts {
   static const String RegisterText = 'Register';
   static const String RegisterNowText = 'Register now';
   static const String LoginText = 'login';
-  static const String notHaveAnAcountText = "don't have an acount ?";
+  static const String notHaveAnAcountText = "don't have an acount?  ";
   static const String forgetPassText = 'Forget Your Password ?';
   static const String fullNameText = 'Full Name';
   static const String emailText = 'Email';
