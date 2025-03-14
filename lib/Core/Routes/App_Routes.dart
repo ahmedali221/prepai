@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:prepai/features/Auth/presentation/pages/Login_Page.dart';
 import 'package:prepai/features/Auth/presentation/pages/Signup_Page.dart';
-import 'package:prepai/features/Home/Home_Page.dart';
 import 'package:prepai/features/Meals/presentation/MealPage.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/InitPage.dart';
+import '../../features/Home/presentation/views/screen/controller_screen.dart';
 
 class AppRouter {
   static const String kinitPage = '/';
@@ -25,7 +25,7 @@ final route = GoRouter(
       ),
       GoRoute(
         path: AppRouter.kHomePage,
-        builder: (context, state) => HomePage(),
+        builder: (context, state) => ControllerScreen(),
       ),
       GoRoute(
         path: AppRouter.kMealPage,
