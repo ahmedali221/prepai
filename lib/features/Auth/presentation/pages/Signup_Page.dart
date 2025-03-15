@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prepai/features/Auth/presentation/widgets/Signup_view_body.dart';
+
+void main() {
+  runApp(SignupPage());
+}
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -9,8 +14,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   @override
-  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SignUpViewBody();
   }
 }
