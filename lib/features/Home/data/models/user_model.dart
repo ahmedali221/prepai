@@ -1,30 +1,37 @@
 import 'package:prepai/features/Home/domain/entities/user_profile_entity.dart';
 
-class UserModel extends UserProfileEntity {
+class UserModel {
+  final String userEmail;
+  final String userName;
+  final String userPhone;
   UserModel(
-      {required super.userImage,
-      required super.userImail,
-      required super.userName,
-      required super.userPassword,
-      required super.userPhone});
+      {required this.userEmail,
+      required this.userName,
+      required this.userPhone});
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+  factory UserModel.fromJson(json) {
     return UserModel(
-      userImage: json["userImage"] ?? "",
-      userImail: json["userImail"] ?? "",
-      userName: json["userName"] ?? "",
-      userPassword: json["userPassword"] ?? "",
-      userPhone: json["userPhone"] ?? "",
+      userEmail: json["email"] ?? "",
+      userName: json["name"] ?? "",
+      userPhone: json["phone"] ?? "",
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "userImage": userImage,
-      "userImail": userImail,
-      "userName": userName,
-      "userPassword": userPassword,
-      "userPhone": userPhone,
+      "email": userEmail,
+      "name": userName,
+      "phone": userPhone,
     };
+  }
+
+  UserProfileEntity toEntity() {
+    return UserProfileEntity(
+      userImage: "",
+      userPassword: "",
+      userName: userName,
+      userEmail: userEmail,
+      userPhone: userPhone,
+    );
   }
 }
