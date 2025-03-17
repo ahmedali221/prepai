@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:prepai/core/errors/firebase_errors.dart';
 import 'package:prepai/features/Auth/data/data%20source/auth_remote_data_source.dart';
 import 'package:prepai/features/Auth/domain/models/user_model.dart';
 import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
-import 'package:prepai/utils/validators.dart'; 
+import 'package:prepai/core/utils/validators.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
@@ -42,23 +43,9 @@ class AuthRepositoryImpl implements AuthRepository {
         phone: user.phone,
       ));
     } on FirebaseAuthException catch (e) {
-      return Left(_mapFirebaseError(e));
+      return Left(FirebaseFailure.fromAuthError(e).errorMessage); // Use FirebaseFailure
     } catch (e) {
       return Left("An unexpected error occurred. Please try again later.");
-    }
-  }
-
-  // 3. Handle Firebase errors
-  String _mapFirebaseError(FirebaseAuthException e) {
-    switch (e.code) {
-      case 'email-already-in-use':
-        return "This email is already in use.";
-      case 'invalid-email':
-        return "Invalid email format.";
-      case 'weak-password':
-        return "Password must be at least 8 characters.";
-      default:
-        return "Authentication failed. Please try again.";
     }
   }
 }
