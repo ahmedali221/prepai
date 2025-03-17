@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:prepai/features/Auth/presentation/pages/login_page.dart';
+import 'package:prepai/features/Auth/presentation/pages/sign_up_page.dart';
+import 'package:prepai/features/Home/presentation/home_page.dart';
 import 'package:prepai/features/Meals/presentation/meal_page.dart';
-
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash_page.dart';
 
 class AppRouter {
   static const String kInitPage = '/';
@@ -19,7 +22,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: AppRouter.kInitPage,
-      pageBuilder: (context, state) => const MaterialPage(child: InitPage()),
+      pageBuilder: (context, state) => const MaterialPage(child: SplashPage()),
     ),
     GoRoute(
       path: AppRouter.kHomePage,
@@ -35,7 +38,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRouter.kSignup,
-      pageBuilder: (context, state) => const MaterialPage(child: SignupPage()),
+      pageBuilder: (context, state) => const MaterialPage(child: SignUpPage()),
     ),
   ],
 );
