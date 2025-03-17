@@ -14,40 +14,36 @@ class AppRouter {
   static const String kMealPage = '/Recommendation';
   static const String kLogin = '/login';
   static const String kSignup = '/Signup';
-
-  late final GoRouter route;
-
-  AppRouter() {
-    route = GoRouter(
-      initialLocation: AppRouter.kSplashPage,
-      errorPageBuilder: (context, state) =>
-          const MaterialPage(child: Scaffold(body: Text('Not Found'))),
-      routes: [
-        GoRoute(
-          path: AppRouter.kSplashPage,
-          builder: (context, state) => SplashPage(),
-        ),
-        GoRoute(
-          path: AppRouter.kSplashPage,
-          builder: (context, state) => onBoardingPage(),
-        ),
-        GoRoute(
-          path: AppRouter.kHomePage,
-          builder: (context, state) => ControllerScreen(),
-        ),
-        GoRoute(
-          path: AppRouter.kMealPage,
-          builder: (context, state) => Mealpage(),
-        ),
-        GoRoute(
-          path: AppRouter.kLogin,
-          builder: (context, state) => LoginPage(),
-        ),
-        GoRoute(
-          path: AppRouter.kSignup,
-          builder: (context, state) => SignupPage(),
-        ),
-      ],
-    );
-  }
 }
+
+final route = GoRouter(
+  initialLocation: AppRouter.kSplashPage,
+  errorPageBuilder: (context, state) =>
+      const MaterialPage(child: Scaffold(body: Text('Not Found'))),
+  routes: [
+    GoRoute(
+      path: AppRouter.kSplashPage,
+      builder: (context, state) => SplashPage(),
+    ),
+    GoRoute(
+      path: AppRouter.kSplashPage,
+      builder: (context, state) => onBoardingPage(),
+    ),
+    GoRoute(
+      path: AppRouter.kHomePage,
+      builder: (context, state) => ControllerScreen(),
+    ),
+    GoRoute(
+      path: AppRouter.kMealPage,
+      builder: (context, state) => Mealpage(),
+    ),
+    GoRoute(
+      path: AppRouter.kLogin,
+      builder: (context, state) => LoginPage(),
+    ),
+    GoRoute(
+      path: AppRouter.kSignup,
+      builder: (context, state) => SignupPage(),
+    ),
+  ],
+);
