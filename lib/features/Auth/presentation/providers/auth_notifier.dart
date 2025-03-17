@@ -9,8 +9,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   AuthNotifier(this.authRepository) : super(AuthState.initial());
 
-  Future<void> signUp(
-      String name, String email, String password, String phone) async {
+  Future<Either<String, UserModel>> signUp({
+    required String name,
+    required String email,
+    required String password,
+    required String phone,
+  }) async {
     state = AuthState.loading();
 
     final result = await authRepository.signUp(name, email, password, phone);
@@ -19,19 +23,23 @@ class AuthNotifier extends StateNotifier<AuthState> {
       (error) => state = AuthState.error(error),
       (user) => state = AuthState.authenticated(user),
     );
+
+    return result;
   }
 
- Future<Either<String, UserModel>> login({required String email, required String password}) async {
-  state = AuthState.loading();
+  Future<Either<String, UserModel>> login({
+    required String email,
+    required String password,
+  }) async {
+    state = AuthState.loading();
 
-  final result = await authRepository.login(email, password);
+    final result = await authRepository.login(email, password);
 
-  result.fold(
-    (error) => state = AuthState.error(error),
-    (user) => state = AuthState.authenticated(user),
-  );
+    result.fold(
+      (error) => state = AuthState.error(error),
+      (user) => state = AuthState.authenticated(user),
+    );
 
-  return result;
-}
-
+    return result;
+  }
 }

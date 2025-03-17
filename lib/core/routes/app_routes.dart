@@ -44,7 +44,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRouter.kSignup,
-      pageBuilder: (context, state) => const MaterialPage(child: SignUpPage()),
+      pageBuilder: (context, state) => const MaterialPage(child: SignupPage()),
     ),
   ],
 );
