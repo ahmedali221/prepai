@@ -50,5 +50,6 @@ class _SplashPageBodyState extends State<SplashPageBody>
     ));
 
     animationController.forward();
+
   }
 }

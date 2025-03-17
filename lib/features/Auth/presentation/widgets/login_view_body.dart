@@ -119,6 +119,7 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                     const SizedBox(height: 24),
                     CustomDivider(text: 'or login with'),
                     const SizedBox(height: 45),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -144,6 +145,7 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                           style: TextStyle(color: AppColors.primaryColor),
                         ),
                         const SizedBox(width: 5),
+
                         GestureDetector(
                           onTap: () {
                             GoRouter.of(context).push(AppRouter.kSignup);
@@ -151,6 +153,7 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                           child: const Text(
                             AppConsts.registerNowText,
                             style: TextStyle(color: AppColors.primaryColor),
+
                           ),
                         ),
                       ],
