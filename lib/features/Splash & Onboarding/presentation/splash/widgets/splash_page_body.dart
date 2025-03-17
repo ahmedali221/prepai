@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/scaling_logo.dart';
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/widgets/scaling_logo.dart';
 
 class SplashPageBody extends StatefulWidget {
   const SplashPageBody({super.key});
@@ -33,13 +33,21 @@ class _SplashPageBodyState extends State<SplashPageBody>
   void initAnimations() {
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 800),
     );
 
-    scaleAnimation =
-        Tween<double>(begin: 0.5, end: 1.0).animate(animationController);
-    slideAnimation = Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero)
-        .animate(animationController);
+    scaleAnimation = CurvedAnimation(
+      parent: animationController,
+      curve: Curves.easeOutBack,
+    );
+
+    slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: animationController,
+      curve: Curves.easeOut,
+    ));
 
     animationController.forward();
   }
