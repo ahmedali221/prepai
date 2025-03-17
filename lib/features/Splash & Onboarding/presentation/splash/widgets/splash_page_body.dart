@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/scaling_logo.dart';
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/scaling_logo.dart';
 
 class SplashPageBody extends StatefulWidget {
   const SplashPageBody({super.key});

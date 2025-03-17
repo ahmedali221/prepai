@@ -4,10 +4,12 @@ import 'package:prepai/features/Auth/presentation/pages/login_page.dart';
 import 'package:prepai/features/Auth/presentation/pages/sign_up_page.dart';
 import 'package:prepai/features/Home/presentation/home_page.dart';
 import 'package:prepai/features/Meals/presentation/meal_page.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash_page.dart';
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/onboarding_page.dart';
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/splash_page.dart';
 
 class AppRouter {
   static const String kInitPage = '/';
+  static const String onboardingPage = '/onboarding';
   static const String kHomePage = '/home';
   static const String kMealPage = '/recommendation';
   static const String kLogin = '/login';
@@ -23,6 +25,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: AppRouter.kInitPage,
       pageBuilder: (context, state) => const MaterialPage(child: SplashPage()),
+    ),
+    GoRoute(
+      path: AppRouter.onboardingPage,
+      pageBuilder: (context, state) => MaterialPage(child: OnBoardingPage()),
     ),
     GoRoute(
       path: AppRouter.kHomePage,
