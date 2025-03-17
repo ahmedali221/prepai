@@ -28,6 +28,7 @@ class CustomDivider extends StatelessWidget {
           Text(
             text,
             style: AppStyles.smallTextStyle,
+            
           ),
           const SizedBox(width: 10),
           Expanded(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:prepai/Core/Routes/app_routes.dart';
+import 'package:prepai/Core/theme/App_Colors.dart';
 import 'package:prepai/Core/utils/assets.dart';
 import 'package:prepai/Core/utils/constants.dart';
 import 'package:prepai/features/Auth/presentation/providers/auth_provider.dart';
@@ -69,7 +70,7 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
           ),
           Positioned.fill(
             child: Container(
-              color: const Color(0xff041B3D).withAlpha(180),
+              color: const Color.fromARGB(224, 4, 27, 61),
             ),
           ),
           Center(
@@ -124,12 +125,12 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                         SocialButton(
                           onTap: () {}, // TODO: Implement social login
                           image: AppAssets.facebook,
-                          color: Colors.blue,
+                          color: const Color.fromARGB(255, 2, 84, 152),
                         ),
                         const SizedBox(width: 53),
                         SocialButton(
                           onTap: () {}, // TODO: Implement social login
-                          color: Colors.white,
+                          color: AppColors.primaryColor,
                           image: AppAssets.google,
                         ),
                       ],
@@ -140,7 +141,7 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                       children: [
                         const Text(
                           AppConsts.notHaveAnAccountText,
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: AppColors.primaryColor),
                         ),
                         const SizedBox(width: 5),
                         GestureDetector(
@@ -149,7 +150,7 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                           },
                           child: const Text(
                             AppConsts.registerNowText,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: AppColors.primaryColor),
                           ),
                         ),
                       ],

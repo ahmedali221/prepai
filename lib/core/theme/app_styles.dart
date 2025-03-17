@@ -1,51 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:prepai/core/theme/app_colors.dart';
 
 class AppStyles {
   // Small text styles
-  static TextStyle smallTextStyle = TextStyle(
+  static final TextStyle smallTextStyle = TextStyle(
     fontSize: 11.sp,
     fontWeight: FontWeight.w500,
+    color: AppColors.primaryColor,
   );
 
-  static TextStyle bodyTextStyle = TextStyle(
+  static final TextStyle bodyTextStyle = TextStyle(
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
   );
 
-  static TextStyle lightTextStyle = TextStyle(
+  static final TextStyle lightTextStyle = TextStyle(
     fontSize: 13.sp,
     fontWeight: FontWeight.w200,
   );
 
-  static TextStyle boldTextStyle = TextStyle(
+  static final TextStyle boldTextStyle = TextStyle(
     fontSize: 13.sp,
     fontWeight: FontWeight.w700,
   );
 
   // Medium text styles
-  static TextStyle mediumTextStyle = TextStyle(
+  static final TextStyle mediumTextStyle = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
   );
 
-  static TextStyle regularTextStyle = TextStyle(
+  static final TextStyle regularTextStyle = TextStyle(
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
+    color: AppColors.primaryColor,
   );
 
   // Large text styles
-  static TextStyle headingTextStyle = TextStyle(
+  static final TextStyle headingTextStyle = TextStyle(
     fontSize: 18.sp,
     fontWeight: FontWeight.w400,
   );
 
-  static TextStyle titleTextStyle = TextStyle(
+  static final TextStyle titleTextStyle = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
   );
 
-  static TextStyle largeTitleTextStyle = TextStyle(
+  static final TextStyle largeTitleTextStyle = TextStyle(
     fontSize: 21.sp,
     fontWeight: FontWeight.w700,
   );

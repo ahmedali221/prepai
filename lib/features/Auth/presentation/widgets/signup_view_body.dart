@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:prepai/Core/Routes/App_Routes.dart';
+import 'package:go_router/go_router.dart';
+import 'package:prepai/Core/Routes/app_routes.dart';
+import 'package:prepai/Core/theme/app_colors.dart';
 import 'package:prepai/Core/utils/assets.dart';
 import 'package:prepai/Core/utils/constants.dart';
-import 'package:prepai/core/theme/app_colors.dart';
 import 'package:prepai/features/Auth/presentation/providers/auth_provider.dart';
 import 'package:prepai/features/Auth/presentation/widgets/custom_button.dart';
 import 'package:prepai/features/Auth/presentation/widgets/custom_checkbox.dart';
@@ -22,14 +22,49 @@ class SignUpViewBody extends ConsumerStatefulWidget {
 class _SignUpViewBodyState extends ConsumerState<SignUpViewBody> {
   bool isChecked = false;
   final TextEditingController fullNameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+
+  Future<void> _signUp() async {
+    final authNotifier = ref.read(authProvider.notifier);
+
+    if (!isChecked) {
+      _showErrorDialog("You must agree to the terms and conditions.");
+      return;
+    }
+
+    final result = await authNotifier.signUp(
+      name: fullNameController.text.trim(),
+      email: emailController.text.trim(),
+      phone: phoneController.text.trim(),
+      password: passController.text.trim(),
+    );
+
+    result.fold(
+      (errorMessage) => _showErrorDialog(errorMessage),
+      (_) => GoRouter.of(context).pushReplacement(AppRouter.kHomePage),
+    );
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Sign Up Error"),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("OK"),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final authNotifier = ref.watch(authProvider.notifier);
-
     return Scaffold(
       body: Stack(
         children: [
@@ -41,7 +76,7 @@ class _SignUpViewBodyState extends ConsumerState<SignUpViewBody> {
           ),
           Positioned.fill(
             child: Container(
-              color: AppColors.secondaryColor,
+              color: const Color.fromARGB(224, 4, 27, 61),
             ),
           ),
           Center(
@@ -90,29 +125,14 @@ class _SignUpViewBodyState extends ConsumerState<SignUpViewBody> {
                     const SizedBox(height: 48),
                     CustomButton(
                       text: AppConsts.registerText,
-                      color: AppColors.selectedButtonBackgroundColor,
+                      color: Colors.white,
                       onTap: () async {
-                        if (!isChecked) {
-                          _showErrorDialog(
-                              "You must agree to the terms and conditions.");
-                          return;
-                        }
-                        final result = await authNotifier.signUp(
-                          name: fullNameController.text.trim(),
-                          email: emailController.text.trim(),
-                          phone: phoneController.text.trim(),
-                          password: passController.text.trim(),
-                        );
-
-                        result.fold(
-                          (errorMessage) => _showErrorDialog(errorMessage),
-                          (_) => GoRouter.of(context)
-                              .pushReplacement(AppRouter.kHomePage),
-                        );
+                        FocusScope.of(context).unfocus();
+                        await _signUp();
                       },
                     ),
                     const SizedBox(height: 24),
-                    CustomDivider(text: 'or login with'),
+                    CustomDivider(text: 'or sign up with'),
                     const SizedBox(height: 45),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -130,6 +150,7 @@ class _SignUpViewBodyState extends ConsumerState<SignUpViewBody> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -137,6 +158,7 @@ class _SignUpViewBodyState extends ConsumerState<SignUpViewBody> {
                           AppConsts.notHaveAnAccountText,
                           style: TextStyle(color: Colors.white),
                         ),
+                        const SizedBox(width: 5),
                         GestureDetector(
                           onTap: () {
                             GoRouter.of(context).push(AppRouter.kLogin);
@@ -144,8 +166,9 @@ class _SignUpViewBodyState extends ConsumerState<SignUpViewBody> {
                           child: const Text(
                             AppConsts.registerNowText,
                             style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
@@ -155,22 +178,6 @@ class _SignUpViewBodyState extends ConsumerState<SignUpViewBody> {
               ),
             ),
           )
-        ],
-      ),
-    );
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Error"),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("OK"),
-          ),
         ],
       ),
     );

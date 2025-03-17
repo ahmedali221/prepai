@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
 
   final String text;
   final Color color;
-  final VoidCallback onTap; 
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: double.infinity, 
+        width: double.infinity,
         height: height * 0.07,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: AppStyles.regularTextStyle,
+            style: AppStyles.largeTitleTextStyle,
           ),
         ),
       ),
