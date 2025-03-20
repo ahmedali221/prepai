@@ -10,6 +10,7 @@ abstract class AuthRemoteDataSource {
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final FirebaseAuth _firebaseAuth;
+  // ignore: unused_field
   final FirebaseFirestore _firestore;
 
   AuthRemoteDataSourceImpl(this._firebaseAuth, this._firestore);

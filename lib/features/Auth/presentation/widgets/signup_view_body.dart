@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:prepai/Core/Routes/app_routes.dart';
-import 'package:prepai/Core/theme/app_colors.dart';
 import 'package:prepai/Core/utils/assets.dart';
 import 'package:prepai/Core/utils/constants.dart';
 import 'package:prepai/features/Auth/presentation/providers/auth_provider.dart';
