@@ -1,4 +1,4 @@
-import 'package:prepai/features/Auth/data/entities/user_entity.dart';
+import 'package:prepai/features/Auth/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   const UserModel({

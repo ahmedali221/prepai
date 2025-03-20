@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:prepai/features/Auth/data/entities/user_entity.dart';
+import 'package:prepai/features/Auth/domain/entities/user_entity.dart';
 import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
 
 class LoginUseCase {
