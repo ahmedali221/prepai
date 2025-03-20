@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/widgets/scaling_logo.dart';
 
+
 class SplashPageBody extends StatefulWidget {
   const SplashPageBody({super.key});
 
@@ -23,6 +24,7 @@ class _SplashPageBodyState extends State<SplashPageBody>
   @override
   Widget build(BuildContext context) {
     return Center(
+
       child: ScalingLogo(
         scaleAnimation: scaleAnimation,
         slideAnimation: slideAnimation,
@@ -50,5 +52,6 @@ class _SplashPageBodyState extends State<SplashPageBody>
     ));
 
     animationController.forward();
+
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:prepai/Core/Routes/app_routes.dart';
@@ -70,7 +71,9 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
           ),
           Positioned.fill(
             child: Container(
+
               color: const Color.fromARGB(224, 4, 27, 61),
+
             ),
           ),
           Center(
@@ -81,6 +84,7 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                 child: Column(
                   children: [
                     Image.asset(AppAssets.loginLogo),
+
                     const SizedBox(height: 70),
                     CustomTextField(
                       hintText: AppConsts.emailText,
@@ -119,10 +123,12 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                     const SizedBox(height: 24),
                     CustomDivider(text: 'or login with'),
                     const SizedBox(height: 45),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SocialButton(
+
                           onTap: () {}, // TODO: Implement social login
                           image: AppAssets.facebook,
                           color: const Color.fromARGB(255, 2, 84, 152),
@@ -144,13 +150,16 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                           style: TextStyle(color: AppColors.primaryColor),
                         ),
                         const SizedBox(width: 5),
+
                         GestureDetector(
                           onTap: () {
                             GoRouter.of(context).push(AppRouter.kSignup);
                           },
+
                           child: const Text(
                             AppConsts.registerNowText,
                             style: TextStyle(color: AppColors.primaryColor),
+
                           ),
                         ),
                       ],

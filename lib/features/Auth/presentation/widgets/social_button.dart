@@ -34,6 +34,7 @@ class SocialButton extends StatelessWidget {
           child: SizedBox(
             width: 30, // Image size relative to button
             height: 30,
+
             child: Image.asset(
               image,
               fit: BoxFit.contain,

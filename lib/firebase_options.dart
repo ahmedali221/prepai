@@ -17,10 +17,12 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
+
       throw UnsupportedError(
         'DefaultFirebaseOptions have not been configured for web - '
         'you can reconfigure this by running the FlutterFire CLI again.',
       );
+
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,6 +30,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
+
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
           'you can reconfigure this by running the FlutterFire CLI again.',
@@ -37,6 +40,7 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for windows - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
+
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -48,6 +52,7 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBYuRueYVBv4yVJT6tcS6m_c6HS6FHEEUw',
@@ -66,4 +71,5 @@ class DefaultFirebaseOptions {
     iosClientId: '162492733707-k8t8dmeaq71049ppg5qp5laf0eak4qeo.apps.googleusercontent.com',
     iosBundleId: 'com.example.prepai',
   );
+
 }
