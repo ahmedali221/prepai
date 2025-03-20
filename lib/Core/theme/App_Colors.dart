@@ -11,6 +11,7 @@ class AppColors {
   static const Color c939393 = Color(0xFF939393);
   static const Color c0047FF = Color(0xFF0047FF);
   static const Color secondaryColor = Color.fromRGBO(26, 63, 1, 0);
+  static const Color secondaryColor = Color(0xff001A3F);
   static const Color scaffoldBackgroundColor = Colors.white;
   static const Color primeryColor = Colors.white;
   static const Color SelectedButtonTextColor = Colors.white;
