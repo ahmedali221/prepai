@@ -20,8 +20,7 @@ void setupLocator() {
 
   // Data Sources
   getIt.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(getIt<FirebaseService>().firebaseAuth,
-        getIt<FirebaseService>().firestore),
+    () => AuthRemoteDataSourceImpl(getIt<FirebaseService>()),
   );
 
   // Repository
