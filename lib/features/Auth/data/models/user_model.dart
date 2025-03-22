@@ -1,5 +1,6 @@
 import 'package:prepai/features/Auth/domain/entities/user_entity.dart';
 
+
 class UserModel extends UserEntity {
   const UserModel({
     required super.uid,

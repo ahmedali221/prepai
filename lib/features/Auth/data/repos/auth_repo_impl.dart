@@ -6,6 +6,7 @@ import 'package:prepai/features/Auth/data/data%20source/auth_remote_data_source.
 import 'package:prepai/features/Auth/data/models/user_model.dart';
 import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
 
+
 class AuthRepositoryImpl implements AuthRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final AuthRemoteDataSource remoteDataSource;

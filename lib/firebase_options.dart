@@ -21,6 +21,7 @@ class DefaultFirebaseOptions {
         'DefaultFirebaseOptions have not been configured for web - '
         'you can reconfigure this by running the FlutterFire CLI again.',
       );
+
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -49,6 +50,7 @@ class DefaultFirebaseOptions {
     }
   }
 
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBYuRueYVBv4yVJT6tcS6m_c6HS6FHEEUw',
     appId: '1:162492733707:android:febcd74322793f035cea0e',
@@ -66,4 +68,5 @@ class DefaultFirebaseOptions {
     iosClientId: '162492733707-k8t8dmeaq71049ppg5qp5laf0eak4qeo.apps.googleusercontent.com',
     iosBundleId: 'com.example.prepai',
   );
+
 }
