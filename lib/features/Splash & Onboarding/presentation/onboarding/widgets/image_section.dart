@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/widgets/waveClipper.dart';
+import 'package:prepai/core/theme/app_colors.dart';
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/widgets/wave_clipper.dart';
 
 Widget buildImageSection(BuildContext context, String imagePath) {
   double screenHeight = MediaQuery.of(context).size.height;
@@ -12,7 +13,7 @@ Widget buildImageSection(BuildContext context, String imagePath) {
         clipper: WaveClipper(),
         child: Container(
           height: screenHeight * 0.5,
-          color: Color(0xFF001A3F),
+          color: AppColors.secondaryColor, 
         ),
       ),
       Padding(
@@ -20,13 +21,18 @@ Widget buildImageSection(BuildContext context, String imagePath) {
         child: Column(
           children: [
             Image.asset(
-              'assets/images/Logo.png',
+              'images/Logo.png',
               height: screenHeight * 0.08,
+              color: AppColors.secondaryColor, 
             ),
-            Spacer(),
+            const Spacer(),
             CircleAvatar(
               radius: screenWidth * 0.18,
-              backgroundImage: AssetImage(imagePath),
+              backgroundColor: AppColors.secondaryColor, 
+              child: CircleAvatar(
+                radius: screenWidth * 0.175, 
+                backgroundImage: AssetImage(imagePath),
+              ),
             ),
           ],
         ),
