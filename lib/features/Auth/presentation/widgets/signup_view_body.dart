@@ -2,34 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:prepai/Core/Routes/app_routes.dart';
-import 'package:prepai/Core/theme/App_Colors.dart';
 import 'package:prepai/Core/utils/assets.dart';
 import 'package:prepai/Core/utils/constants.dart';
 import 'package:prepai/features/Auth/presentation/providers/auth_provider.dart';
-import 'package:prepai/features/Auth/presentation/providers/auth_state.dart';
 import 'package:prepai/features/Auth/presentation/widgets/custom_button.dart';
 import 'package:prepai/features/Auth/presentation/widgets/custom_checkbox.dart';
 import 'package:prepai/features/Auth/presentation/widgets/custom_divider.dart';
 import 'package:prepai/features/Auth/presentation/widgets/custom_textfield.dart';
 import 'package:prepai/features/Auth/presentation/widgets/social_button.dart';
 
-class LoginViewBody extends ConsumerStatefulWidget {
-  const LoginViewBody({super.key});
+class SignUpViewBody extends ConsumerStatefulWidget {
+  const SignUpViewBody({super.key});
 
   @override
-  ConsumerState<LoginViewBody> createState() => _LoginViewBodyState();
+  ConsumerState<SignUpViewBody> createState() => _SignUpViewBodyState();
 }
 
-class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
+class _SignUpViewBodyState extends ConsumerState<SignUpViewBody> {
   bool isChecked = false;
+  final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
-  Future<void> _login() async {
+  Future<void> _signUp() async {
     final authNotifier = ref.read(authProvider.notifier);
 
-    final result = await authNotifier.login(
+    if (!isChecked) {
+      _showErrorDialog("You must agree to the terms and conditions.");
+      return;
+    }
+
+    final result = await authNotifier.signUp(
+      name: fullNameController.text.trim(),
       email: emailController.text.trim(),
+      phone: phoneController.text.trim(),
       password: passController.text.trim(),
     );
 
@@ -43,7 +50,7 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Login Error"),
+        title: const Text("Sign Up Error"),
         content: Text(message),
         actions: [
           TextButton(
@@ -57,8 +64,6 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authProvider);
-
     return Scaffold(
       body: Stack(
         children: [
@@ -83,9 +88,21 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                     Image.asset(AppAssets.loginLogo),
                     const SizedBox(height: 70),
                     CustomTextField(
+                      hintText: AppConsts.fullNameText,
+                      controller: fullNameController,
+                      prefixIcon: const Icon(Icons.person),
+                    ),
+                    const SizedBox(height: 22),
+                    CustomTextField(
                       hintText: AppConsts.emailText,
                       controller: emailController,
                       prefixIcon: const Icon(Icons.email_outlined),
+                    ),
+                    const SizedBox(height: 22),
+                    CustomTextField(
+                      hintText: AppConsts.phoneNumberText,
+                      controller: phoneController,
+                      prefixIcon: const Icon(Icons.phone),
                     ),
                     const SizedBox(height: 22),
                     CustomTextField(
@@ -96,41 +113,38 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                     ),
                     const SizedBox(height: 15),
                     CustomCheckBox(
-                      text: AppConsts.rememberMeText,
+                      text: AppConsts.policyMessage,
                       value: isChecked,
                       onChanged: (bool? newValue) {
                         setState(() {
-                          isChecked = newValue!;
+                          isChecked = newValue ?? false;
                         });
                       },
                     ),
                     const SizedBox(height: 48),
-                    if (authState.status == AuthState.loading())
-                      const CircularProgressIndicator()
-                    else
-                      CustomButton(
-                        text: AppConsts.loginText,
-                        color: Colors.white,
-                        onTap: () async {
-                          FocusScope.of(context).unfocus();
-                          await _login();
-                        },
-                      ),
+                    CustomButton(
+                      text: AppConsts.registerText,
+                      color: Colors.white,
+                      onTap: () async {
+                        FocusScope.of(context).unfocus();
+                        await _signUp();
+                      },
+                    ),
                     const SizedBox(height: 24),
-                    CustomDivider(text: 'or login with'),
+                    CustomDivider(text: 'or sign up with'),
                     const SizedBox(height: 45),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SocialButton(
-                          onTap: () {}, // TODO: Implement social login
+                          onTap: () {},
                           image: AppAssets.facebook,
-                          color: const Color.fromARGB(255, 2, 84, 152),
+                          color: Colors.blue,
                         ),
                         const SizedBox(width: 53),
                         SocialButton(
-                          onTap: () {}, // TODO: Implement social login
-                          color: AppColors.primaryColor,
+                          onTap: () {},
+                          color: Colors.white,
                           image: AppAssets.google,
                         ),
                       ],
@@ -141,16 +155,19 @@ class _LoginViewBodyState extends ConsumerState<LoginViewBody> {
                       children: [
                         const Text(
                           AppConsts.notHaveAnAccountText,
-                          style: TextStyle(color: AppColors.primaryColor),
+                          style: TextStyle(color: Colors.white),
                         ),
                         const SizedBox(width: 5),
                         GestureDetector(
                           onTap: () {
-                            GoRouter.of(context).push(AppRouter.kSignup);
+                            GoRouter.of(context).push(AppRouter.kLogin);
                           },
                           child: const Text(
                             AppConsts.registerNowText,
-                            style: TextStyle(color: AppColors.primaryColor),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
