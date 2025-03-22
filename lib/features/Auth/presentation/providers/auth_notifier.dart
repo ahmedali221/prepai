@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:prepai/features/Auth/data/models/user_model.dart';
-import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
+import 'package:prepai/features/Auth/domain/use_cases/auh_use_case.dart';
 import 'package:prepai/features/Auth/presentation/providers/auth_state.dart';
+import 'package:prepai/features/Auth/data/models/user_model.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
-  final AuthRepository authRepository;
+  final AuthUseCase authUseCase;
 
-  AuthNotifier(this.authRepository) : super(AuthState.initial());
+  AuthNotifier(this.authUseCase) : super(AuthState.initial());
 
   Future<Either<String, UserModel>> signUp({
     required String name,
@@ -17,7 +17,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }) async {
     state = AuthState.loading();
 
-    final result = await authRepository.signUp(name, email, password, phone);
+    final result = await authUseCase.signUp(
+      name: name,
+      email: email,
+      password: password,
+      phone: phone,
+    );
 
     result.fold(
       (error) => state = AuthState.error(error),
@@ -33,7 +38,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }) async {
     state = AuthState.loading();
 
-    final result = await authRepository.login(email, password);
+    final result = await authUseCase.login(email: email, password: password);
 
     result.fold(
       (error) => state = AuthState.error(error),
@@ -41,5 +46,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
 
     return result;
+  }
+
+  Future<void> logout() async {
+    await authUseCase.logout();
+    state = AuthState.initial();
   }
 }
