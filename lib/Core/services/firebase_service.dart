@@ -24,4 +24,5 @@ class FirebaseService {
   Future<void> logout() async {
     await firebaseAuth.signOut();
   }
+
 }

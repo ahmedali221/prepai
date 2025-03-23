@@ -7,5 +7,4 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(ProviderScope(child: MyApp()));
-  runApp(const MyApp());
 }
