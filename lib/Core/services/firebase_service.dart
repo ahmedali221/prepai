@@ -25,10 +25,16 @@ class FirebaseService {
         email: email,
         password: password,
       );
-      await _addUserDataToDoc(
-          email: email, name: name, phone: phone, user: user);
-      await _setLoggedIn(true);
-      return Right('User signed up successfully!');
+      if (user.user != null) {
+        await storage.write(key: "userId", value: user.user!.uid);
+        await _setLoggedIn(true);
+        await _savePassword(password);
+        await _addUserDataToDoc(
+            email: email, name: name, phone: phone, user: user);
+        return Right('User signed up successfully!');
+      } else {
+        return Left(FirebaseFailure('User is null after signup.'));
+      }
     } on FirebaseAuthException catch (e) {
       return Left(FirebaseFailure.fromAuthError(e));
     } on FirebaseException catch (e) {
@@ -48,6 +54,7 @@ class FirebaseService {
       if (user.user != null) {
         await storage.write(key: "userId", value: user.user!.uid);
         await _setLoggedIn(true);
+        await _savePassword(password);
         return Right("Logged in Successfully");
       } else {
         return Left(FirebaseFailure("Failed to retrieve user details."));
@@ -139,8 +146,8 @@ class FirebaseService {
     }
   }
 
-  Future<void> updateUserDocData(
-      {required String userId, required Map<String, dynamic> data}) async {
+  Future<void> updateUserDocData({required Map<String, dynamic> data}) async {
+    final userId = await storage.read(key: "userId");
     await firestore
         .collection(FirebaseConstants.usersCollectionName)
         .doc(userId)
@@ -166,5 +173,36 @@ class FirebaseService {
   Future<bool> isLoggedIn() async {
     final prefs = await _prefs;
     return prefs.getBool('isLoggedIn') ?? false;
+  }
+
+  Future<void> _savePassword(String password) async {
+    await storage.write(key: 'userPassword', value: password);
+  }
+
+  Future<Either<FirebaseFailure, String?>> getPassword() async {
+    try {
+      final password = await storage.read(key: 'userPassword');
+      return Right(password);
+    } on Exception catch (e) {
+      return Left(FirebaseFailure('error $e'));
+    }
+  }
+
+  Future<Either<FirebaseFailure, String>> updatePassword(
+      {required String newPassword}) async {
+    try {
+      final currentUser = firebaseAuth.currentUser;
+      if (currentUser != null) {
+        await currentUser.updatePassword(newPassword);
+        await storage.write(key: 'userPassword', value: newPassword);
+        return Right("Password updated successfully!");
+      } else {
+        return Left(FirebaseFailure("No user is currently logged in."));
+      }
+    } on FirebaseAuthException catch (e) {
+      return Left(FirebaseFailure.fromAuthError(e));
+    } on Exception catch (e) {
+      return Left(FirebaseFailure('Unknown error: $e'));
+    }
   }
 }

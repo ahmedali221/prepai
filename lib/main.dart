@@ -16,8 +16,9 @@ void main() async {
   //     phone: "01111240026",
   //     name: "moemen",
   //     password: "123456789");
-  // await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
-  //     .login(email: "memmoh76@gmail.com", password: "123456789");
+  // final result = await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
+  //     .login(email: "memmoh76@gmail.com", password: "qwertyuiop");
+  // result.fold((l) => print(l.errorMessage), (r) => print(r));
   // await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
   //     .addNewMeal(mealData: {
   //   "meal_name": "shawarma",
@@ -48,10 +49,21 @@ void main() async {
   //   "meal_ingrediants": {"bread": 2},
   //   "meal_steps": {"step1": " ", "step2": " "}
   // });
-  final data =
-      await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
-          .fetchUserMeals();
-  data.fold((l) => print(l.errorMessage), (r) => print(r));
-  //FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore).logout();
+  // await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
+  //     .updateUserDocData( data: {
+  //       "name":"Ali"
+  //     });
+  // final data =
+  //     await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
+  //         .fetchUserProfileData();
+  // data.fold((l) => print(l.errorMessage), (r) => print(r));
+  // FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore).logout();
+  // final result2 =
+  //     await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
+  //         .getPassword();
+  // result2.fold((l) => print(l.errorMessage), (r) => print(r));
+
+  // await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
+  //     .updatePassword(newPassword: "qwertyuiop");
   runApp(ProviderScope(child: MyApp()));
 }
