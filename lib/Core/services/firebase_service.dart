@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:prepai/Core/utils/firebase_constants.dart';
 
 class FirebaseService {
   final FirebaseAuth firebaseAuth;
@@ -23,5 +24,14 @@ class FirebaseService {
 
   Future<void> logout() async {
     await firebaseAuth.signOut();
+  }
+
+  Stream<dynamic> fetchDocumentStream(
+      {required String userId}) {
+    Stream documentStream = FirebaseFirestore.instance
+        .collection(FirebaseConstants.usersCollectionName)
+        .doc(userId)
+        .snapshots();
+    return documentStream;
   }
 }
