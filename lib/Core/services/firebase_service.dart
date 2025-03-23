@@ -55,13 +55,16 @@ class FirebaseService {
     }
   }
 
-  Future<void> logout() async {
+  Future<Either<FirebaseFailure, String>> logout() async {
     try {
       await firebaseAuth.signOut();
       await storage.deleteAll();
       await _setLoggedIn(false);
-    } on FirebaseException catch (e) {
-      // TODO
+      return Right('Logged out successfully!');
+    } on FirebaseAuthException catch (e) {
+      return Left(FirebaseFailure.fromAuthError(e));
+    } on Exception catch (e) {
+      return Left(FirebaseFailure('Unknown error: $e'));
     }
   }
 
