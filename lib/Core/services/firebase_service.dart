@@ -39,15 +39,19 @@ class FirebaseService {
   }
 
   Future<Either<FirebaseFailure, String>> login(
-      String email, String password) async {
+      {required String email, required String password}) async {
     try {
       UserCredential user = await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      await storage.write(key: "userId", value: user.user!.uid);
-      await _setLoggedIn(true);
-      return Right("Loged in Succefully");
+      if (user.user != null) {
+        await storage.write(key: "userId", value: user.user!.uid);
+        await _setLoggedIn(true);
+        return Right("Logged in Successfully");
+      } else {
+        return Left(FirebaseFailure("Failed to retrieve user details."));
+      }
     } on FirebaseException catch (e) {
       return Left(FirebaseFailure.fromFirestoreError(e));
     } on Exception catch (e) {
@@ -68,14 +72,20 @@ class FirebaseService {
     }
   }
 
-  Either<FirebaseFailure, Stream<DocumentSnapshot<Map<String, dynamic>>>>
-      fetchUserDocStream({required String userId}) {
+  Future<Either<FirebaseFailure, Map<String, dynamic>?>> fetchUserProfileData() async {
     try {
-      Stream<DocumentSnapshot<Map<String, dynamic>>> documentStream = firestore
+      final userId = await storage.read(key: "userId");
+      if (userId == null) {
+        return Left(FirebaseFailure('User ID not found in secure storage.'));
+      }
+      DocumentSnapshot<Map<String, dynamic>> documentStream = await firestore
           .collection(FirebaseConstants.usersCollectionName)
           .doc(userId)
-          .snapshots();
-      return Right(documentStream);
+          .get();
+      if (!documentStream.exists) {
+        return Left(FirebaseFailure('User document not found.'));
+      }
+      return Right(documentStream.data());
     } on FirebaseException catch (e) {
       return Left(FirebaseFailure.fromFirestoreError(e));
     } on Exception catch (e) {
@@ -84,22 +94,50 @@ class FirebaseService {
   }
 
   Future<Either<FirebaseFailure, String>> addNewMeal({
-  required String userId,
-  required Map<String, dynamic> mealData,
-}) async {
-  try {
-    final mealsRef = firestore
-        .collection(FirebaseConstants.usersCollectionName)
-        .doc(userId)
-        .collection("meals");
-    await mealsRef.add(mealData); 
-    return Right('Meal added successfully!');
-  } on FirebaseException catch (e) {
-    return Left(FirebaseFailure.fromFirestoreError(e));
-  } on Exception catch (e) {
-    return Left(FirebaseFailure('Unknown error: $e'));
+    required Map<String, dynamic> mealData,
+  }) async {
+    try {
+      final userId = await storage.read(key: "userId");
+      final mealsRef = firestore
+          .collection(FirebaseConstants.usersCollectionName)
+          .doc(userId)
+          .collection(FirebaseConstants.usersMealsCollectionName);
+      await mealsRef.add(mealData);
+      return Right('Meal added successfully!');
+    } on FirebaseException catch (e) {
+      return Left(FirebaseFailure.fromFirestoreError(e));
+    } on Exception catch (e) {
+      return Left(FirebaseFailure('Unknown error: $e'));
+    }
   }
-}
+
+  Future<Either<FirebaseFailure, List<Map<String, dynamic>>>>
+      fetchUserMeals() async {
+    try {
+      final userId = await storage.read(key: "userId");
+      if (userId == null) {
+        return Left(FirebaseFailure('User ID not found in secure storage.'));
+      }
+      QuerySnapshot<Map<String, dynamic>> mealsSnapshot = await firestore
+          .collection(FirebaseConstants.usersCollectionName)
+          .doc(userId)
+          .collection(FirebaseConstants.usersMealsCollectionName)
+          .get();
+      if (mealsSnapshot.docs.isEmpty) {
+        return Left(FirebaseFailure('No meals found for this user.'));
+      }
+      List<Map<String, dynamic>> mealsList = mealsSnapshot.docs
+          .map((doc) => {"mealId": doc.id, ...doc.data()})
+          .toList();
+
+      return Right(mealsList);
+    } on FirebaseException catch (e) {
+      return Left(FirebaseFailure.fromFirestoreError(e));
+    } on Exception catch (e) {
+      return Left(FirebaseFailure('Unknown error: $e'));
+    }
+  }
+
   Future<void> updateDoc(
       {required String userId, required Map<String, dynamic> data}) async {
     await firestore
