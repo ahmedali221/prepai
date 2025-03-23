@@ -69,7 +69,7 @@ class FirebaseService {
   }
 
   Either<FirebaseFailure, Stream<DocumentSnapshot<Map<String, dynamic>>>>
-      fetchDocStream({required String userId}) {
+      fetchUserDocStream({required String userId}) {
     try {
       Stream<DocumentSnapshot<Map<String, dynamic>>> documentStream = firestore
           .collection(FirebaseConstants.usersCollectionName)
@@ -83,6 +83,23 @@ class FirebaseService {
     }
   }
 
+  Future<Either<FirebaseFailure, String>> addNewMeal({
+  required String userId,
+  required Map<String, dynamic> mealData,
+}) async {
+  try {
+    final mealsRef = firestore
+        .collection(FirebaseConstants.usersCollectionName)
+        .doc(userId)
+        .collection("meals");
+    await mealsRef.add(mealData); 
+    return Right('Meal added successfully!');
+  } on FirebaseException catch (e) {
+    return Left(FirebaseFailure.fromFirestoreError(e));
+  } on Exception catch (e) {
+    return Left(FirebaseFailure('Unknown error: $e'));
+  }
+}
   Future<void> updateDoc(
       {required String userId, required Map<String, dynamic> data}) async {
     await firestore
