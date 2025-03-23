@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:prepai/Core/errors/firebase_errors.dart';
 import 'package:prepai/Core/utils/firebase_constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseService {
   final storage = FlutterSecureStorage();
@@ -11,6 +12,8 @@ class FirebaseService {
   final FirebaseFirestore firestore;
 
   FirebaseService({required this.firebaseAuth, required this.firestore});
+
+  Future<SharedPreferences> get _prefs async => SharedPreferences.getInstance();
 
   Future<Either<FirebaseFailure, String>> signUp(
       {required String email,
@@ -24,6 +27,7 @@ class FirebaseService {
       );
       await _addUserDataToDoc(
           email: email, name: name, phone: phone, user: user);
+      await _setLoggedIn(true);
       return Right('User signed up successfully!');
     } on FirebaseAuthException catch (e) {
       return Left(FirebaseFailure.fromAuthError(e));
@@ -34,15 +38,31 @@ class FirebaseService {
     }
   }
 
-  Future<UserCredential> login(String email, String password) {
-    return firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+  Future<Either<FirebaseFailure, String>> login(
+      String email, String password) async {
+    try {
+      UserCredential user = await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await storage.write(key: "userId", value: user.user!.uid);
+      await _setLoggedIn(true);
+      return Right("Loged in Succefully");
+    } on FirebaseException catch (e) {
+      return Left(FirebaseFailure.fromFirestoreError(e));
+    } on Exception catch (e) {
+      return Left(FirebaseFailure('Unknown error: $e'));
+    }
   }
 
   Future<void> logout() async {
-    await firebaseAuth.signOut();
+    try {
+      await firebaseAuth.signOut();
+      await storage.deleteAll();
+      await _setLoggedIn(false);
+    } on FirebaseException catch (e) {
+      // TODO
+    }
   }
 
   Either<FirebaseFailure, Stream<DocumentSnapshot<Map<String, dynamic>>>>
@@ -60,7 +80,7 @@ class FirebaseService {
     }
   }
 
-  updateDoc(
+  Future<void> updateDoc(
       {required String userId, required Map<String, dynamic> data}) async {
     await firestore
         .collection(FirebaseConstants.usersCollectionName)
@@ -77,5 +97,15 @@ class FirebaseService {
         .collection(FirebaseConstants.usersCollectionName)
         .doc(user.user!.uid)
         .set({'name': name, 'email': email, 'phone': phone});
+  }
+
+  Future<void> _setLoggedIn(bool value) async {
+    final prefs = await _prefs;
+    await prefs.setBool('isLoggedIn', value);
+  }
+
+  Future<bool> isLoggedIn() async {
+    final prefs = await _prefs;
+    return prefs.getBool('isLoggedIn') ?? false;
   }
 }
