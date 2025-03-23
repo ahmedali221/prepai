@@ -51,6 +51,7 @@ void main() async {
   final data =
       await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
           .fetchUserMeals();
-  data.fold((l)=>print(l.errorMessage),(r)=>print(r));
+  data.fold((l) => print(l.errorMessage), (r) => print(r));
+  //FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore).logout();
   runApp(ProviderScope(child: MyApp()));
 }

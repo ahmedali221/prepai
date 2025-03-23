@@ -72,7 +72,8 @@ class FirebaseService {
     }
   }
 
-  Future<Either<FirebaseFailure, Map<String, dynamic>?>> fetchUserProfileData() async {
+  Future<Either<FirebaseFailure, Map<String, dynamic>?>>
+      fetchUserProfileData() async {
     try {
       final userId = await storage.read(key: "userId");
       if (userId == null) {
@@ -138,7 +139,7 @@ class FirebaseService {
     }
   }
 
-  Future<void> updateDoc(
+  Future<void> updateUserDocData(
       {required String userId, required Map<String, dynamic> data}) async {
     await firestore
         .collection(FirebaseConstants.usersCollectionName)
