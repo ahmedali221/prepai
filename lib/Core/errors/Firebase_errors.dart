@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class Failure {
-  final String errorMessage;
-  Failure(this.errorMessage);
-}
+import 'failures.dart';
+
 
 class FirebaseFailure extends Failure {
   FirebaseFailure(super.errorMessage);
@@ -33,6 +31,15 @@ class FirebaseFailure extends Failure {
       'unavailable': 'Service is currently unavailable. Try again later.',
       'deadline-exceeded': 'The request took too long. Try again later.',
       'resource-exhausted': 'Quota exceeded. Try again later.',
+      'cancelled': 'The operation was cancelled.',
+      'data-loss': 'Data loss or corruption detected.',
+      'failed-precondition': 'The operation was rejected due to system state.',
+      'unauthenticated': 'You need to log in to perform this action.',
+      'invalid-argument': 'Invalid argument provided in the request.',
+      'out-of-range': 'A value was out of the allowed range.',
+      'internal': 'Internal Firestore error occurred.',
+      'aborted': 'The operation was aborted due to concurrency conflict.',
+      'unknown': 'An unknown Firestore error occurred.',
     };
 
     return FirebaseFailure(
