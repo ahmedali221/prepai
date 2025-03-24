@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prepai/features/Home/presentation/views/screen/filter_screen.dart';
 import '../../../../../Core/theme/App_Colors.dart';
 import '../../../../../Core/theme/App_Styles.dart';
 import '../../../../../Core/utils/assets.dart';
@@ -41,7 +42,7 @@ class SearchAndFilter extends StatelessWidget {
                           top: Radius.circular(20),
                         ),
                       ),
-                      builder: (context) => const MyBottomSheet(),
+                      builder: (context) => const FilterScreen(),
                     );
                   },
                   icon: Image.asset(
@@ -80,14 +81,12 @@ class MyBottomSheet extends StatelessWidget {
             children: [
               Text(
                 AppConsts.filter,
-                style: AppStyles.textStyle21
-                    .copyWith(color: AppColors.c001A3F),
+                style: AppStyles.textStyle21.copyWith(color: AppColors.c001A3F),
               ),
               const Spacer(),
               Text(
                 AppConsts.reset,
-                style:
-                AppStyles.textStyle18.copyWith(color: AppColors.c0047FF),
+                style: AppStyles.textStyle18.copyWith(color: AppColors.c0047FF),
               ),
             ],
           ),
@@ -172,8 +171,7 @@ class MyBottomSheet extends StatelessWidget {
             children: [
               Text(
                 AppConsts.numofindredients,
-                style: AppStyles.textStyle21
-                    .copyWith(color: AppColors.c001A3F),
+                style: AppStyles.textStyle21.copyWith(color: AppColors.c001A3F),
               ),
               const Spacer(),
               GestureDetector(
