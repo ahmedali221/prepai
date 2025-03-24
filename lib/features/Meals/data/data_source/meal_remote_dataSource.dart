@@ -4,10 +4,13 @@ import 'package:prepai/Core/errors/firebase_errors.dart';
 import 'package:prepai/Core/services/firebase_service.dart';
 import '../models/mealsModel.dart';
 
-class MealRemoteDataSource {
-  final FirebaseService firebaseService;
+abstract class MealRemoteDataSource {
+  Future<Either<FirebaseFailure, List<MealModel>>> getMeals();
+}
 
-  MealRemoteDataSource({required this.firebaseService});
+class MealRemoteDataSourceimp implements MealRemoteDataSource {
+  final FirebaseService firebaseService;
+  MealRemoteDataSourceimp(this.firebaseService);
 
   Future<Either<FirebaseFailure, List<MealModel>>> getMeals() async {
     try {
