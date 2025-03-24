@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prepai/features/auth/presentation/widgets/signup_view_body.dart';
+import 'package:prepai/features/Auth/presentation/widgets/signup_view_body.dart';
 
 void main() {
   runApp(SignupPage());

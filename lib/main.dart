@@ -3,14 +3,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:prepai/Core/services/firebase_service.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:prepai/app.dart';
+import 'package:prepai/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(
+    ProviderScope(
+      child: ScreenUtilInit(
+        designSize: Size(375, 812),
+        builder: (_, child) => const MyApp(),
+      ),
+    ),
+  );
+}
+
   // await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore).signUp(
   //     email: "memmoh76@gmail.com",
   //     phone: "01111240026",

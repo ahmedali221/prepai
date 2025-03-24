@@ -17,7 +17,11 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
+
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,9 +29,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -40,14 +50,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAXHs_GsmdFgZ9B7palglSwbyBMUJlry0E',
-    appId: '1:162492733707:web:ce0da468507fe79b5cea0e',
-    messagingSenderId: '162492733707',
-    projectId: 'meal-recommendation-group-3',
-    authDomain: 'meal-recommendation-group-3.firebaseapp.com',
-    storageBucket: 'meal-recommendation-group-3.firebasestorage.app',
-  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBYuRueYVBv4yVJT6tcS6m_c6HS6FHEEUw',
@@ -63,24 +65,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '162492733707',
     projectId: 'meal-recommendation-group-3',
     storageBucket: 'meal-recommendation-group-3.firebasestorage.app',
+    iosClientId: '162492733707-k8t8dmeaq71049ppg5qp5laf0eak4qeo.apps.googleusercontent.com',
     iosBundleId: 'com.example.prepai',
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC0ZzOpKLz8ppX06kK53yYG7YWu2EaH61E',
-    appId: '1:162492733707:ios:a568fb904e7d98335cea0e',
-    messagingSenderId: '162492733707',
-    projectId: 'meal-recommendation-group-3',
-    storageBucket: 'meal-recommendation-group-3.firebasestorage.app',
-    iosBundleId: 'com.example.prepai',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAXHs_GsmdFgZ9B7palglSwbyBMUJlry0E',
-    appId: '1:162492733707:web:13fa399c818559975cea0e',
-    messagingSenderId: '162492733707',
-    projectId: 'meal-recommendation-group-3',
-    authDomain: 'meal-recommendation-group-3.firebaseapp.com',
-    storageBucket: 'meal-recommendation-group-3.firebasestorage.app',
-  );
 }

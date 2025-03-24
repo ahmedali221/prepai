@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:prepai/features/auth/domain/use_cases/auh_use_case.dart';
-import 'package:prepai/features/auth/presentation/providers/auth_state.dart';
-import 'package:prepai/features/auth/data/models/user_model.dart';
+import 'package:prepai/features/Auth/domain/use_cases/auh_use_case.dart';
+import 'package:prepai/features/Auth/presentation/providers/auth_state.dart';
+import 'package:prepai/features/Auth/data/models/user_model.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthUseCase authUseCase;

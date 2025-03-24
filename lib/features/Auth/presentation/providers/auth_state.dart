@@ -1,4 +1,4 @@
-import 'package:prepai/features/auth/data/models/user_model.dart';
+import 'package:prepai/features/Auth/data/models/user_model.dart';
 
 enum AuthStatus { initial, loading, authenticated, error }
 
