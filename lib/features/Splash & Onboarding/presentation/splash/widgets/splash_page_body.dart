@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:prepai/Core/utils/assets.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/widgets/scaling_Logo.dart';
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/widgets/scaling_logo.dart';
 
 class SplashPageBody extends StatefulWidget {
   const SplashPageBody({super.key});
@@ -13,26 +11,44 @@ class SplashPageBody extends StatefulWidget {
 class _SplashPageBodyState extends State<SplashPageBody>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
-  late final Animation<Offset> slidingAnimation;
+  late final Animation<double> scaleAnimation;
+  late final Animation<Offset> slideAnimation;
+
   @override
   void initState() {
     super.initState();
-    initSlidingAnimation();
+    initAnimations();
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ScalingLogo(scaleAnimation: slidingAnimation),
+      child: ScalingLogo(
+        scaleAnimation: scaleAnimation,
+        slideAnimation: slideAnimation,
+      ),
     );
   }
 
-  void initSlidingAnimation() {
+  void initAnimations() {
     animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
-    slidingAnimation =
-        Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
-            .animate(animationController);
-    animationController.forward().then((value) => context.go('/onBoarding'));
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    scaleAnimation = CurvedAnimation(
+      parent: animationController,
+      curve: Curves.easeOutBack,
+    );
+
+    slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: animationController,
+      curve: Curves.easeOut,
+    ));
+
+    animationController.forward();
   }
 }

@@ -1,44 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:prepai/features/Auth/presentation/pages/Login_Page.dart';
-import 'package:prepai/features/Auth/presentation/pages/Signup_Page.dart';
-import 'package:prepai/features/Meals/presentation/MealPage.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/onboardingPage.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/splashPage.dart';
-import '../../features/Home/presentation/views/screen/controller_screen.dart';
+import 'package:prepai/features/Auth/presentation/pages/login_page.dart';
+import 'package:prepai/features/Auth/presentation/pages/sign_up_page.dart';
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/onboarding_page.dart';
+import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/splash_page.dart';
+import 'package:prepai/features/home/presentation/home_page.dart';
+import 'package:prepai/features/meals/presentation/meal_page.dart';
 
 class AppRouter {
-  static const String kSplashPage = '/';
-  static const String kOnBoardingPage = '/onBoarding';
-  static const String kHomePage = '/Home';
-  static const String kMealPage = '/Recommendation';
+  static const String kInitPage = '/';
+  static const String onboardingPage = '/onboarding';
+  static const String kHomePage = '/home';
+  static const String kMealPage = '/recommendation';
   static const String kLogin = '/login';
-  static const String kSignup = '/Signup';
+  static const String kSignup = '/signup';
 }
 
-final route = GoRouter(
-    initialLocation: AppRouter.kSplashPage,
-    errorPageBuilder: (context, state) =>
-        const MaterialPage(child: Scaffold(body: Text('Not Found'))),
-    routes: [
-      GoRoute(
-        path: AppRouter.kSplashPage,
-        builder: (context, state) => SplashPage(),
-      ),
-      GoRoute(
-        path: AppRouter.kHomePage,
-        builder: (context, state) => ControllerScreen(),
-      ),
-      GoRoute(
-        path: AppRouter.kMealPage,
-        builder: (context, state) => MealPage(),
-      ),
-      GoRoute(
-        path: AppRouter.kLogin,
-        builder: (context, state) => LoginPage(),
-      ),
-      GoRoute(
-        path: AppRouter.kSignup,
-        builder: (context, state) => SignupPage(),
-      ),
-    ]);
+final GoRouter router = GoRouter(
+  initialLocation: AppRouter.kInitPage,
+  errorBuilder: (context, state) => const Scaffold(
+    body: Center(child: Text('Page Not Found')),
+  ),
+  routes: [
+    GoRoute(
+      path: AppRouter.kInitPage,
+      pageBuilder: (context, state) => const MaterialPage(child: SplashPage()),
+    ),
+    GoRoute(
+      path: AppRouter.onboardingPage,
+      pageBuilder: (context, state) => MaterialPage(child: OnBoardingPage()),
+    ),
+    GoRoute(
+      path: AppRouter.kHomePage,
+      pageBuilder: (context, state) => const MaterialPage(child: HomePage()),
+    ),
+    GoRoute(
+      path: AppRouter.kMealPage,
+      pageBuilder: (context, state) => const MaterialPage(child: MealPage()),
+    ),
+    GoRoute(
+      path: AppRouter.kLogin,
+      pageBuilder: (context, state) => const MaterialPage(child: LoginPage()),
+    ),
+    GoRoute(
+      path: AppRouter.kSignup,
+      pageBuilder: (context, state) => const MaterialPage(child: SignupPage()),
+    ),
+  ],
+);

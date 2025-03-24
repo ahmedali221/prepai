@@ -1,10 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:prepai/features/Auth/data/data%20source/auth_remote_data_source.dart';
-import 'package:prepai/features/Auth/domain/models/user_model.dart';
-import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
+import 'package:prepai/core/errors/firebase_errors.dart';
+import 'package:prepai/core/utils/validators.dart';
+import 'package:prepai/features/auth/data/data%20source/auth_remote_data_source.dart';
+import 'package:prepai/features/auth/data/models/user_model.dart';
+import 'package:prepai/features/auth/domain/repos/auth_repo.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final AuthRemoteDataSource remoteDataSource;
 
   AuthRepositoryImpl(this.remoteDataSource);
@@ -12,25 +15,22 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<String, UserModel>> signUp(
       String name, String email, String password, String phone) async {
-    // 1. Validate input using regex
     if (name.isEmpty || email.isEmpty || password.isEmpty || phone.isEmpty) {
       return const Left("All fields are required.");
     }
-    if (!isValidEmail(email)) {
+    if (!Validators.isValidEmail(email)) {
       return const Left("Invalid email format.");
     }
-    if (!isValidPassword(password)) {
+    if (!Validators.isValidPassword(password)) {
       return const Left(
           "Password must be at least 8 characters long and contain at least one letter and one number.");
     }
-    if (!isValidPhone(phone)) {
+    if (!Validators.isValidPhone(phone)) {
       return const Left("Invalid phone number format.");
     }
 
     try {
-      // 2. Call Firebase sign-up method
       final user = await remoteDataSource.signUp(name, email, password, phone);
-
       if (user == null) {
         return const Left("Failed to create user.");
       }
@@ -42,38 +42,47 @@ class AuthRepositoryImpl implements AuthRepository {
         phone: user.phone,
       ));
     } on FirebaseAuthException catch (e) {
-      return Left(_mapFirebaseError(e));
+      return Left(FirebaseFailure.fromAuthError(e).errorMessage);
     } catch (e) {
-      return Left("An unexpected error occurred: ${e.toString()}");
+      return Left("An unexpected error occurred. Please try again later.");
     }
   }
 
-  // 3. Handle Firebase errors properly
-  String _mapFirebaseError(FirebaseAuthException e) {
-    switch (e.code) {
-      case 'email-already-in-use':
-        return "This email is already in use.";
-      case 'invalid-email':
-        return "Invalid email format.";
-      case 'weak-password':
-        return "Password must be at least 8 characters.";
-      default:
-        return "Authentication failed: ${e.message}";
+  @override
+  Future<Either<String, UserModel>> login(String email, String password) async {
+    if (email.isEmpty || password.isEmpty) {
+      return const Left("Email and password are required.");
+    }
+    if (!Validators.isValidEmail(email)) {
+      return const Left("Invalid email format.");
+    }
+
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final User? user = userCredential.user;
+      if (user != null) {
+        return Right(UserModel(
+          uid: user.uid,
+          email: user.email ?? "",
+          name: user.displayName ?? "",
+          phone: '',
+        ));
+      } else {
+        return const Left('User not found');
+      }
+    } on FirebaseAuthException catch (e) {
+      return Left(FirebaseFailure.fromAuthError(e).errorMessage);
+    } catch (e) {
+      return Left('Unexpected error: $e');
     }
   }
 
-  bool isValidEmail(String email) {
-    final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    return regex.hasMatch(email);
-  }
-
-  bool isValidPassword(String password) {
-    final regex = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
-    return regex.hasMatch(password);
-  }
-
-  bool isValidPhone(String phone) {
-    final regex = RegExp(r'^\+?[0-9]{10,15}$');
-    return regex.hasMatch(phone);
+  @override
+  Future<void> logout() async {
+    await _auth.signOut();
   }
 }

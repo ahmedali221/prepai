@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:prepai/features/Auth/data/repos/auth_repo_impl.dart';
-import 'package:prepai/features/Auth/domain/models/user_model.dart';
+import 'package:prepai/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:prepai/features/auth/data/models/user_model.dart';
 
 class SignUpUseCase {
   final AuthRepositoryImpl repository;

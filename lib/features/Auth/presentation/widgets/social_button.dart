@@ -4,32 +4,36 @@ class SocialButton extends StatelessWidget {
   final VoidCallback onTap;
   final String image;
   final Color color;
-  final void Function()? ontap;
 
-  const SocialButton(
-      {super.key,
-      required this.onTap,
-      required this.color,
-      required this.image,
-      this.ontap});
+  const SocialButton({
+    super.key,
+    required this.onTap,
+    required this.color,
+    required this.image,
+  });
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap: ontap,
+      onTap: onTap,
       child: Container(
-        width: width * 0.15,
-        height: height * 0.15,
+        width: 60,
+        height: 60,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: color,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         child: Center(
           child: SizedBox(
-            width: width * 0.08,
-            height: height * 0.08,
+            width: 30, // Image size relative to button
+            height: 30,
             child: Image.asset(
               image,
               fit: BoxFit.contain,
