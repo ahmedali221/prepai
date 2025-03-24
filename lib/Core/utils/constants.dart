@@ -28,7 +28,7 @@ class AppConsts {
   static String meal = "Meal";
   static String time = "Time";
   static String diffeculty = "Diffeculty";
-  static String numofindredients = "Number Of Ingredients";
+  static String numofindredients = "Number Of\n Ingredients";
   static const String home = 'Home';
   static const String logout = 'Logout';
   static const String logoutMessage = 'Are you sure you want to logout?';

@@ -4,6 +4,7 @@ import 'package:prepai/Core/utils/constants.dart';
 import 'package:prepai/features/Home/presentation/views/widget/filter_header.dart';
 import 'package:prepai/features/Home/presentation/views/widget/filter_method_difficalty.dart';
 import 'package:prepai/features/Home/presentation/views/widget/filter_method_meal.dart';
+import 'package:prepai/features/Home/presentation/views/widget/filter_method_number.dart';
 import 'package:prepai/features/Home/presentation/views/widget/filter_method_time.dart';
 
 class FilterViewBody extends StatelessWidget {
@@ -53,6 +54,19 @@ class FilterViewBody extends StatelessWidget {
               height: 14,
             ),
             FilterMethodDifficalty(),
+            SizedBox(
+              height: 33,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppConsts.numofindredients,
+                  style: AppStyles.textStyleBold20,
+                ),
+                FilterMethodNumber(),
+              ],
+            ),
           ],
         ),
       ),
