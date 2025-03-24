@@ -1,0 +1,2 @@
+D:/Flutterapps/prepai/android/app/.cxx/Debug/j2s4001u/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Flutterapps/prepai/android/app/.cxx/Debug/j2s4001u/arm64-v8a/CMakeFiles/rebuild_cache.dir

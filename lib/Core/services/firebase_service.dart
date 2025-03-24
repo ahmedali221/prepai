@@ -205,4 +205,5 @@ class FirebaseService {
       return Left(FirebaseFailure('Unknown error: $e'));
     }
   }
+
 }
