@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prepai/core/errors/firebase_errors.dart';
 import 'package:prepai/core/services/firebase_service.dart';
-import 'package:prepai/features/auth/domain/entities/user_entity.dart';
+import 'package:prepai/features/Auth/domain/entities/user_entity.dart';
+
 
 abstract class AuthRemoteDataSource {
   Future<UserEntity?> signUp(

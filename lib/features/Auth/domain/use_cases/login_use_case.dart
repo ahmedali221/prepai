@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:prepai/features/auth/domain/entities/user_entity.dart';
-import 'package:prepai/features/auth/domain/repos/auth_repo.dart';
+import 'package:prepai/features/Auth/domain/entities/user_entity.dart';
+import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
 
 class LoginUseCase {
   final AuthRepository authRepository;
