@@ -7,6 +7,9 @@ import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/spla
 import 'package:prepai/features/home/presentation/home_page.dart';
 import 'package:prepai/features/meals/presentation/meal_page.dart';
 
+import '../../features/home/presentation/views/screen/controller_screen.dart';
+import '../../features/home/presentation/views/screen/home_screen.dart';
+
 class AppRouter {
   static const String kInitPage = '/';
   static const String onboardingPage = '/onboarding';
@@ -17,7 +20,7 @@ class AppRouter {
 }
 
 final GoRouter router = GoRouter(
-  initialLocation: AppRouter.kInitPage,
+  initialLocation: AppRouter.kHomePage,
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page Not Found')),
   ),
@@ -32,7 +35,8 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRouter.kHomePage,
-      pageBuilder: (context, state) => const MaterialPage(child: HomePage()),
+      pageBuilder: (context, state) =>
+          const MaterialPage(child: ControllerScreen()),
     ),
     GoRoute(
       path: AppRouter.kMealPage,
