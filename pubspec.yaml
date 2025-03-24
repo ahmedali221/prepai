@@ -36,6 +36,7 @@ dependencies:
   firebase_core: ^3.12.1
   flutter:
     sdk: flutter
+  flutter_chat_ui: ^1.6.15
   flutter_riverpod: ^2.6.1
   flutter_screenutil: ^5.9.3
   flutter_secure_storage: ^9.2.4
@@ -44,6 +45,7 @@ dependencies:
   go_router: ^14.8.1
   google_generative_ai: ^0.4.6
   injectable: ^2.5.0
+  intl: ^0.20.2
   introduction_screen: ^3.1.17
   shared_preferences: ^2.5.2
 
