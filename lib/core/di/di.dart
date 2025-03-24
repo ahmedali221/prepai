@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -42,7 +43,7 @@ void setupLocator() {
   getIt.registerLazySingleton<GenerativeModel>(
     () => GenerativeModel(
       model: 'gemini-2.0-flash',
-      apiKey: 'AIzaSyD8x_YZDptH-Ti3uOfs4REidI5rWinTEEE', 
+      apiKey: dotenv.env['GEMINI_API_KEY']!, 
       generationConfig: GenerationConfig(
         maxOutputTokens: 200,
         temperature: 0.5,
