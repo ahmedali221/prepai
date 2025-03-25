@@ -23,6 +23,7 @@ class AppColors {
   static const Color c999999 = Color(0xFF999999);
   static const Color c939393 = Color(0xFF939393);
   static const Color c0047FF = Color(0xFF0047FF);
+  static const Color cD9D9D9 = Color(0xFFD9D9D9);
   static const Color primeryColor = Colors.white;
   static const Color unSelectedButtonTextColor =
       Color.fromRGBO(147, 147, 147, 1);

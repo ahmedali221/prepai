@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepai/features/Home/presentation/views/screen/profile_screen.dart';
-import '../../../../../Core/theme/App_Colors.dart';
+import '../../../../../Core/theme/app_colors.dart';
 import 'favorites_screen.dart';
 import 'home_screen.dart';
 
