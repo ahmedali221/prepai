@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../Core/theme/App_Colors.dart';
-import '../../../../../Core/theme/App_Styles.dart';
+import '../../../../../Core/theme/app_colors.dart';
+import '../../../../../Core/theme/app_styles.dart';
 
 class RecipesBuilder extends StatelessWidget {
   const RecipesBuilder({super.key});
