@@ -4,38 +4,23 @@ import '../../../../../Core/helper/formatters.dart';
 import '../../../../../Core/utils/constants.dart';
 import 'custom_profile_text_field.dart';
 
-class TextFieldsSection extends StatefulWidget {
+class TextFieldsSection extends StatelessWidget {
+  final TextEditingController userNameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+  final TextEditingController passwordController;
+
   //final UserModel userModel;
   const TextFieldsSection({
     super.key,
     //required this.userModel
-    //required this.userNameController,
-    //required this.emailController,
-    //required this.phoneController,
-    //required this.passwordController,
+    required this.userNameController,
+    required this.emailController,
+    required this.phoneController,
+    required this.passwordController,
     //required this.userModel,
   });
 
-  @override
-  State<TextFieldsSection> createState() => _TextFieldsSectionState();
-}
-
-class _TextFieldsSectionState extends State<TextFieldsSection> {
-  late final TextEditingController userNameController;
-  late final TextEditingController emailController;
-  late final TextEditingController phoneController;
-  late final TextEditingController passwordController;
-
-  @override
-  void initState() {
-    super.initState();
-    userNameController = TextEditingController(text: "widget.userModel.userName");
-    emailController = TextEditingController(text: "widget.userModel.email");
-    phoneController = TextEditingController(text: "widget.userModel.phone");
-    passwordController = TextEditingController(text: '********');
-  }
-
-  //final UserModel userModel;
   @override
   Widget build(BuildContext context) {
     return Column(

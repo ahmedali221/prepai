@@ -90,6 +90,7 @@ class FirebaseService {
           .collection(FirebaseConstants.usersCollectionName)
           .doc(userId)
           .get();
+      print("momo $documentStream");
       if (!documentStream.exists) {
         return Left(FirebaseFailure('User document not found.'));
       }
@@ -205,5 +206,4 @@ class FirebaseService {
       return Left(FirebaseFailure('Unknown error: $e'));
     }
   }
-
 }
