@@ -6,6 +6,8 @@ import 'package:prepai/features/Auth/data/data%20source/auth_remote_data_source.
 import 'package:prepai/features/Auth/data/repos/auth_repo_impl.dart';
 import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
 import 'package:prepai/features/auth/domain/use_cases/auh_use_case.dart';
+import 'package:prepai/features/home/data/repository/user_data_repo.dart';
+import 'package:prepai/features/home/domain/use_cases/fetch_user_data_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -31,5 +33,17 @@ void setupLocator() {
   // Use Cases
   getIt.registerLazySingleton<AuthUseCase>(
     () => AuthUseCase(getIt<AuthRepository>()),
+  );
+
+  // User data repo
+  getIt.registerLazySingleton<UserDataRepo>(
+    () => UserDataRepo(
+        firebaseAuth: getIt<FirebaseAuth>(),
+        firestore: getIt<FirebaseFirestore>()),
+  );
+
+  // User data use case
+  getIt.registerLazySingleton<FetchUserDataUseCase>(
+    () => FetchUserDataUseCase(baseUserDataRepo: getIt<UserDataRepo>()),
   );
 }
