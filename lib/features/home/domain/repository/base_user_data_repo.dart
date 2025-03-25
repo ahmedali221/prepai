@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart' show Either;
-import 'package:prepai/features/Home/domain/entities/user_profile_entity.dart';
-
+import 'package:prepai/Core/errors/firebase_errors.dart';
+import 'package:prepai/features/home/data/models/user_model.dart';
 
 abstract class BaseUserDataRepo {
-  Future<Either<String, UserProfileEntity>> getUserData({required String userId});
+  Future<Either<FirebaseFailure, UserModel>> getUserData();
+  Future<Either<FirebaseFailure, String?>> getUserPassword();
   Future postUserData();
 }
