@@ -10,6 +10,7 @@ class MealModel extends Meal {
     required super.steps,
     required super.nutrition,
     required super.image,
+    required super.subtitle,
   });
 
   factory MealModel.fromMap(Map<String, dynamic> map) {
@@ -28,6 +29,7 @@ class MealModel extends Meal {
           [],
       nutrition: Map<String, dynamic>.from(map['nutrition'] ?? {}),
       image: map['image'] as String? ?? '',
+      subtitle: map['subtitle'] as String? ?? '',
     );
   }
 
@@ -41,6 +43,7 @@ class MealModel extends Meal {
       'steps': steps,
       'nutrition': nutrition,
       'image': image,
+      'subtitle': subtitle,
     };
   }
 }

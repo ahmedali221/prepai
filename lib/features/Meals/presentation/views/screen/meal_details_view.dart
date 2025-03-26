@@ -46,7 +46,7 @@ class MealDetailsView extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "${mealModel.time}  .  ${mealModel.servings} servings",
+                    "${mealModel.subtitle}  .  ${mealModel.time}  .  ${mealModel.servings} servings",
                     //"${mealModel.subtitle} . ${mealModel.duration.inMinutes}min . ${mealModel.serving} serving",
                     style: AppStyles.textStyle18.copyWith(color: AppColors.c8A8A8A),
                   ),

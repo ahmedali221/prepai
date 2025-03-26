@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:prepai/Core/services/firebase_service.dart';
+import 'package:prepai/Core/utils/firebase_constants.dart';
 import 'package:prepai/features/Meals/data/models/meal_model.dart';
 import 'package:prepai/features/Meals/domain/entities/meal_entity.dart';
 import 'package:prepai/Core/errors/firebase_errors.dart';
@@ -9,39 +9,55 @@ import 'package:prepai/features/Meals/domain/repositories/meal_repository.dart';
 import '../../../../Core/errors/failures.dart';
 
 class MealRepositoryImpl implements MealRepository {
-  final FirebaseService firebaseService; // Inject FirebaseService
-
   final FirebaseFirestore firestore;
   final storage = FlutterSecureStorage();
 
-  MealRepositoryImpl(this.firebaseService, {required this.firestore});
+  MealRepositoryImpl({required this.firestore});
 
   @override
   Future<Either<Failure, List<Meal>>> getUserMeals() async {
-    final Either<FirebaseFailure, List<Map<String, dynamic>>> result =
-    await firebaseService.fetchUserMeals();
+    try {
+      // Retrieve user ID from secure storage
+      final userId = await storage.read(key: "userId");
+      if (userId == null) {
+        return Left(FirebaseFailure('User ID not found in secure storage.'));
+      }
 
-    return result.fold(
-          (failure) => Left(FirebaseFailure(failure.errorMessage)),
-          (mealsList) {
-        List<Meal> meals = mealsList.map((mealJson) {
-          try {
-            return MealModel.fromMap(mealJson);
-          } catch (e) {
-            return MealModel(
-              mealId: '',
-              name: 'Error',
-              time: 'N/A',
-              servings: 0,
-              ingredients: [],
-              steps: [],
-              nutrition: {},
-              image: '',
-            ); // Default value if parsing fails
-          }
-        }).toList();
-        return Right(meals);
-      },
-    );
+      // Fetch meals from Firestore
+      QuerySnapshot<Map<String, dynamic>> mealsSnapshot = await firestore
+          .collection(FirebaseConstants.usersCollectionName)
+          .doc(userId)
+          .collection(FirebaseConstants.usersMealsCollectionName)
+          .get();
+
+      if (mealsSnapshot.docs.isEmpty) {
+        return Left(FirebaseFailure('No meals found for this user.'));
+      }
+
+      // Convert Firestore documents into MealModel objects
+      List<Meal> meals = mealsSnapshot.docs.map((doc) {
+        try {
+          return MealModel.fromMap({"mealId": doc.id, ...doc.data()});
+        } catch (e) {
+          return MealModel(
+            mealId: '',
+            name: 'Error',
+            time: 'N/A',
+            servings: 0,
+            ingredients: [],
+            steps: [],
+            nutrition: {},
+            image: '',
+            subtitle: '',
+          ); // Default value if parsing fails
+        }
+      }).toList();
+
+      return Right(meals);
+    } on FirebaseException catch (e) {
+      return Left(FirebaseFailure.fromFirestoreError(e));
+    } on Exception catch (e) {
+      return Left(FirebaseFailure('Unknown error: $e'));
+    }
   }
 }
