@@ -6,7 +6,7 @@ import '../repos/mealRepo.dart';
 class GetMealsUseCase {
   final MealRepository repository;
 
-  GetMealsUseCase({required this.repository});
+  GetMealsUseCase(this.repository);
 
   Future<Either<FirebaseFailure, List<MealEntity>>> call() async {
     print('[GetMealsUseCase] Executing...');

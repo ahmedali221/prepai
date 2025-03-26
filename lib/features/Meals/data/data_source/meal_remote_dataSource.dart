@@ -6,6 +6,7 @@ import '../models/mealsModel.dart';
 
 abstract class MealRemoteDataSource {
   Future<Either<FirebaseFailure, List<MealModel>>> getMeals();
+  Future<Either<FirebaseFailure, void>> addMeal(MealModel meal);
 }
 
 class MealRemoteDataSourceimp implements MealRemoteDataSource {
@@ -37,7 +38,6 @@ class MealRemoteDataSourceimp implements MealRemoteDataSource {
 
   Future<Either<FirebaseFailure, void>> addMeal(MealModel meal) async {
     try {
-      print('[MealRemoteDataSource] Adding meal: ${meal.mealName}');
       final result = await firebaseService.addNewMeal(mealData: meal.toJson());
       return result.fold(
         (failure) => Left(failure),

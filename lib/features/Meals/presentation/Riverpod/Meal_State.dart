@@ -2,28 +2,28 @@ import 'package:prepai/features/Auth/data/models/user_model.dart';
 
 enum MealStatus { initial, loading, authenticated, error }
 
-class AuthState {
+class MealState {
   final MealStatus status;
   final UserModel? user;
   final String? errorMessage;
 
-  AuthState({
+  MealState({
     required this.status,
     this.user,
     this.errorMessage,
   });
 
   // Initial state
-  factory AuthState.initial() => AuthState(status: MealStatus.initial);
+  factory MealState.initial() => MealState(status: MealStatus.initial);
 
   // Loading state
-  factory AuthState.loading() => AuthState(status: MealStatus.loading);
+  factory MealState.loading() => MealState(status: MealStatus.loading);
 
   // Authenticated state
-  factory AuthState.authenticated(UserModel user) =>
-      AuthState(status: MealStatus.authenticated, user: user);
+  factory MealState.authenticated(UserModel user) =>
+      MealState(status: MealStatus.authenticated, user: user);
 
   // Error state
-  factory AuthState.error(String message) =>
-      AuthState(status: MealStatus.error, errorMessage: message);
+  factory MealState.error(String message) =>
+      MealState(status: MealStatus.error, errorMessage: message);
 }

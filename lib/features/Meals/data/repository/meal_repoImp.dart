@@ -1,18 +1,15 @@
 // features/meal/data/repositories/meal_repository_impl.dart
 import 'package:dartz/dartz.dart';
 import 'package:prepai/Core/errors/firebase_errors.dart';
-import 'package:prepai/core/services/firebase_service.dart';
-
 import '../../domain/entities/mealEntity.dart';
 import '../../domain/repos/mealRepo.dart';
 import '../data_source/meal_remote_dataSource.dart';
 import '../models/mealsModel.dart';
 
 class MealRepositoryImpl implements MealRepository {
-  final MealRemoteDataSourceimp remoteDataSource;
+  final MealRemoteDataSource remoteDataSource;
 
-  MealRepositoryImpl(FirebaseService firebaseService,
-      {required this.remoteDataSource});
+  MealRepositoryImpl(this.remoteDataSource);
 
   @override
   Future<Either<FirebaseFailure, List<MealEntity>>> getMeals() async {
