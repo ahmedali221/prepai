@@ -1,15 +1,16 @@
-import 'package:prepai/features/Auth/data/models/user_model.dart';
+import 'package:dartz/dartz.dart';
+import 'package:prepai/features/Meals/data/models/mealsModel.dart';
 
 enum MealStatus { initial, loading, authenticated, error }
 
 class MealState {
   final MealStatus status;
-  final UserModel? user;
+  final Either<String, List<MealModel>>? Meal;
   final String? errorMessage;
 
   MealState({
     required this.status,
-    this.user,
+    this.Meal,
     this.errorMessage,
   });
 
@@ -20,8 +21,8 @@ class MealState {
   factory MealState.loading() => MealState(status: MealStatus.loading);
 
   // Authenticated state
-  factory MealState.authenticated(UserModel user) =>
-      MealState(status: MealStatus.authenticated, user: user);
+  factory MealState.authenticated(Either<String, List<MealModel>> meal) =>
+      MealState(status: MealStatus.authenticated, Meal: meal);
 
   // Error state
   factory MealState.error(String message) =>
