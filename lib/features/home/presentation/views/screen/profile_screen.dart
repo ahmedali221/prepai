@@ -87,18 +87,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: Consumer(builder:
                           (BuildContext context, WidgetRef ref, Widget? child) {
+                        final user =
+                            ref.read(userProfileNotifierProvider.notifier);
+                        final password =
+                            ref.read(userPasswordNotifierProvider.notifier);
                         return CustomButton(
                           text: AppConsts.saveButton,
                           foregroundColor: Colors.white,
                           backgroundColor: AppColors.c001A3F,
                           radius: 14,
-                          onPressed: () {
-                            ref
-                                .read(userProfileNotifierProvider.notifier)
-                                .postUserData(
-                                    name: userNameController.text,
-                                    email: emailController.text,
-                                    phone: phoneController.text);
+                          onPressed: () async {
+                            await user.postUserData(
+                                name: userNameController.text,
+                                email: emailController.text,
+                                phone: phoneController.text);
+                            await password.changePassword(
+                                newPassword: passwordController.text);
                           },
                         );
                       }),

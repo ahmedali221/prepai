@@ -15,10 +15,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setupLocator();
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  await FirebaseService(firebaseAuth: firebaseAuth, firestore: firestore)
-      .login(email: "moemen@gmail.com", password: "123456789");
   runApp(
     ProviderScope(
       child: ScreenUtilInit(

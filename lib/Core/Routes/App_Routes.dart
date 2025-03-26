@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:prepai/features/Auth/presentation/pages/login_page.dart';
 import 'package:prepai/features/Auth/presentation/pages/sign_up_page.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/onboarding_page.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/splash_page.dart';
 import 'package:prepai/features/home/presentation/home_page.dart';
 import 'package:prepai/features/home/presentation/views/screen/profile_screen.dart';
 import 'package:prepai/features/meals/presentation/meal_page.dart';

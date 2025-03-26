@@ -26,4 +26,10 @@ class UserDataRepo implements BaseUserDataRepo {
   Future<Either<FirebaseFailure, String?>> getUserPassword() async {
     return await firebaseService.getPassword();
   }
+
+  @override
+  Future<Either<FirebaseFailure, String>> changeUserPassword(
+      {required String password}) async {
+    return await firebaseService.updatePassword(newPassword: password);
+  }
 }

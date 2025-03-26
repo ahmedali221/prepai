@@ -8,6 +8,7 @@ import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
 import 'package:prepai/features/auth/domain/use_cases/auh_use_case.dart';
 import 'package:prepai/features/home/data/repository/user_data_repo.dart';
 import 'package:prepai/features/home/domain/repository/base_user_data_repo.dart';
+import 'package:prepai/features/home/domain/use_cases/change_password_use_case.dart';
 import 'package:prepai/features/home/domain/use_cases/fetch_password_use_case.dart';
 import 'package:prepai/features/home/domain/use_cases/fetch_user_data_use_case.dart';
 import 'package:prepai/features/home/domain/use_cases/post_user_data_use_case.dart';
@@ -54,5 +55,9 @@ void setupLocator() {
 
   getIt.registerLazySingleton<FetchPasswordUseCase>(
     () => FetchPasswordUseCase(baseUserDataRepo: getIt<BaseUserDataRepo>()),
+  );
+
+  getIt.registerLazySingleton<ChangePasswordUseCase>(
+    () => ChangePasswordUseCase(baseUserDataRepo: getIt<BaseUserDataRepo>()),
   );
 }
