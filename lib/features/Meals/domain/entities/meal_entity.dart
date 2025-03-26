@@ -7,7 +7,7 @@
     final String summary;
     final Nutrition nutrition;
     final List<Ingredient> ingredients;
-    final List<String> steps;
+    final Map<String, String> steps;
     final String image;
     final bool isFav;
 

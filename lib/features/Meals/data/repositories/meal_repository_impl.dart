@@ -46,7 +46,7 @@ class MealRepositoryImpl implements MealRepository {
             servings: 0,
             summary: '',
             ingredients: [],
-            steps: [],
+            steps: {},
             nutrition: const NutritionModel(protein: 0, carbs: 0, fat: 0, kcal: 0, vitamins: 0),
             image: '',
             subtitle: '',
