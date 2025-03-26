@@ -2,48 +2,102 @@ import 'package:prepai/features/Meals/domain/entities/meal_entity.dart';
 
 class MealModel extends Meal {
   const MealModel({
-    required super.mealId,
+    required super.id,
     required super.name,
-    required super.time,
+    required super.subtitle,
+    required super.image,
+    required super.duration,
     required super.servings,
+    required super.summary,
     required super.ingredients,
     required super.steps,
     required super.nutrition,
-    required super.image,
-    required super.subtitle,
+    super.isFav,
   });
 
   factory MealModel.fromMap(Map<String, dynamic> map) {
     return MealModel(
-      mealId: map['mealId'] as String? ?? '',
+      id: map['id'] as String? ?? '',
       name: map['name'] as String? ?? 'Unknown',
-      time: map['time'] as String? ?? 'Unknown',
+      subtitle: map['subtitle'] as String? ?? '',
+      image: map['image'] as String? ?? '',
+      duration: Duration(minutes: (map['duration'] as int?) ?? 0),
       servings: map['servings'] as int? ?? 0,
+      summary: map['summary'] as String? ?? '',
       ingredients: (map['ingredients'] as List<dynamic>?)
-          ?.map((item) => Map<String, dynamic>.from(item as Map))
+          ?.map((item) => IngredientModel.fromMap(item as Map<String, dynamic>))
           .toList() ??
           [],
       steps: (map['steps'] as List<dynamic>?)
-          ?.map((item) => Map<String, dynamic>.from(item as Map))
+          ?.map((step) => step.toString())
           .toList() ??
           [],
-      nutrition: Map<String, dynamic>.from(map['nutrition'] ?? {}),
-      image: map['image'] as String? ?? '',
-      subtitle: map['subtitle'] as String? ?? '',
+      nutrition: NutritionModel.fromMap(map['nutrition'] as Map<String, dynamic>? ?? {}),
+      isFav: map['isFav'] as bool? ?? false,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'mealId': mealId,
+      'id': id,
       'name': name,
-      'time': time,
-      'servings': servings,
-      'ingredients': ingredients,
-      'steps': steps,
-      'nutrition': nutrition,
-      'image': image,
       'subtitle': subtitle,
+      'image': image,
+      'duration': duration.inMinutes,
+      'servings': servings,
+      'summary': summary,
+      'ingredients': ingredients.map((ingredient) => (ingredient as IngredientModel).toMap()).toList(),
+      'steps': steps,
+      'nutrition': (nutrition as NutritionModel).toMap(),
+      'isFav': isFav,
+    };
+  }
+}
+
+class IngredientModel extends Ingredient {
+  const IngredientModel({required super.name, required super.quantity});
+
+  factory IngredientModel.fromMap(Map<String, dynamic> map) {
+    return IngredientModel(
+      name: map['name'] as String? ?? 'Unknown',
+      quantity: map['quantity'] as int? ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'quantity': quantity,
+    };
+  }
+}
+
+class NutritionModel extends Nutrition {
+  const NutritionModel({
+    required super.protein,
+    required super.carbs,
+    required super.fat,
+    required super.kcal,
+    required super.vitamins,
+  });
+
+  factory NutritionModel.fromMap(Map<String, dynamic> map) {
+    return NutritionModel(
+      protein: (map['protein'] as num?)?.toDouble() ?? 0.0,
+      carbs: (map['carbs'] as num?)?.toDouble() ?? 0.0,
+      fat: (map['fat'] as num?)?.toDouble() ?? 0.0,
+      kcal: (map['kcal'] as num?)?.toDouble() ?? 0.0,
+      vitamins: (map['vitamins'] as num?)?.toDouble() ?? 0.0,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'protein': protein,
+      'carbs': carbs,
+      'fat': fat,
+      'kcal': kcal,
+      'vitamins': vitamins,
     };
   }
 }

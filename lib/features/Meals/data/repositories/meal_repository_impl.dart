@@ -40,13 +40,14 @@ class MealRepositoryImpl implements MealRepository {
           return MealModel.fromMap({"mealId": doc.id, ...doc.data()});
         } catch (e) {
           return MealModel(
-            mealId: '',
+            id: '',
             name: 'Error',
-            time: 'N/A',
+            duration: const Duration(minutes: 0),
             servings: 0,
+            summary: '',
             ingredients: [],
             steps: [],
-            nutrition: {},
+            nutrition: const NutritionModel(protein: 0, carbs: 0, fat: 0, kcal: 0, vitamins: 0),
             image: '',
             subtitle: '',
           ); // Default value if parsing fails
