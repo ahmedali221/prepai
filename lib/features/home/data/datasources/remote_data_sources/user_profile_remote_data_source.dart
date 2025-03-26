@@ -5,9 +5,10 @@ import 'package:prepai/Core/errors/firebase_errors.dart';
 import 'package:prepai/Core/utils/firebase_constants.dart';
 import 'package:prepai/core/services/firebase_service.dart';
 
-class UserProfileRemoteDataSource extends FirebaseService {
-  UserProfileRemoteDataSource(
-      {required super.firebaseAuth, required super.firestore});
+
+class UserProfileRemoteDataSourceImp extends FirebaseService {
+  UserProfileRemoteDataSourceImp({required super.firebaseAuth, required super.firestore});
+
 
   @override
   Future<Either<FirebaseFailure, Map<String, dynamic>?>>
@@ -68,5 +69,35 @@ class UserProfileRemoteDataSource extends FirebaseService {
     } on Exception catch (e) {
       return Left(FirebaseFailure('error $e'));
     }
+  }
+  
+  @override
+  Future<Either<FirebaseFailure, String>> addNewMeal({required Map<String, dynamic> mealData}) {
+    // TODO: implement addNewMeal
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<FirebaseFailure, List<Map<String, dynamic>>>> fetchUserMeals() {
+    // TODO: implement fetchUserMeals
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<FirebaseFailure, String>> login({required String email, required String password}) {
+    // TODO: implement login
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<FirebaseFailure, String>> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<FirebaseFailure, String>> signUp({required String email, required String password, required String phone, required String name}) {
+    // TODO: implement signUp
+    throw UnimplementedError();
   }
 }
