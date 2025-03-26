@@ -24,7 +24,22 @@ class MealRepositoryImpl implements MealRepository {
     return result.fold(
           (failure) => Left(FirebaseFailure(failure.errorMessage)),
           (mealsList) {
-        List<Meal> meals = mealsList.map((mealJson) => MealModel.fromMap(mealJson)).toList();
+        List<Meal> meals = mealsList.map((mealJson) {
+          try {
+            return MealModel.fromMap(mealJson);
+          } catch (e) {
+            return MealModel(
+              mealId: '',
+              name: 'Error',
+              time: 'N/A',
+              servings: 0,
+              ingredients: [],
+              steps: [],
+              nutrition: {},
+              image: '',
+            ); // Default value if parsing fails
+          }
+        }).toList();
         return Right(meals);
       },
     );

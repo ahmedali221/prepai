@@ -9,17 +9,25 @@ class MealModel extends Meal {
     required super.ingredients,
     required super.steps,
     required super.nutrition,
+    required super.image,
   });
 
   factory MealModel.fromMap(Map<String, dynamic> map) {
     return MealModel(
-      mealId: map['mealId'] as String,
-      name: map['name'] as String,
-      time: map['time'] as String,
-      servings: map['servings'] as int,
-      ingredients: List<Map<String, dynamic>>.from(map['ingredients']),
-      steps: List<Map<String, dynamic>>.from(map['steps']),
-      nutrition: Map<String, dynamic>.from(map['nutrition']),
+      mealId: map['mealId'] as String? ?? '',
+      name: map['name'] as String? ?? 'Unknown',
+      time: map['time'] as String? ?? 'Unknown',
+      servings: map['servings'] as int? ?? 0,
+      ingredients: (map['ingredients'] as List<dynamic>?)
+          ?.map((item) => Map<String, dynamic>.from(item as Map))
+          .toList() ??
+          [],
+      steps: (map['steps'] as List<dynamic>?)
+          ?.map((item) => Map<String, dynamic>.from(item as Map))
+          .toList() ??
+          [],
+      nutrition: Map<String, dynamic>.from(map['nutrition'] ?? {}),
+      image: map['image'] as String? ?? '',
     );
   }
 
@@ -32,6 +40,7 @@ class MealModel extends Meal {
       'ingredients': ingredients,
       'steps': steps,
       'nutrition': nutrition,
+      'image': image,
     };
   }
 }
