@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import '../../../../../Core/theme/app_colors.dart';
+import '../../../domain/entities/meal_entity.dart';
+import 'ingredient_item.dart';
 
 class IngredientsView extends StatelessWidget {
   const IngredientsView({
     super.key,
-    //required this.model,
+    required this.mealModel,
   });
 
-  //final MealDetailsModel model;
+  final Meal mealModel;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [
       const SizedBox(height: 10),
-      //Text("total ingredients ${model.ingredients.length}"),
+      Text("total ingredients ${mealModel.ingredients.length}"),
       const SizedBox(height: 25),
     ];
-    // When you create the model, delete comments about it.
-    /* delete it
+
     children.addAll(
-      List.generate(model.ingredients.length, (int index) {
+      List.generate(mealModel.ingredients.length, (int index) {
         return Column(
           children: [
-            IngredientItem(ingred: model.ingredients[index]),
+            IngredientItem(ingred: mealModel.ingredients[index]),
             const SizedBox(height: 10),
             const Divider(color: AppColors.c001A3F, thickness: .75),
             const SizedBox(height: 10),
@@ -30,7 +31,6 @@ class IngredientsView extends StatelessWidget {
         );
       }),
     );
-    delete it */
 
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 20),

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import '../../../../../Core/theme/app_styles.dart';
 import '../../../../../Core/theme/app_colors.dart';
+import '../../../domain/entities/meal_entity.dart';
 import 'nutrition_item.dart';
 
 class SummaryView extends StatelessWidget {
   const SummaryView({
     super.key,
-    //required this.model,
+    required this.mealModel,
   });
 
-  //final MealDetailsModel model;
+  final Meal mealModel;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,10 @@ class SummaryView extends StatelessWidget {
       child: Column(
         children: [
           //model.summary
-          Text('model.summary', style: TextStyle(color: AppColors.c001A3F)),
+          Text(
+            mealModel.summary,
+            style: TextStyle(color: AppColors.c001A3F),
+          ),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -38,24 +42,28 @@ class SummaryView extends StatelessWidget {
             children: [
               NutritionItem(
                 type: "protein",
-                amount: '',//"${model.nutritions.protein.toInt()}g",
+                amount:
+                    '${mealModel.nutrition.protein.toInt()}g',
               ),
               NutritionItem(
                 type: "carp",
-                amount: '',//"${model.nutritions.carp.toInt()}g",
+                amount:
+                    '${mealModel.nutrition.carbs.toInt()}g',
               ),
               NutritionItem(
                 type: "fat",
-                amount: '',//"${model.nutritions.fat.toInt()}g",
+                amount:
+                    '${mealModel.nutrition.fat.toInt()}g',
               ),
               NutritionItem(
                 type: "kcal",
-                amount: ''//"${model.nutritions.kcal.toInt()}",
+                amount:
+                    '${mealModel.nutrition.kcal.toInt()}',
               ),
               NutritionItem(
-                type: "vitamenes",
-                amount: ''//"${model.nutritions.vitamenes.toInt()}mg",
-              ),
+                  type: "vitamenes",
+                  amount: '${mealModel.nutrition.vitamins.toInt()}mg',
+                  ),
             ],
           ),
           const SizedBox(height: 15),

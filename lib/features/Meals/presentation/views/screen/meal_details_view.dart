@@ -6,14 +6,12 @@ import '../widget/page_view_titles.dart';
 import '../widget/top_bar.dart';
 
 class MealDetailsView extends StatelessWidget {
-  final Meal mealModel; // Pass the meal object
-
   const MealDetailsView({
     super.key,
     required this.mealModel,
   });
 
-  //final MealDetailsModel mealModel;
+  final Meal mealModel;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +25,7 @@ class MealDetailsView extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: TopBar(
-                      //mealModel: mealModel,
-                    ),
+                    child: TopBar(mealModel: mealModel),
                   ),
                   Image.network(
                     //image
@@ -47,13 +43,11 @@ class MealDetailsView extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     "${mealModel.subtitle}  .  ${mealModel.duration.inMinutes}min  .  ${mealModel.servings} servings",
-                    //"${mealModel.subtitle} . ${mealModel.duration.inMinutes}min . ${mealModel.serving} serving",
-                    style: AppStyles.textStyle18.copyWith(color: AppColors.c8A8A8A),
+                    style: AppStyles.textStyle18
+                        .copyWith(color: AppColors.c8A8A8A),
                   ),
                   const SizedBox(height: 15),
-                  PageViewTitles(
-                      //model: mealModel,
-                      ),
+                  PageViewTitles(mealModel: mealModel),
                 ],
               ),
             ),

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../Core/theme/app_colors.dart';
+import '../../../domain/entities/meal_entity.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({
     super.key,
-    //required this.mealModel,
+    required this.mealModel,
   });
 
-  //final MealDetailsModel mealModel;
+  final Meal mealModel;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +25,7 @@ class TopBar extends StatelessWidget {
         IconButton(
           onPressed: () async {},
           icon: Icon(
-            //mealModel.isFav ? Icons.favorite : Icons.favorite_border,
-            Icons.favorite,
+            mealModel.isFav ? Icons.favorite : Icons.favorite_border,
             color: AppColors.c001A3F,
           ),
         ),

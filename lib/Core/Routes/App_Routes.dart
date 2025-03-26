@@ -35,10 +35,12 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) =>
           const MaterialPage(child: ControllerScreen()),
     ),
-    GoRoute(
-      path: AppRouter.kMealPage,
-      pageBuilder: (context, state) => const MaterialPage(child: MealDetailsView()),
-    ),
+    // GoRoute(
+    //   path: AppRouter.kMealPage,
+    //   pageBuilder: (context, state) => MaterialPage(
+    //     child: MealDetailsView(mealModel: null),
+    //   ),
+    // ),
     GoRoute(
       path: AppRouter.kLogin,
       pageBuilder: (context, state) => const MaterialPage(child: LoginPage()),

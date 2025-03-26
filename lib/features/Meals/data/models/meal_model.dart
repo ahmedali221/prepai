@@ -28,9 +28,10 @@ class MealModel extends Meal {
           ?.map((item) => IngredientModel.fromMap(item as Map<String, dynamic>))
           .toList() ??
           [],
-      steps: (map['steps'] as Map<String, dynamic>?)
-          ?.map((key, value) => MapEntry(key, value.toString())) ??
-          {},
+      steps: (map['steps'] as List<dynamic>?)
+          ?.map((step) => step.toString())
+          .toList() ??
+          [],
       nutrition: NutritionModel.fromMap(map['nutrition'] as Map<String, dynamic>? ?? {}),
       isFav: map['isFav'] as bool? ?? false,
     );

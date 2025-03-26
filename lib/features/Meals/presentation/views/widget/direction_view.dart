@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import '../../../../../Core/theme/app_colors.dart';
 import '../../../../../Core/theme/app_styles.dart';
+import '../../../domain/entities/meal_entity.dart';
 
 class DirectionView extends StatelessWidget {
   const DirectionView({
     super.key,
-    //required this.model,
+    required this.mealModel,
   });
 
-  //final MealDetailsModel model;
+  final Meal mealModel;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [
       const SizedBox(height: 10),
-      //Text("total steps ${model.steps.length}"),
+      Text("total steps ${mealModel.steps.length}"),
     ];
-    // When you create the model, delete comments about it.
 
-    /* delete it
     children.addAll(
-      List.generate(model.steps.length, (int index) {
+      List.generate(mealModel.steps.length, (int index) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,16 +32,15 @@ class DirectionView extends StatelessWidget {
               ),
             ),
             Text(
-              model.steps[index],
+              mealModel.steps[index],
               style: AppStyles.textStyle16.copyWith(
               color: AppColors.c001A3F,
               ),
-            )
+            ),
           ],
         );
       }),
     );
-     delete it  */
 
     children.add(const SizedBox(height: 10));
 

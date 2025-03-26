@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:prepai/features/Meals/presentation/views/widget/page_view_title_item.dart';
 import 'package:prepai/features/Meals/presentation/views/widget/summary_view.dart';
+import '../../../domain/entities/meal_entity.dart';
 import 'direction_view.dart';
 import 'ingredients_view.dart';
 
 class PageViewTitles extends StatefulWidget {
   const PageViewTitles({
     super.key,
-    //required this.model,
+    required this.mealModel,
   });
 
-  //final MealDetailsModel model;
+  final Meal mealModel;
 
   @override
   State<PageViewTitles> createState() => _PageViewTitlesState();
@@ -24,17 +25,15 @@ class _PageViewTitlesState extends State<PageViewTitles> {
   @override
   void initState() {
     selectedIndex = 0;
-    titles = ["Summary", "Ingredients", "Direction"];
+    titles = [
+      "Summary",
+      "Ingredients",
+      "Direction",
+    ];
     pages = [
-      SummaryView(
-        //model: widget.model,
-      ),
-      IngredientsView(
-        //model: widget.model,
-      ),
-      DirectionView(
-        //model: widget.model,
-      )
+      SummaryView(mealModel: widget.mealModel),
+      IngredientsView(mealModel: widget.mealModel),
+      DirectionView(mealModel: widget.mealModel)
     ];
     super.initState();
   }
