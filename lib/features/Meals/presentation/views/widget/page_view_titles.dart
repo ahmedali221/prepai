@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prepai/features/meal_details/presentation/views/widget/page_view_title_item.dart';
-import 'package:prepai/features/meal_details/presentation/views/widget/summary_view.dart';
-
+import 'package:prepai/features/Meals/presentation/views/widget/page_view_title_item.dart';
+import 'package:prepai/features/Meals/presentation/views/widget/summary_view.dart';
 import 'direction_view.dart';
 import 'ingredients_view.dart';
 
