@@ -1,4 +1,4 @@
-import 'package:prepai/features/Home/domain/entities/user_profile_entity.dart';
+import 'package:prepai/features/home/domain/entities/user_profile_entity.dart';
 
 class UserModel {
   final String userEmail;
@@ -25,13 +25,11 @@ class UserModel {
     };
   }
 
-  UserProfileEntity toEntity() {
-    return UserProfileEntity(
-      userImage: "",
-      userPassword: "",
-      userName: userName,
-      userEmail: userEmail,
-      userPhone: userPhone,
+  factory UserModel.fromEntity(UserProfileEntity entity) {
+    return UserModel(
+      userEmail: entity.userEmail,
+      userName: entity.userName,
+      userPhone: entity.userPhone,
     );
   }
 }
