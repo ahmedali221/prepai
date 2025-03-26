@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prepai/features/Auth/presentation/widgets/login_view_body.dart';
+import 'package:prepai/features/auth/presentation/widgets/login_view_body.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

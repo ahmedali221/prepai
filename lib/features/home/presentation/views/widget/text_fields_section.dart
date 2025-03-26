@@ -4,21 +4,18 @@ import '../../../../../Core/utils/constants.dart';
 import 'custom_profile_text_field.dart';
 
 class TextFieldsSection extends StatelessWidget {
+  final TextEditingController userNameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+  final TextEditingController passwordController;
+
   const TextFieldsSection({
     super.key,
-    //required this.userNameController,
-    //required this.emailController,
-    //required this.phoneController,
-    //required this.passwordController,
-    //required this.userModel,
+    required this.userNameController,
+    required this.emailController,
+    required this.phoneController,
+    required this.passwordController,
   });
-
-  //final TextEditingController userNameController;
-  //final TextEditingController emailController;
-  //final TextEditingController phoneController;
-  //final TextEditingController passwordController;
-
-  //final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,35 +23,26 @@ class TextFieldsSection extends StatelessWidget {
       children: [
         CustomProfileTextField(
           hintText: AppConsts.userNameHintText,
-          //controller: userNameController,
-          onSaved: (userName) {
-            //userModel.userName = userName!;
-          },
+          controller: userNameController,
         ),
         const SizedBox(height: 20),
         CustomProfileTextField(
           hintText: AppConsts.emailHintText,
           inputFormatters: [Formatters.emailRegExp],
-          //controller: emailController,
-          onSaved: (email) {
-            //userModel.email = email!;
-          },
+          controller: emailController,
         ),
         const SizedBox(height: 20),
         CustomProfileTextField(
           hintText: AppConsts.phoneHintText,
           inputFormatters: [Formatters.phoneNumbersRegExp],
-          //controller: phoneController,
-          onSaved: (phone) {
-            //userModel.phone = phone!;
-          },
+          controller: phoneController,
         ),
         const SizedBox(height: 20),
         CustomProfileTextField(
           obscureText: true,
           enableValidator: false,
           hintText: AppConsts.passwordHintText,
-          //controller: passwordController,
+          controller: passwordController,
         ),
       ],
     );
