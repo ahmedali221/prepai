@@ -18,9 +18,18 @@ class ProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  late TextEditingController userNameController;
+  late TextEditingController emailController;
+  late TextEditingController phoneController;
+  late TextEditingController passwordController;
+
   @override
   void initState() {
     super.initState();
+    userNameController = TextEditingController();
+    emailController = TextEditingController();
+    phoneController = TextEditingController();
+    passwordController = TextEditingController();
     Future.microtask(() {
       ref.read(userProfileNotifierProvider.notifier).fetchUserData();
       ref.read(userPasswordNotifierProvider.notifier).fetchPassword();
@@ -57,15 +66,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       } else if (userProfileState.value != null) {
                         final userData = userProfileState.value!;
                         final userPassword = userPasswordState.value;
+
+                        userNameController.text = userData.userName;
+                        emailController.text = userData.userEmail;
+                        phoneController.text = userData.userPhone;
+                        passwordController.text = userPassword ?? "";
+
                         return TextFieldsSection(
-                          userNameController:
-                              TextEditingController(text: userData.userName),
-                          emailController:
-                              TextEditingController(text: userData.userEmail),
-                          phoneController:
-                              TextEditingController(text: userData.userPhone),
-                          passwordController:
-                              TextEditingController(text: userPassword),
+                          userNameController: userNameController,
+                          emailController: emailController,
+                          phoneController: phoneController,
+                          passwordController: passwordController,
                         );
                       } else {
                         return const Text('No data available');
@@ -74,13 +85,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     const Expanded(child: SizedBox(height: 10)),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: CustomButton(
-                        text: AppConsts.saveButton,
-                        foregroundColor: Colors.white,
-                        backgroundColor: AppColors.c001A3F,
-                        radius: 14,
-                        onPressed: () {},
-                      ),
+                      child: Consumer(builder:
+                          (BuildContext context, WidgetRef ref, Widget? child) {
+                        return CustomButton(
+                          text: AppConsts.saveButton,
+                          foregroundColor: Colors.white,
+                          backgroundColor: AppColors.c001A3F,
+                          radius: 14,
+                          onPressed: () {
+                            ref
+                                .read(userProfileNotifierProvider.notifier)
+                                .postUserData(
+                                    name: userNameController.text,
+                                    email: emailController.text,
+                                    phone: phoneController.text);
+                          },
+                        );
+                      }),
                     ),
                     const Expanded(child: SizedBox(height: 10)),
                   ],
@@ -91,5 +112,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    userNameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }

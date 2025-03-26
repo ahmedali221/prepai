@@ -18,9 +18,8 @@ class UserDataRepo implements BaseUserDataRepo {
   }
 
   @override
-  Future postUserData() {
-    // TODO: implement postUserData
-    throw UnimplementedError();
+  Future<void> postUserData({required Map<String, dynamic> data}) async {
+    await firebaseService.updateUserDocData(data: data);
   }
 
   @override

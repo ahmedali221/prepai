@@ -18,7 +18,6 @@ class TextFieldsSection extends StatelessWidget {
     required this.emailController,
     required this.phoneController,
     required this.passwordController,
-    //required this.userModel,
   });
 
   @override

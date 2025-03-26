@@ -10,6 +10,7 @@ import 'package:prepai/features/home/data/repository/user_data_repo.dart';
 import 'package:prepai/features/home/domain/repository/base_user_data_repo.dart';
 import 'package:prepai/features/home/domain/use_cases/fetch_password_use_case.dart';
 import 'package:prepai/features/home/domain/use_cases/fetch_user_data_use_case.dart';
+import 'package:prepai/features/home/domain/use_cases/post_user_data_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -45,6 +46,10 @@ void setupLocator() {
   // User data use case
   getIt.registerLazySingleton<FetchUserDataUseCase>(
     () => FetchUserDataUseCase(baseUserDataRepo: getIt<BaseUserDataRepo>()),
+  );
+
+  getIt.registerLazySingleton<PostUserDataUseCase>(
+    () => PostUserDataUseCase(baseUserDataRepo: getIt<BaseUserDataRepo>()),
   );
 
   getIt.registerLazySingleton<FetchPasswordUseCase>(
