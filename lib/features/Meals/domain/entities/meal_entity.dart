@@ -24,6 +24,22 @@
       required this.nutrition,
       this.isFav = false,
     });
+
+    factory Meal.empty() {
+      return Meal(
+        id: '',
+        name: 'Unknown',
+        subtitle: '',
+        image: '',
+        duration: Duration.zero,
+        servings: 0,
+        summary: '',
+        ingredients: [],
+        steps: [],
+        nutrition: Nutrition.empty(),
+        isFav: false,
+      );
+    }
   }
 
   class Nutrition {
@@ -40,6 +56,16 @@
       required this.kcal,
       required this.vitamins,
     });
+
+    factory Nutrition.empty() {
+      return const Nutrition(
+        protein: 0,
+        carbs: 0,
+        fat: 0,
+        kcal: 0,
+        vitamins: 0,
+      );
+    }
   }
 
   class Ingredient {

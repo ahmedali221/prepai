@@ -54,6 +54,7 @@ class MealModel extends Meal {
   }
 }
 
+
 class IngredientModel extends Ingredient {
   const IngredientModel({required super.name, required super.quantity});
 

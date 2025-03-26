@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prepai/features/Meals/presentation/riverpod/meal_provider.dart';
 import '../../../../../Core/theme/app_styles.dart';
 import '../../../../../Core/theme/app_colors.dart';
 import '../../../domain/entities/meal_entity.dart';
 import 'nutrition_item.dart';
 
-class SummaryView extends StatelessWidget {
+class SummaryView extends ConsumerWidget {
   const SummaryView({
     super.key,
-    required this.mealModel,
+    required this.mealId,
   });
 
-  final Meal mealModel;
+  final String mealId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contex, WidgetRef ref) {
+    final meal = ref.watch(mealDetailProvider(mealId));
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           //model.summary
           Text(
-            mealModel.summary,
+            meal.summary,
             style: TextStyle(color: AppColors.c001A3F),
           ),
           const SizedBox(height: 10),
@@ -43,26 +47,26 @@ class SummaryView extends StatelessWidget {
               NutritionItem(
                 type: "protein",
                 amount:
-                    '${mealModel.nutrition.protein.toInt()}g',
+                    '${meal.nutrition.protein.toInt()}g',
               ),
               NutritionItem(
                 type: "carp",
                 amount:
-                    '${mealModel.nutrition.carbs.toInt()}g',
+                    '${meal.nutrition.carbs.toInt()}g',
               ),
               NutritionItem(
                 type: "fat",
                 amount:
-                    '${mealModel.nutrition.fat.toInt()}g',
+                    '${meal.nutrition.fat.toInt()}g',
               ),
               NutritionItem(
                 type: "kcal",
                 amount:
-                    '${mealModel.nutrition.kcal.toInt()}',
+                    '${meal.nutrition.kcal.toInt()}',
               ),
               NutritionItem(
                   type: "vitamenes",
-                  amount: '${mealModel.nutrition.vitamins.toInt()}mg',
+                  amount: '${meal.nutrition.vitamins.toInt()}mg',
                   ),
             ],
           ),
