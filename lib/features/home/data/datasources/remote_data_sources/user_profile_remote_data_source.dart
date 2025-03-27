@@ -4,11 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prepai/Core/errors/firebase_errors.dart';
 import 'package:prepai/Core/utils/firebase_constants.dart';
 import 'package:prepai/core/services/firebase_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class UserProfileRemoteDataSourceImp extends FirebaseService {
   UserProfileRemoteDataSourceImp({required super.firebaseAuth, required super.firestore});
 
+  Future<SharedPreferences> get _prefs async => SharedPreferences.getInstance();
 
   @override
   Future<Either<FirebaseFailure, Map<String, dynamic>?>>
@@ -79,25 +81,36 @@ class UserProfileRemoteDataSourceImp extends FirebaseService {
   
   @override
   Future<Either<FirebaseFailure, List<Map<String, dynamic>>>> fetchUserMeals() {
-    // TODO: implement fetchUserMeals
     throw UnimplementedError();
   }
   
   @override
   Future<Either<FirebaseFailure, String>> login({required String email, required String password}) {
-    // TODO: implement login
     throw UnimplementedError();
   }
   
   @override
-  Future<Either<FirebaseFailure, String>> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<Either<FirebaseFailure, String>> logout() async {
+    try {
+      await firebaseAuth.signOut();
+      await storage.deleteAll();
+      await _setLoggedIn(false);
+      return Right('Logged out successfully!');
+    } on FirebaseAuthException catch (e) {
+      return Left(FirebaseFailure.fromAuthError(e));
+    } on Exception catch (e) {
+      return Left(FirebaseFailure('Unknown error: $e'));
+    }
   }
   
   @override
   Future<Either<FirebaseFailure, String>> signUp({required String email, required String password, required String phone, required String name}) {
-    // TODO: implement signUp
     throw UnimplementedError();
   }
+
+  Future<void> _setLoggedIn(bool value) async {
+    final prefs = await _prefs;
+    await prefs.setBool('isLoggedIn', value);
+  }
+
 }
