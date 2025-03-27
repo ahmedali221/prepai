@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'failures.dart';
 
-
 class FirebaseFailure extends Failure {
   FirebaseFailure(super.errorMessage);
 

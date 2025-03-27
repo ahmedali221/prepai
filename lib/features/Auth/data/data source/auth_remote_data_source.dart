@@ -70,7 +70,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
-
   @override
   Future<Either<FirebaseFailure, String>> signUp(
       {required String email,

@@ -7,11 +7,17 @@ class MealState {
   final MealStatus status;
   final Either<String, List<MealEntity>>? meal;
   final String? errorMessage;
+  final bool isFiltered;
+  final int? filteredTime;
+  final String? filteredMealType;
 
   MealState({
     required this.status,
     this.meal,
     this.errorMessage,
+    this.isFiltered = false,
+    this.filteredTime,
+    this.filteredMealType,
   });
 
   // Initial state
@@ -21,7 +27,9 @@ class MealState {
   factory MealState.loading() => MealState(status: MealStatus.loading);
 
   // Authenticated state
-  factory MealState.authenticated(Either<String, List<MealEntity>> meal) =>
+  factory MealState.authenticated(
+    Either<String, List<MealEntity>> meal,
+  ) =>
       MealState(status: MealStatus.authenticated, meal: meal);
 
   // Error state

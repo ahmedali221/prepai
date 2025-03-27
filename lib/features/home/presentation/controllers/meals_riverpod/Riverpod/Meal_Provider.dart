@@ -8,3 +8,6 @@ final mealProvider = StateNotifierProvider<MealNotifier, MealState>((ref) {
   final mealUseCase = getIt<GetMealsUseCase>();
   return MealNotifier(mealUseCase);
 });
+final isFilteredProvider = StateProvider<bool>((ref) {
+  return false;
+});

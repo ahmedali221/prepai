@@ -19,9 +19,10 @@ class MealRemoteDataSource {
     String? mealType,
   }) async {
     try {
+      final userId = await storage.read(key: "userId");
       Query<Map<String, dynamic>> query = firestore
           .collection(FirebaseConstants.usersCollectionName)
-          .doc('hnTzGDF20QMTcH7NO6jUkkO6gHi1')
+          .doc(userId)
           .collection(FirebaseConstants.usersMealsCollectionName);
 
       // Apply filters dynamically

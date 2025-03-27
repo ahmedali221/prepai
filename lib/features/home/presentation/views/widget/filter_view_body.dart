@@ -19,7 +19,6 @@ class _FilterViewBodyState extends ConsumerState<FilterViewBody> {
   final GlobalKey<FilterMethodTimeState> timeKey = GlobalKey();
   final GlobalKey<FilterMethodMealState> mealTypeKey = GlobalKey();
 
-  final selectedTimeProvider = StateProvider<int?>((ref) => null);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,7 +36,6 @@ class _FilterViewBodyState extends ConsumerState<FilterViewBody> {
                   timeKey.currentState?.reset();
 
                   mealTypeKey.currentState?.reset();
-                  ref.read(selectedTimeProvider.notifier).state = null;
                 },
               ),
               Text(
@@ -71,9 +69,10 @@ class _FilterViewBodyState extends ConsumerState<FilterViewBody> {
                       ref.read(mealProvider.notifier).fetchData(
                           mealPreparationTime: selectedTime,
                           mealType: selectedMealType);
-
-                      ref.read(selectedTimeProvider.notifier).state =
-                          selectedTime;
+                      ref.read(isFilteredProvider.notifier).state = true;
+                      if (selectedTime != null || selectedMealType != null) {
+                        ref.read(isFilteredProvider.notifier).state = true;
+                      }
 
                       Navigator.pop(context);
                     },
