@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -45,9 +46,14 @@ void setupLocator() {
   getIt.registerLazySingleton<FoodChatRemoteDataSource>(
     () => FoodChatRemoteDataSourceImpl(getIt<GenerativeModel>()),
   );
+  getIt.registerLazySingleton<FirebaseFirestore>(
+      () => FirebaseFirestore.instance);
+
   getIt.registerLazySingleton<FoodChatRepository>(
-    () => FoodChatRepositoryImpl(getIt<FoodChatRemoteDataSource>()),
+    () => FoodChatRepositoryImpl(
+        getIt<FoodChatRemoteDataSource>(), getIt<FirebaseFirestore>()),
   );
+
   getIt.registerLazySingleton<GetFoodSuggestion>(
     () => GetFoodSuggestion(getIt<FoodChatRepository>()),
   );
