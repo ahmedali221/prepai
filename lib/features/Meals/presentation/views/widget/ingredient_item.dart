@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../../../../Core/theme/app_styles.dart';
 import '../../../../../Core/theme/app_colors.dart';
+import '../../../domain/entities/meal_entity.dart';
 
 class IngredientItem extends StatelessWidget {
   const IngredientItem({
     super.key,
-    //required this.ingred,
+    required this.ingred,
   });
 
-  //final Ingredients ingred;
+  final Ingredient ingred;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,7 @@ class IngredientItem extends StatelessWidget {
         const SizedBox(width: 15),
         SizedBox(
           child: Text(
-            //name
-            'ingred.name',
+            ingred.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: AppStyles.textStyle18.copyWith(
@@ -38,8 +38,7 @@ class IngredientItem extends StatelessWidget {
         const Expanded(child: SizedBox(width: 5)),
         SizedBox(
           child: Text(
-            //"${ingred.pieces.toString()} pcs",
-            '',
+            "${ingred.quantity.toString()} pcs",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: AppStyles.textStyle18.copyWith(color: AppColors.c001A3F),

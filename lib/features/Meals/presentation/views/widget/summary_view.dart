@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prepai/features/Meals/presentation/riverpod/meal_provider.dart';
 import '../../../../../Core/theme/app_styles.dart';
 import '../../../../../Core/theme/app_colors.dart';
+import '../../../domain/entities/meal_entity.dart';
 import 'nutrition_item.dart';
 
-class SummaryView extends StatelessWidget {
+class SummaryView extends ConsumerWidget {
   const SummaryView({
     super.key,
-    //required this.model,
+    required this.mealId,
   });
 
-  //final MealDetailsModel model;
+  final String mealId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contex, WidgetRef ref) {
+    final meal = ref.watch(mealDetailProvider(mealId));
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           //model.summary
-          Text('model.summary', style: TextStyle(color: AppColors.c001A3F)),
+          Text(
+            meal.summary,
+            style: TextStyle(color: AppColors.c001A3F),
+          ),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -38,24 +46,28 @@ class SummaryView extends StatelessWidget {
             children: [
               NutritionItem(
                 type: "protein",
-                amount: '',//"${model.nutritions.protein.toInt()}g",
+                amount:
+                    '${meal.nutrition.protein.toInt()}g',
               ),
               NutritionItem(
                 type: "carp",
-                amount: '',//"${model.nutritions.carp.toInt()}g",
+                amount:
+                    '${meal.nutrition.carbs.toInt()}g',
               ),
               NutritionItem(
                 type: "fat",
-                amount: '',//"${model.nutritions.fat.toInt()}g",
+                amount:
+                    '${meal.nutrition.fat.toInt()}g',
               ),
               NutritionItem(
                 type: "kcal",
-                amount: ''//"${model.nutritions.kcal.toInt()}",
+                amount:
+                    '${meal.nutrition.kcal.toInt()}',
               ),
               NutritionItem(
-                type: "vitamenes",
-                amount: ''//"${model.nutritions.vitamenes.toInt()}mg",
-              ),
+                  type: "vitamenes",
+                  amount: '${meal.nutrition.vitamins.toInt()}mg',
+                  ),
             ],
           ),
           const SizedBox(height: 15),

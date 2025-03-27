@@ -20,7 +20,10 @@ class NutritionItem extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: AppColors.c001A3F, width: 4),
+        border: Border.all(
+          color: AppColors.c001A3F,
+          width: 4,
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

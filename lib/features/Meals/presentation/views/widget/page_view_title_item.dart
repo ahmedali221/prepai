@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prepai/features/Meals/presentation/views/widget/page_view_titles.dart';
 import '../../../../../Core/theme/app_styles.dart';
 import '../../../../../Core/theme/app_colors.dart';
 
-class PageViewTitleItem extends StatelessWidget {
+class PageViewTitleItem extends ConsumerWidget {
   const PageViewTitleItem({
     super.key,
     required this.title,
-    required this.isSelected,
-    this.onTap,
+    required this.index,
   });
 
   final String title;
-  final bool isSelected;
-  final void Function()? onTap;
+  final int index;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = ref.watch(pageIndexProvider);
+
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => ref.read(pageIndexProvider.notifier).state = index,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             title,
             style: AppStyles.textStyle20.copyWith(
-              color: isSelected ? AppColors.c001A3F : AppColors.c8A8A8A,
+              color: selectedIndex == index ? AppColors.c001A3F : AppColors.c8A8A8A,
             ),
           ),
           const SizedBox(height: 7),
-          isSelected
+          selectedIndex == index
               ? Container(
                   width: 30,
                   height: 5,
