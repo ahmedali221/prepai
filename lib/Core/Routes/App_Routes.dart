@@ -4,11 +4,9 @@ import 'package:prepai/features/Auth/presentation/pages/login_page.dart';
 import 'package:prepai/features/Auth/presentation/pages/sign_up_page.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/onboarding_page.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/splash_page.dart';
-import 'package:prepai/features/home/presentation/home_page.dart';
+import 'package:prepai/features/food_chat/presentation/pages/chat_page.dart';
 import 'package:prepai/features/meals/presentation/meal_page.dart';
-
 import '../../features/home/presentation/views/screen/controller_screen.dart';
-import '../../features/home/presentation/views/screen/home_screen.dart';
 
 class AppRouter {
   static const String kInitPage = '/';
@@ -17,6 +15,7 @@ class AppRouter {
   static const String kMealPage = '/recommendation';
   static const String kLogin = '/login';
   static const String kSignup = '/signup';
+  static const String chatAI = '/chat';
 }
 
 final GoRouter router = GoRouter(
@@ -49,6 +48,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: AppRouter.kSignup,
       pageBuilder: (context, state) => const MaterialPage(child: SignupPage()),
+    ),
+    GoRoute(
+      path: AppRouter.chatAI,
+      pageBuilder: (context, state) => const MaterialPage(child: ChatPage()),
     ),
   ],
 );
