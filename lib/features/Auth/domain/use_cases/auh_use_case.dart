@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:prepai/Core/errors/firebase_errors.dart';
 import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
 import 'package:prepai/features/Auth/data/models/user_model.dart';
 
@@ -7,7 +8,7 @@ class AuthUseCase {
 
   AuthUseCase(this.authRepository);
 
-  Future<Either<String, UserModel>> signUp({
+  Future<Either<FirebaseFailure, String>> signUp({
     required String name,
     required String email,
     required String password,
@@ -16,7 +17,7 @@ class AuthUseCase {
     return authRepository.signUp(name, email, password, phone);
   }
 
-  Future<Either<String, UserModel>> login({
+  Future<Either<FirebaseFailure, String>> login({
     required String email,
     required String password,
   }) {

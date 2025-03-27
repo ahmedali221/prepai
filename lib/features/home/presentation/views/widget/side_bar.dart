@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prepai/features/home/data/datasources/remote_data_sources/user_profile_remote_data_source.dart';
 import '../../../../../Core/utils/assets.dart';
 import '../../../../../Core/utils/constants.dart';
 import 'menu_item.dart';
@@ -48,9 +49,13 @@ class Sidebar extends StatelessWidget {
           SizedBox(height: 20.0),
           Divider(endIndent: 25, indent: 25),
           SizedBox(height: 20.0),
-          MenuItem(
-            imagePath: AppAssets.logoutIcon,
-            title: AppConsts.logout,
+          GestureDetector(
+            onTap: () {
+            },
+            child: MenuItem(
+              imagePath: AppAssets.logoutIcon,
+              title: AppConsts.logout,
+            ),
           ),
         ],
       ),
