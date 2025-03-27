@@ -5,11 +5,20 @@ class FilterMethodMeal extends StatefulWidget {
   const FilterMethodMeal({super.key});
 
   @override
-  State<FilterMethodMeal> createState() => _FilterMethodMealState();
+  State<FilterMethodMeal> createState() => FilterMethodMealState();
 }
 
-class _FilterMethodMealState extends State<FilterMethodMeal> {
-  String selectedMeal = '';
+class FilterMethodMealState extends State<FilterMethodMeal> {
+  String? selectedMeal;
+  String? getMealType() {
+    return selectedMeal;
+  }
+
+  void reset() {
+    setState(() {
+      selectedMeal = null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

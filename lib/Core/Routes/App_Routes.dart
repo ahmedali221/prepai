@@ -3,8 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:prepai/features/Auth/presentation/pages/login_page.dart';
 import 'package:prepai/features/Auth/presentation/pages/sign_up_page.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/onboarding_page.dart';
-import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/splash_page.dart';
-import 'package:prepai/features/home/presentation/home_page.dart';
+import 'package:prepai/features/home/presentation/views/screen/home_screen.dart';
 import 'package:prepai/features/meals/presentation/meal_page.dart';
 
 class AppRouter {
@@ -24,7 +23,8 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: AppRouter.kInitPage,
-      pageBuilder: (context, state) => const MaterialPage(child: SplashPage()),
+      pageBuilder: (context, state) =>
+          const MaterialPage(child: MyHomeScreen()),
     ),
     GoRoute(
       path: AppRouter.onboardingPage,
@@ -32,7 +32,8 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRouter.kHomePage,
-      pageBuilder: (context, state) => const MaterialPage(child: HomePage()),
+      pageBuilder: (context, state) =>
+          const MaterialPage(child: MyHomeScreen()),
     ),
     GoRoute(
       path: AppRouter.kMealPage,

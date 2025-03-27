@@ -1,6 +1,5 @@
 import 'package:prepai/features/Auth/domain/entities/user_entity.dart';
 
-
 class UserModel extends UserEntity {
   const UserModel({
     required super.uid,
@@ -18,6 +17,7 @@ class UserModel extends UserEntity {
     );
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'uid': uid,

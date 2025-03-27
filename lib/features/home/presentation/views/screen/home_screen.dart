@@ -34,12 +34,7 @@ class MyHomeScreen extends StatelessWidget {
               child: RowTopRecipes(),
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return const RecipesBuilder();
-                },
-              ),
+              child: RecipesBuilder(),
             ),
           ],
         ),

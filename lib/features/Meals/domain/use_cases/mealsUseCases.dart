@@ -8,9 +8,13 @@ class GetMealsUseCase {
 
   GetMealsUseCase(this.repository);
 
-  Future<Either<FirebaseFailure, List<MealEntity>>> call() async {
+  Future<Either<FirebaseFailure, List<MealEntity>>> call(
+      {int? mealPreparationTime, String? mealName, String? mealType}) async {
     print('[GetMealsUseCase] Executing...');
-    final result = await repository.getMeals();
+    final result = await repository.getMeals(
+        mealPreparationTime: mealPreparationTime,
+        mealName: mealName,
+        mealType: mealType);
 
     return result.fold(
       (failure) {
