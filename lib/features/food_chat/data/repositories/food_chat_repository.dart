@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 import 'package:prepai/features/food_chat/data/data_sources/food_chat_remote_data_source.dart';
 import 'package:prepai/features/food_chat/data/models/message_model.dart';
 import '../../domain/repositories/food_chat_repository.dart';
 
 class FoodChatRepositoryImpl implements FoodChatRepository {
   final FoodChatRemoteDataSource remoteDataSource;
-  final FirebaseFirestore firestore; // Firestore instance
+  final FirebaseFirestore firestore;
+  final _uuid = const Uuid(); // Unique ID generator
 
   FoodChatRepositoryImpl(this.remoteDataSource, this.firestore);
 
@@ -13,9 +15,11 @@ class FoodChatRepositoryImpl implements FoodChatRepository {
   Future<String> getFoodSuggestion(String prompt) async {
     // Save user message to Firestore
     final userMessage = ChatMessage(
+      id: _uuid.v4(), // Unique ID
       text: prompt,
       sender: 'user',
-      timestamp: DateTime.now(),
+      isUser: true,
+      createdAt: DateTime.now(),
     );
     await saveChatMessage(userMessage);
 
@@ -24,9 +28,11 @@ class FoodChatRepositoryImpl implements FoodChatRepository {
 
     // Save AI response to Firestore
     final aiMessage = ChatMessage(
+      id: _uuid.v4(), // Unique ID
       text: responseText,
       sender: 'ai',
-      timestamp: DateTime.now(),
+      isUser: false,
+      createdAt: DateTime.now(),
     );
     await saveChatMessage(aiMessage);
 
