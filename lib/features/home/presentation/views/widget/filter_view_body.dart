@@ -5,8 +5,10 @@ import 'package:prepai/Core/theme/App_Styles.dart';
 import 'package:prepai/Core/utils/constants.dart';
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_Provider.dart';
 import 'package:prepai/features/home/presentation/views/widget/filter_header.dart';
-import 'package:prepai/features/Home/presentation/views/widget/filter_method_meal.dart';
+import 'package:prepai/features/home/presentation/views/widget/filter_method_meal.dart';
 import 'package:prepai/features/home/presentation/views/widget/filter_method_time.dart';
+
+
 
 class FilterViewBody extends ConsumerStatefulWidget {
   const FilterViewBody({super.key});

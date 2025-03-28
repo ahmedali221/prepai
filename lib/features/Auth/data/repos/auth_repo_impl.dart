@@ -1,10 +1,8 @@
 import 'package:dartz/dartz.dart';
-
 import 'package:prepai/Core/errors/firebase_errors.dart';
-
 import 'package:prepai/Core/utils/validators.dart';
-import 'package:prepai/features/Auth/data/data%20source/auth_remote_data_source.dart';
 
+import 'package:prepai/features/Auth/data/data%20source/auth_remote_data_source.dart';
 import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
 
 class AuthRepositoryImpl implements AuthRepository {

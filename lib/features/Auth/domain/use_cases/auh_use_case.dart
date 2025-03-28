@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:prepai/Core/errors/firebase_errors.dart';
 import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
-import 'package:prepai/features/Auth/data/models/user_model.dart';
+
 
 class AuthUseCase {
   final AuthRepository authRepository;
