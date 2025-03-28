@@ -60,7 +60,7 @@ class MyHomeScreen extends ConsumerWidget {
                       onPressed: () {
                         ref.read(mealProvider.notifier).fetchData();
                         ref.read(isFilteredProvider.notifier).state =
-                            false; // إلغاء حالة الـ filter
+                            false; 
                       },
                       child: Text(
                         'Clear',

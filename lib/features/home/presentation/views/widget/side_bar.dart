@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prepai/features/home/data/datasources/remote_data_sources/user_profile_remote_data_source.dart';
+import 'package:go_router/go_router.dart';
+import 'package:prepai/Core/Routes/App_Routes.dart';
 import '../../../../../Core/utils/assets.dart';
 import '../../../../../Core/utils/constants.dart';
 import 'menu_item.dart';
@@ -34,17 +35,26 @@ class Sidebar extends StatelessWidget {
               ],
             ),
           ),
-          const MenuItem(
-            imagePath: AppAssets.homeIcon,
-            title: AppConsts.home,
+          GestureDetector(
+            onTap: () => context.go(AppRouter.kHomePage),
+            child: const MenuItem(
+              imagePath: AppAssets.homeIcon,
+              title: AppConsts.home,
+            ),
           ),
-          MenuItem(
-            imagePath: AppAssets.personIcon,
-            title: AppConsts.profileHintText,
+          GestureDetector(
+            onTap: () => context.go(AppRouter.kProfile),
+            child: MenuItem(
+              imagePath: AppAssets.personIcon,
+              title: AppConsts.profileHintText,
+            ),
           ),
-          MenuItem(
-            imagePath: AppAssets.favouriteIcon,
-            title: AppConsts.favorite,
+          GestureDetector(
+            onTap: () => context.go(AppRouter.kFavourites),
+            child: MenuItem(
+              imagePath: AppAssets.favouriteIcon,
+              title: AppConsts.favorite,
+            ),
           ),
           SizedBox(height: 20.0),
           Divider(endIndent: 25, indent: 25),
