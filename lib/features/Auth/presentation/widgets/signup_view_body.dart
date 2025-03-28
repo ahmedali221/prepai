@@ -41,7 +41,7 @@ class _SignUpViewBodyState extends ConsumerState<SignUpViewBody> {
     );
 
     result.fold(
-      (errorMessage) => _showErrorDialog(errorMessage),
+      (errorMessage) => _showErrorDialog(errorMessage.errorMessage),
       (_) => GoRouter.of(context).pushReplacement(AppRouter.kHomePage),
     );
   }

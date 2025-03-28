@@ -1,15 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prepai/Core/errors/firebase_errors.dart';
 import 'package:prepai/features/Auth/domain/use_cases/auh_use_case.dart';
 import 'package:prepai/features/Auth/presentation/providers/auth_state.dart';
-import 'package:prepai/features/Auth/data/models/user_model.dart';
+
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthUseCase authUseCase;
 
   AuthNotifier(this.authUseCase) : super(AuthState.initial());
 
-  Future<Either<String, UserModel>> signUp({
+  Future<Either<FirebaseFailure, String>> signUp({
     required String name,
     required String email,
     required String password,
@@ -25,14 +26,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
 
     result.fold(
-      (error) => state = AuthState.error(error),
-      (user) => state = AuthState.authenticated(user),
+      (error) => state = AuthState.error(error.errorMessage),
+      (message) => state = AuthState.error(message),
     );
 
     return result;
   }
 
-  Future<Either<String, UserModel>> login({
+  Future<Either<FirebaseFailure, String>> login({
     required String email,
     required String password,
   }) async {
@@ -41,8 +42,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
     final result = await authUseCase.login(email: email, password: password);
 
     result.fold(
-      (error) => state = AuthState.error(error),
-      (user) => state = AuthState.authenticated(user),
+      (error) => state = AuthState.error(error.errorMessage),
+      (message) => state = AuthState.error(message),
     );
 
     return result;

@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prepai/features/Home/presentation/views/screen/filter_screen.dart';
+import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_Provider.dart';
 import '../../../../../Core/theme/App_Colors.dart';
 import '../../../../../Core/theme/App_Styles.dart';
 import '../../../../../Core/utils/assets.dart';
 import '../../../../../Core/utils/constants.dart';
 
-class SearchAndFilter extends StatelessWidget {
+class SearchAndFilter extends ConsumerStatefulWidget {
   const SearchAndFilter({super.key});
 
+  @override
+  ConsumerState<SearchAndFilter> createState() => _SearchAndFilterState();
+}
+
+class _SearchAndFilterState extends ConsumerState<SearchAndFilter> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -29,6 +36,9 @@ class SearchAndFilter extends StatelessWidget {
               color: Colors.white,
             ),
             child: TextFormField(
+              onChanged: (value) {
+                ref.read(mealProvider.notifier).fetchData(mealName: value);
+              },
               decoration: InputDecoration(
                 border: InputBorder.none,
                 prefixIcon: const Icon(Icons.search),

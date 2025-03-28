@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/widgets/image_section.dart';
 
 class OnBoardingPage extends StatelessWidget {
-  OnBoardingPage({super.key}); 
+  OnBoardingPage({super.key});
 
   final GlobalKey<IntroductionScreenState> _introKey =
       GlobalKey<IntroductionScreenState>();
@@ -16,25 +16,27 @@ class OnBoardingPage extends StatelessWidget {
     return Scaffold(
       body: IntroductionScreen(
         key: _introKey,
-        onDone: () => context.go('/login'), 
+        onDone: () => context.go('/login'),
         pages: [
           PageViewModel(
             title: 'Like in a Restaurant but at Home',
             body:
                 "Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            image: buildImageSection(context, 'images/Mask1.png'),
+            image: buildImageSection(context, 'assets/images/Mask1.png'),
             decoration: _pageDecoration(primaryColor),
           ),
           PageViewModel(
             title: 'Delicious Meals Delivered',
-            body: "Enjoy a variety of meals prepared by top chefs and delivered to your doorstep.",
-            image: buildImageSection(context, 'images/Mask3.png'),
+            body:
+                "Enjoy a variety of meals prepared by top chefs and delivered to your doorstep.",
+            image: buildImageSection(context, 'assets/images/Mask3.png'),
             decoration: _pageDecoration(primaryColor),
           ),
           PageViewModel(
             title: 'Easily Order Online',
-            body: "Browse through our menu, customize your orders, and pay with ease.",
-            image: buildImageSection(context, 'images/Mask2.png'),
+            body:
+                "Browse through our menu, customize your orders, and pay with ease.",
+            image: buildImageSection(context, 'assets/images/Mask2.png'),
             decoration: _pageDecoration(primaryColor),
           ),
         ],

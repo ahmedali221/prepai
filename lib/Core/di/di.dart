@@ -1,11 +1,17 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:prepai/core/services/firebase_service.dart';
+import 'package:prepai/features/Meals/data/data_source/meal_remote_dataSource.dart';
+import 'package:prepai/features/Meals/data/repository/meal_repoImp.dart';
+import 'package:prepai/features/Meals/domain/repos/mealRepo.dart';
+import 'package:prepai/features/Meals/domain/use_cases/mealsUseCases.dart';
 import 'package:prepai/features/Auth/data/data%20source/auth_remote_data_source.dart';
 import 'package:prepai/features/Auth/data/repos/auth_repo_impl.dart';
 import 'package:prepai/features/Auth/domain/repos/auth_repo.dart';
-import 'package:prepai/features/auth/domain/use_cases/auh_use_case.dart';
+import 'package:prepai/features/Auth/domain/use_cases/auh_use_case.dart';
+
+import 'package:prepai/features/home/data/datasources/remote_data_sources/user_profile_remote_data_source.dart';
 import 'package:prepai/features/home/data/repository/user_data_repo.dart';
 import 'package:prepai/features/home/domain/repository/base_user_data_repo.dart';
 import 'package:prepai/features/home/domain/use_cases/change_password_use_case.dart';
@@ -17,16 +23,19 @@ final getIt = GetIt.instance;
 
 void setupLocator() {
   // Core Services
-  getIt.registerLazySingleton<FirebaseService>(
-    () => FirebaseService(
+  getIt.registerLazySingleton<UserProfileRemoteDataSourceImp>(
+    () => UserProfileRemoteDataSourceImp(
       firebaseAuth: FirebaseAuth.instance,
       firestore: FirebaseFirestore.instance,
     ),
   );
 
-  // Data Sources
+  // Auth Remote Data Sources imp
   getIt.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(getIt<FirebaseService>()),
+    () => AuthRemoteDataSourceImpl(
+      firebaseAuth: FirebaseAuth.instance,
+      firestore: FirebaseFirestore.instance,
+    ),
   );
 
   // Repository
@@ -41,7 +50,9 @@ void setupLocator() {
 
   // User data repo
   getIt.registerLazySingleton<BaseUserDataRepo>(
-    () => UserDataRepo(firebaseService: getIt<FirebaseService>()),
+    () => UserDataRepo(
+        userProfileRemoteDataSourceImp:
+            getIt<UserProfileRemoteDataSourceImp>()),
   );
 
   // User data use case
@@ -59,5 +70,20 @@ void setupLocator() {
 
   getIt.registerLazySingleton<ChangePasswordUseCase>(
     () => ChangePasswordUseCase(baseUserDataRepo: getIt<BaseUserDataRepo>()),
+  );
+  /////////////////////////////////////////GET MEALS////////////////////////////////////
+  getIt.registerLazySingleton<MealRepository>(
+    () => MealRepositoryImpl(getIt<MealRemoteDataSource>()),
+  );
+
+  getIt.registerLazySingleton<MealRemoteDataSource>(
+    () => MealRemoteDataSource(
+      FlutterSecureStorage(),
+      FirebaseFirestore.instance,
+    ),
+  );
+
+  getIt.registerLazySingleton<GetMealsUseCase>(
+    () => GetMealsUseCase(getIt()),
   );
 }

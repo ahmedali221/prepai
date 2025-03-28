@@ -5,46 +5,58 @@ class FilterMethodTime extends StatefulWidget {
   const FilterMethodTime({super.key});
 
   @override
-  State<FilterMethodTime> createState() => _FilterMethodTimeState();
+  State<FilterMethodTime> createState() => FilterMethodTimeState();
 }
 
-class _FilterMethodTimeState extends State<FilterMethodTime> {
-  String selectedMeal = '';
+class FilterMethodTimeState extends State<FilterMethodTime> {
+  int? selectedTime;
+
+  int? getTime() {
+    return selectedTime;
+  }
+
+  void reset() {
+    setState(() {
+      selectedTime = null;
+    });
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return Column(
       children: [
         Wrap(
           spacing: 14,
           children: [
-            "5min",
-            "10min",
-            "15min",
+            5,
+            10,
+            14,
           ]
               .map(
                 (time) => ChoiceChip(
                   label: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 7),
-                    child: Text(time),
+                    child: Text('$time'),
                   ),
-                  selected: selectedMeal == time,
+                  selected: selectedTime == time,
                   onSelected: (isSelected) {
                     setState(() {
-                      selectedMeal = isSelected ? time : "";
+                      selectedTime = isSelected ? time : 0;
                     });
                   },
                   selectedColor: Color(0xff001A3F),
                   showCheckmark: false,
                   labelStyle: TextStyle(
                       fontSize: 18,
-                      color: selectedMeal == time
+                      color: selectedTime == time
                           ? AppColors.unSelectedButtonBackgroundColor
                           : AppColors.c999999),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(35),
                     side: BorderSide(
-                      color: selectedMeal == time
+                      color: selectedTime == time
                           ? Colors.transparent
                           : AppColors.c999999,
                     ),

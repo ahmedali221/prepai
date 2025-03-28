@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'failures.dart';
 
-
 class FirebaseFailure extends Failure {
   FirebaseFailure(super.errorMessage);
 
@@ -44,5 +43,10 @@ class FirebaseFailure extends Failure {
 
     return FirebaseFailure(
         errorMessages[e.code] ?? 'A Firestore error occurred: ${e.code}');
+  }
+
+  /// Factory constructor for validation errors
+  factory FirebaseFailure.fromValidationError(String message) {
+    return FirebaseFailure(message);
   }
 }

@@ -13,7 +13,7 @@ Widget buildImageSection(BuildContext context, String imagePath) {
         clipper: WaveClipper(),
         child: Container(
           height: screenHeight * 0.5,
-          color: AppColors.secondaryColor, 
+          color: AppColors.secondaryColor,
         ),
       ),
       Padding(
@@ -21,16 +21,16 @@ Widget buildImageSection(BuildContext context, String imagePath) {
         child: Column(
           children: [
             Image.asset(
-              'images/Logo.png',
+              'assets/images/Logo.png',
               height: screenHeight * 0.08,
-              color: AppColors.secondaryColor, 
+              color: AppColors.secondaryColor,
             ),
             const Spacer(),
             CircleAvatar(
               radius: screenWidth * 0.18,
-              backgroundColor: AppColors.secondaryColor, 
+              backgroundColor: AppColors.secondaryColor,
               child: CircleAvatar(
-                radius: screenWidth * 0.175, 
+                radius: screenWidth * 0.175,
                 backgroundImage: AssetImage(imagePath),
               ),
             ),

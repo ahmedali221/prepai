@@ -1,0 +1,2 @@
+C:/Users/HP/prepai/android/app/.cxx/Debug/n1i3v3v2/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/HP/prepai/android/app/.cxx/Debug/n1i3v3v2/x86_64/CMakeFiles/rebuild_cache.dir

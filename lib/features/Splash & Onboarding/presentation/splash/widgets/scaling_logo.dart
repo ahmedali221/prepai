@@ -22,7 +22,6 @@ class ScalingLogo extends StatelessWidget {
           height: 120,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.white, // White circle background
             boxShadow: [
               BoxShadow(
                 color: Colors.black26,

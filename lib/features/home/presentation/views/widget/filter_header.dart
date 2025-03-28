@@ -5,7 +5,9 @@ import 'package:prepai/Core/utils/constants.dart';
 class FilterHeader extends StatelessWidget {
   const FilterHeader({
     super.key,
+    required this.onTap,
   });
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class FilterHeader extends StatelessWidget {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: onTap,
           child: Text(
             AppConsts.reset,
             style: AppStyles.textStyle18,
