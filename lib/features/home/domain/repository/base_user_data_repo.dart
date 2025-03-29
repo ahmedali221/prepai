@@ -6,5 +6,7 @@ abstract class BaseUserDataRepo {
   Future<Either<FirebaseFailure, UserModel>> getUserData();
   Future<Either<FirebaseFailure, String?>> getUserPassword();
   Future<void> postUserData({required Map<String, dynamic> data});
-  Future<Either<FirebaseFailure, String>> changeUserPassword({required String password});
+  Future<Either<FirebaseFailure, String>> changeUserPassword(
+      {required String password});
+  Future<void> logout();
 }

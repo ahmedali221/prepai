@@ -30,6 +30,12 @@ class UserDataRepo implements BaseUserDataRepo {
   @override
   Future<Either<FirebaseFailure, String>> changeUserPassword(
       {required String password}) async {
-    return await userProfileRemoteDataSourceImp.updatePassword(newPassword: password);
+    return await userProfileRemoteDataSourceImp.updatePassword(
+        newPassword: password);
+  }
+
+  @override
+  Future<void> logout() async{
+    await userProfileRemoteDataSourceImp.logout();
   }
 }
