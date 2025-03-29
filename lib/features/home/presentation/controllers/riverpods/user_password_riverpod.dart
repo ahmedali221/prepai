@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:prepai/Core/di/di.dart';
+import 'package:prepai/Core/di/dep_inj.dart';
 import 'package:prepai/features/home/domain/use_cases/change_password_use_case.dart';
 import 'package:prepai/features/home/domain/use_cases/fetch_password_use_case.dart';
 

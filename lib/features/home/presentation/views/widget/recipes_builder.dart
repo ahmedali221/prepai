@@ -57,7 +57,7 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              context.go(AppRouter.kMealDetails);
+                              context.go("${AppRouter.kMealDetails}/kofta");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -137,7 +137,7 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
                                       ),
                                       IconButton(
                                         icon: Icon(
-                                         true
+                                          true
                                               ? Icons.favorite
                                               : Icons.favorite_border,
                                           color: true

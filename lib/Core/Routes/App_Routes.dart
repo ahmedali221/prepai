@@ -7,7 +7,8 @@ import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/
 import 'package:prepai/features/home/presentation/views/screen/favorites_screen.dart';
 import 'package:prepai/features/home/presentation/views/screen/home_screen.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/splash_page.dart';
-import 'package:prepai/features/home/presentation/views/screen/controller_screen.dart';
+import 'package:prepai/features/food_chat/presentation/pages/chat_page.dart';
+import '../../features/home/presentation/views/screen/controller_screen.dart';
 import 'package:prepai/features/home/presentation/views/screen/profile_screen.dart';
 
 class AppRouter {
@@ -20,6 +21,7 @@ class AppRouter {
   static const String kFavourites = '/favourites';
   static const String kProfile = '/profile';
   static const String kMealDetails = '/mealdetails';
+  static const String chatAI = '/chat';
 }
 
 final GoRouter router = GoRouter(
@@ -46,12 +48,6 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) =>
           const MaterialPage(child: MyHomeScreen()),
     ),
-    // GoRoute(
-    //   path: AppRouter.kMealPage,
-    //   pageBuilder: (context, state) => MaterialPage(
-    //     child: MealDetailsView(mealModel: null),
-    //   ),
-    // ),
     GoRoute(
       path: AppRouter.kLogin,
       pageBuilder: (context, state) => const MaterialPage(child: LoginPage()),
@@ -71,9 +67,15 @@ final GoRouter router = GoRouter(
           const MaterialPage(child: ProfileScreen()),
     ),
     GoRoute(
-      path: AppRouter.kMealDetails,
-      pageBuilder: (context, state) =>
-          const MaterialPage(child: MealDetailsView(mealId: "")),
+      path: '${AppRouter.kMealDetails}/:mealId',
+      pageBuilder: (context, state) {
+        final mealId = state.pathParameters['mealId'];
+        return MaterialPage(child: MealDetailsView(mealId: mealId??""));
+      },
+    ),
+    GoRoute(
+      path: AppRouter.chatAI,
+      pageBuilder: (context, state) => const MaterialPage(child: ChatPage()),
     ),
   ],
 );
