@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prepai/features/Home/presentation/views/screen/filter_screen.dart';
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_Provider.dart';
-import '../../../../../Core/theme/App_Colors.dart';
-import '../../../../../Core/theme/App_Styles.dart';
+import '../../../../../Core/theme/app_colors.dart';
+import '../../../../../Core/theme/app_styles.dart';
 import '../../../../../Core/utils/assets.dart';
 import '../../../../../Core/utils/constants.dart';
 

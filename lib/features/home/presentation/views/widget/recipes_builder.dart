@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_Provider.dart';
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_State.dart';
-import '../../../../../Core/theme/App_Colors.dart';
-import '../../../../../Core/theme/App_Styles.dart';
+import '../../../../../Core/theme/app_colors.dart';
+import '../../../../../Core/theme/app_styles.dart';
 
 class RecipesBuilder extends ConsumerStatefulWidget {
   const RecipesBuilder({super.key});

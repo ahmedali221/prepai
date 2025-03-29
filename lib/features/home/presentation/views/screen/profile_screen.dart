@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prepai/features/home/presentation/controllers/riverpods/user_password_riverpod.dart';
 import 'package:prepai/features/home/presentation/controllers/riverpods/user_profile_riverpod.dart';
-import '../../../../../Core/theme/App_Colors.dart';
+import '../../../../../Core/theme/app_colors.dart';
 import '../../../../../Core/utils/constants.dart';
 import '../widget/custom_button.dart';
 import '../widget/profile_view_header.dart';

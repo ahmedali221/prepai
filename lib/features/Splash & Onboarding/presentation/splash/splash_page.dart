@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:prepai/Core/helper/check_first_seen.dart';
-import 'package:prepai/Core/theme/App_Colors.dart';
+
+import 'package:prepai/Core/theme/app_colors.dart';
 
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/widgets/splash_page_body.dart';
-
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

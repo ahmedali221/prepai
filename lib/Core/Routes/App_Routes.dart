@@ -8,6 +8,7 @@ import 'package:prepai/features/home/presentation/views/screen/home_screen.dart'
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/splash_page.dart';
 import 'package:prepai/features/home/presentation/views/screen/controller_screen.dart';
 import 'package:prepai/features/home/presentation/views/screen/profile_screen.dart';
+import '../../features/Meals/presentation/views/screen/meal_details_view.dart';
 
 class AppRouter {
   static const String kInitPage = '/';
@@ -44,6 +45,12 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) =>
           const MaterialPage(child: MyHomeScreen()),
     ),
+    // GoRoute(
+    //   path: AppRouter.kMealPage,
+    //   pageBuilder: (context, state) => MaterialPage(
+    //     child: MealDetailsView(mealModel: null),
+    //   ),
+    // ),
     GoRoute(
       path: AppRouter.kLogin,
       pageBuilder: (context, state) => const MaterialPage(child: LoginPage()),
