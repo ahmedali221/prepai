@@ -5,7 +5,7 @@ class GetFoodSuggestion {
 
   GetFoodSuggestion(this.repository);
 
-  Future<String> call(String prompt) async {
-    return await repository.getFoodSuggestion(prompt);
+  Future<String> call(String prompt, String mealType) async {
+    return await repository.getFoodSuggestion(prompt, mealType);
   }
 }

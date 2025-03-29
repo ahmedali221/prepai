@@ -36,26 +36,28 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
     }
   }
 
-  Future<void> sendMessage(String text) async {
+  Future<void> sendMessage(String text, String mealType) async {
     final userMessage = ChatMessage(
       id: _uuid.v4(),
       text: text,
       isUser: true,
       createdAt: DateTime.now(),
       sender: 'user',
+      mealType: mealType, // Include meal type
     );
 
     await _saveMessageToFirestore(userMessage);
     state = [...state, userMessage];
 
-    final botResponse = await _getFoodSuggestion.call(text);
+    final botResponse = await _getFoodSuggestion.call(text, mealType); // Pass mealType
 
     final botMessage = ChatMessage(
       id: _uuid.v4(),
       text: botResponse,
       isUser: false,
       createdAt: DateTime.now(),
-      sender: 'user',
+      sender: 'ai',
+      mealType: mealType, // Include meal type
     );
 
     await _saveMessageToFirestore(botMessage);
