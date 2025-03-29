@@ -24,7 +24,7 @@ class MealNotifier extends StateNotifier<MealState> {
       },
       (meals) {
         print("[MealNotifier] Meals fetched successfully: ${meals.length}");
-        state = MealState.authenticated(Right(meals));
+        state = MealState.loaded(Right(meals));
       },
     );
   }

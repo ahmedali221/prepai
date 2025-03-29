@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prepai/Core/Routes/App_Routes.dart';
+import 'package:prepai/features/food_chat/presentation/pages/chat_page.dart';
 
 
 class MyApp extends StatelessWidget {
@@ -9,7 +10,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerConfig: router,
+     routerConfig: router,
+
     );
   }
 }

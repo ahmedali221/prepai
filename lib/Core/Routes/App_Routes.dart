@@ -67,10 +67,9 @@ final GoRouter router = GoRouter(
           const MaterialPage(child: ProfileScreen()),
     ),
     GoRoute(
-      path: '${AppRouter.kMealDetails}/:mealId',
+      path:AppRouter.kMealDetails,
       pageBuilder: (context, state) {
-        final mealId = state.pathParameters['mealId'];
-        return MaterialPage(child: MealDetailsView(mealId: mealId??""));
+        return MaterialPage(child: MealDetailsView(mealId: "kofta"));
       },
     ),
     GoRoute(

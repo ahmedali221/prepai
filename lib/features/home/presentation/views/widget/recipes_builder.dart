@@ -30,7 +30,7 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
 
     return mealState.status == MealStatus.loading
         ? Center(child: CircularProgressIndicator())
-        : mealState.meal == null
+        : mealState.meals == null
             ? Center(
                 child: Text(
                   'No meals available',
@@ -38,7 +38,7 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
                       AppStyles.textStyle14.copyWith(color: AppColors.c8A8A8A),
                 ),
               )
-            : mealState.meal!.fold(
+            : mealState.meals!.fold(
                 (errorMessage) => Text(
                       errorMessage,
                       style: AppStyles.textStyle14
@@ -57,7 +57,7 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              context.go("${AppRouter.kMealDetails}/kofta");
+                              context.go(AppRouter.kMealDetails);
                             },
                             child: Container(
                               decoration: BoxDecoration(

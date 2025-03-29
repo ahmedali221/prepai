@@ -19,7 +19,7 @@ class AddYourIngredients extends StatelessWidget {
             backgroundColor: AppColors.c001A3F,
           ),
           onPressed: () {
-            context.go(AppRouter.chatAI);
+            context.push(AppRouter.chatAI);
           },
           child: Text(
             "Add Your Ingredients",
