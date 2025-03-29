@@ -6,7 +6,6 @@ import 'package:prepai/Core/errors/firebase_errors.dart';
 import 'package:prepai/Core/utils/firebase_constants.dart';
 import 'package:prepai/features/home/data/models/mealsModel.dart';
 
-
 class MealRemoteDataSource {
   final FlutterSecureStorage storage;
   final FirebaseFirestore firestore;
@@ -24,8 +23,39 @@ class MealRemoteDataSource {
           .collection(FirebaseConstants.usersCollectionName)
           .doc(userId)
           .collection(FirebaseConstants.usersMealsCollectionName);
+      CollectionReference<Map<String, dynamic>> mealsCollection = firestore
+          .collection(FirebaseConstants.usersCollectionName)
+          .doc(userId)
+          .collection(FirebaseConstants.usersMealsCollectionName);
+      List<Map<String, dynamic>> fixedMeals = [
+        {
+          "meal_name": "Kofta",
+          "meal_nutrations": {
+            "carp": 100,
+            "fat": 50,
+            "kcal": 400,
+            "protein": 300,
+            "vitamens": 70,
+          },
+          "meal_preparartion_time": 14,
+          "meal_steps": {
+            "step_1": "buy bread",
+          },
+          "meal_text_summary":
+              "A flavorful Middle Eastern dish made from minced meat (usually beef or lamb) mixed with herbs, spices, and onions. It's often grilled or baked and served with rice, salad, or tahini sauce.",
+          "meals_ingrediants": {
+            "bread": 1,
+            "meat": 2,
+          },
+        }
+      ];
 
-      // Apply filters dynamically
+      DocumentReference<Map<String, dynamic>> docRef =
+          mealsCollection.doc(fixedMeals[0]['meal_name']);
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await docRef.get();
+      if (!snapshot.exists) {
+        await docRef.set(fixedMeals[0]);
+      }
       if (mealName != null) {
         query = query
             .where('meal_name', isGreaterThanOrEqualTo: mealName)

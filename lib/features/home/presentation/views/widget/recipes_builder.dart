@@ -25,8 +25,6 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
     final selectedTimeProvider = StateProvider<int?>((ref) => null);
     final selectedTime = ref.watch(selectedTimeProvider);
 
-    print("Meal State: ${mealState.status}");
-
     return mealState.status == MealStatus.loading
         ? Center(child: CircularProgressIndicator())
         : mealState.meal == null
@@ -50,6 +48,8 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
                             .copyWith(color: AppColors.c8A8A8A),
                       )
                     : ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                         itemCount: meals.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(

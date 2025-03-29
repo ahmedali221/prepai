@@ -13,19 +13,11 @@ class FavoriteScreen extends StatelessWidget {
       drawer: const Sidebar(),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(height: 10),
             const SideBarAndNotifications(),
             SizedBox(height: screenHeight * 0.015),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 2,
-                itemBuilder: (context, index) {
-                  return const RecipesBuilder();
-                },
-              ),
-            ),
+            RecipesBuilder()
           ],
         ),
       ),
