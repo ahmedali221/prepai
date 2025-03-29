@@ -4,7 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:prepai/Core/errors/firebase_errors.dart';
 import 'package:prepai/Core/utils/firebase_constants.dart';
-import 'package:prepai/features/Meals/domain/entities/mealEntity.dart';
 import '../models/mealsModel.dart';
 
 class MealRemoteDataSource {
