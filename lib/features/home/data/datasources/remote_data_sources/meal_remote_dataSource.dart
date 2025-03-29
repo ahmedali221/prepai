@@ -47,8 +47,8 @@ class MealRemoteDataSource {
             "bread": 1,
             "meat": 2,
           },
-          "is_favourite":false,
-          "meal_type":"lunch",
+          "is_favourite": false,
+          "meal_type": "lunch",
         }
       ];
 
@@ -80,7 +80,7 @@ class MealRemoteDataSource {
       List<MealModel> mealsList = mealsSnapshot.docs
           .map((doc) => MealModel.fromJson(doc.data()))
           .toList();
-
+      print("momo $mealsList");
       return Right(mealsList);
     } on FirebaseException catch (e) {
       return Left(FirebaseFailure.fromFirestoreError(e));

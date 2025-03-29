@@ -4,7 +4,7 @@ class MealModel {
   final String mealName;
   final int mealPreparationTime;
   final String mealTextSummary;
-  bool isFavourite;
+  final bool isFavourite;
   final MealNutritionModel mealNutritions;
   final Map<String, int> mealIngredients;
   final Map<String, String> mealSteps;
@@ -22,7 +22,7 @@ class MealModel {
   // JSON Serialization
   factory MealModel.fromJson(Map<String, dynamic> json) {
     return MealModel(
-      isFavourite:json['is_favourite'] ?? '', 
+      isFavourite:json['is_favourite'], 
       mealName: json['meal_name'] ?? '',
       mealPreparationTime: json['meal_preparation_time'] ?? 0,
       mealTextSummary: json['meal_text_summary'] ?? '',
@@ -35,6 +35,7 @@ class MealModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'is_favourite':isFavourite,
       'meal_name': mealName,
       'meal_preparation_time': mealPreparationTime,
       'meal_text_summary': mealTextSummary,
