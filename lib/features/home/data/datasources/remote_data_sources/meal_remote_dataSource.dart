@@ -23,7 +23,7 @@ class MealRemoteDataSource {
       Query<Map<String, dynamic>> query = firestore
           .collection(FirebaseConstants.usersCollectionName)
           .doc(userId)
-          .collection(isFavorite!
+          .collection(isFavorite == true || isFavorite != null
               ? FirebaseConstants.usersFavoriteMealsCollectionName
               : FirebaseConstants.usersMealsCollectionName);
       CollectionReference<Map<String, dynamic>> mealsCollection = firestore
