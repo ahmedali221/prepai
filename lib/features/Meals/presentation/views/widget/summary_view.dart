@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prepai/features/Meals/presentation/riverpod/meal_provider.dart';
 import '../../../../../Core/theme/app_styles.dart';
 import '../../../../../Core/theme/app_colors.dart';
-import '../../../domain/entities/meal_entity.dart';
+
 import 'nutrition_item.dart';
 
 class SummaryView extends ConsumerWidget {

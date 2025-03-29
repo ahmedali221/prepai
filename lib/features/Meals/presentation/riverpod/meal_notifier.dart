@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prepai/features/Meals/domain/entities/meal_entity.dart';
 import 'package:prepai/features/Meals/domain/usecases/meal_usecase.dart';
-import 'package:prepai/features/Meals/presentation/riverpod/get_meals_provider.dart';
+
 
 class MealNotifier extends StateNotifier<AsyncValue<List<Meal>>> {
   final GetMeals _getMeals;

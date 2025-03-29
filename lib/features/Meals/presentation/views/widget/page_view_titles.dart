@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prepai/features/Meals/presentation/views/widget/page_view_title_item.dart';
 import 'package:prepai/features/Meals/presentation/views/widget/summary_view.dart';
-import '../../../domain/entities/meal_entity.dart';
+
 import 'direction_view.dart';
 import 'ingredients_view.dart';
 

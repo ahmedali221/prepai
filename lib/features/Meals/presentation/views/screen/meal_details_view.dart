@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:prepai/features/Meals/domain/entities/meal_entity.dart';
-import 'package:prepai/features/Meals/presentation/riverpod/meal_notifier.dart';
 import 'package:prepai/features/Meals/presentation/riverpod/meal_provider.dart';
 import '../../../../../Core/theme/app_styles.dart';
 import '../../../../../Core/theme/app_colors.dart';

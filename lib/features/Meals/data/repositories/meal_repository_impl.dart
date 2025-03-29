@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:prepai/Core/utils/firebase_constants.dart';
 import 'package:prepai/features/Meals/data/datasources/meal_remote_data_source.dart';
 import 'package:prepai/features/Meals/data/models/meal_model.dart';
 import 'package:prepai/features/Meals/domain/entities/meal_entity.dart';
