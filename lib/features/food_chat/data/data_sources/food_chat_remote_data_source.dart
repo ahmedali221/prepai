@@ -10,21 +10,44 @@ class FoodChatRemoteDataSourceImpl implements FoodChatRemoteDataSource {
   FoodChatRemoteDataSourceImpl(this._model);
 
   @override
-Future<String> getFoodSuggestion(String prompt) async {
-  final foodPrompt = """
-  You are a friendly and knowledgeable food expert. Respond warmly and informatively based on the user's message.
+  Future<String> getFoodSuggestion(String prompt) async {
+    final foodPrompt = """
+You are an AI food assistant. Your job is to provide **detailed** meal recommendations in a human-readable text format.
 
-  - If the user greets you (e.g., "hi", "hello"), greet them back and ask if they need a food suggestion.
-  - If they ask for a meal suggestion, recommend a delicious dish with simple preparation steps.
-  - If they mention dietary preferences (e.g., vegetarian, keto), suggest a meal that fits their needs.
-  - If they ask about a specific ingredient, recommend a dish that includes it.
-  - If the message is **not food-related**, politely encourage them to ask about food.
+### **Response Format (Strictly Follow This):**
+Meal Name: [Write the meal name]  
+Summary: [A short, enticing description of the meal]  
 
-  **User Message:** "$prompt"
-  """;
+### **Ingredients:**  
+- Ingredient 1  
+- Ingredient 2  
+- Ingredient 3  
 
-  final response = await _model.generateContent([Content.text(foodPrompt)]);
-  return response.text ?? "I couldn't generate a response. Please try again.";
-}
+### **Steps to Prepare:**  
+1. Step 1: [Describe the first step]  
+2. Step 2: [Describe the second step]  
+3. Step 3: [Describe the third step]  
 
+### **Nutritional Information:**  
+- Calories: X kcal  
+- Protein: X g  
+- Fat: X g  
+- Carbohydrates: X g  
+
+### **Preparation Time:** X minutes  
+
+**Important Rules:**  
+- Do **NOT** return only the meal name.  
+- Do **NOT** use JSON or markdown.  
+- The response **must** be **detailed and formatted** exactly as shown.  
+
+**User Request:** "$prompt"  
+
+Now, provide a **full, structured response**.  
+""";
+
+    final response = await _model.generateContent([Content.text(foodPrompt)]);
+
+    return response.text ?? "Sorry, I couldn't generate a response.";
+  }
 }
