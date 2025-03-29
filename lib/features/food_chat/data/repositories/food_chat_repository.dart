@@ -12,7 +12,7 @@ class FoodChatRepositoryImpl implements FoodChatRepository {
   FoodChatRepositoryImpl(this.remoteDataSource, this.firestore);
 
   @override
-  Future<String> getFoodSuggestion(String prompt) async {
+  Future<String> getFoodSuggestion(String prompt, String mealType) async {
     // Save user message to Firestore
     final userMessage = ChatMessage(
       id: _uuid.v4(), // Unique ID
@@ -20,6 +20,7 @@ class FoodChatRepositoryImpl implements FoodChatRepository {
       sender: 'user',
       isUser: true,
       createdAt: DateTime.now(),
+      mealType: mealType, // Include meal type
     );
     await saveChatMessage(userMessage);
 
@@ -33,6 +34,7 @@ class FoodChatRepositoryImpl implements FoodChatRepository {
       sender: 'ai',
       isUser: false,
       createdAt: DateTime.now(),
+      mealType: mealType, // Include meal type
     );
     await saveChatMessage(aiMessage);
 
