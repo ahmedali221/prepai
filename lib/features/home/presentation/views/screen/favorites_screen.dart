@@ -17,7 +17,7 @@ class FavoriteScreen extends StatelessWidget {
             const SizedBox(height: 10),
             const SideBarAndNotifications(),
             SizedBox(height: screenHeight * 0.015),
-            RecipesBuilder()
+            RecipesBuilder(true),
           ],
         ),
       ),

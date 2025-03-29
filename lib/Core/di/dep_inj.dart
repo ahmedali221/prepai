@@ -20,6 +20,7 @@ import 'package:prepai/features/home/data/repository/meal_repoImp.dart';
 import 'package:prepai/features/home/data/repository/user_data_repo.dart';
 import 'package:prepai/features/home/domain/repository/base_user_data_repo.dart';
 import 'package:prepai/features/home/domain/repository/mealRepo.dart';
+import 'package:prepai/features/home/domain/use_cases/add_favorite_meal_use_case.dart';
 import 'package:prepai/features/home/domain/use_cases/change_password_use_case.dart';
 import 'package:prepai/features/home/domain/use_cases/fetch_password_use_case.dart';
 import 'package:prepai/features/home/domain/use_cases/fetch_user_data_use_case.dart';
@@ -109,6 +110,11 @@ void setupLocator() {
       ),
     ),
   );
+  //////////////////////////add favorite meal////////////////////////////////////
+  getIt.registerLazySingleton<AddFavoriteMealsUseCase>(
+    () => AddFavoriteMealsUseCase(getIt()),
+  );
+  /////////////////////////////////////////////////////
 
   // 🔹 Register Food Chat Dependencies
   getIt.registerLazySingleton<FoodChatRemoteDataSource>(

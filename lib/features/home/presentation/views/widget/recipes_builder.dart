@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:prepai/Core/Routes/App_Routes.dart';
+import 'package:prepai/Core/utils/firebase_constants.dart';
+import 'package:prepai/features/home/presentation/controllers/add_favorite_meal_riverpod/add_favorite_meal_provider.dart';
 
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_Provider.dart';
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_State.dart';
@@ -9,8 +13,8 @@ import '../../../../../Core/theme/app_colors.dart';
 import '../../../../../Core/theme/app_styles.dart';
 
 class RecipesBuilder extends ConsumerStatefulWidget {
-  const RecipesBuilder({super.key});
-
+  const RecipesBuilder(this.isFavorite, {super.key});
+  final bool isFavorite;
   @override
   ConsumerState<RecipesBuilder> createState() => _RecipesBuilderState();
 }
@@ -19,12 +23,18 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => ref.read(mealProvider.notifier).fetchData());
+    Future.microtask(() => ref
+        .read(mealProvider.notifier)
+        .fetchData(isFavorite: widget.isFavorite));
   }
 
-  @override
+  bool isFavorite = false;
+  final FlutterSecureStorage storage = FlutterSecureStorage();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   Widget build(BuildContext context) {
     final mealState = ref.watch(mealProvider);
+
     final selectedTimeProvider = StateProvider<int?>((ref) => null);
     final selectedTime = ref.watch(selectedTimeProvider);
 
@@ -137,14 +147,40 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
                                       ),
                                       IconButton(
                                         icon: Icon(
-                                          true
+                                          meals[index].isFavorite!
                                               ? Icons.favorite
                                               : Icons.favorite_border,
-                                          color: true
+                                          color: meals[index].isFavorite!
                                               ? Colors.red
                                               : AppColors.c001A3F,
                                         ),
-                                        onPressed: () {
+                                        onPressed: () async {
+                                          ref
+                                              .read(addFavoriteMealProvider
+                                                  .notifier)
+                                              .addFavoriteMeal(meals[index]);
+                                          setState(() {
+                                            meals[index].isFavorite =
+                                                !meals[index].isFavorite!;
+                                          });
+                                          final userId =
+                                              await storage.read(key: "userId");
+
+                                          firestore
+                                              .collection(FirebaseConstants
+                                                  .usersCollectionName)
+                                              .doc(userId)
+                                              .collection(FirebaseConstants
+                                                  .usersMealsCollectionName)
+                                              .doc(meals[index].name)
+                                              .update({
+                                            'is_favourite':
+                                                meals[index].isFavorite
+                                          });
+
+                                          // setState(() {
+                                          //   isFavorite = !isFavorite;
+                                          // });
                                           // setState(() {
                                           //   meals[index].isFavourite =
                                           //       !meals[index].isFavourite;

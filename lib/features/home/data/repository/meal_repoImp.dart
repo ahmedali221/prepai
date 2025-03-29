@@ -14,12 +14,16 @@ class MealRepositoryImpl implements MealRepository {
 
   @override
   Future<Either<FirebaseFailure, List<MealEntity>>> getMeals(
-      {int? mealPreparationTime, String? mealName, String? mealType}) async {
+      {int? mealPreparationTime,
+      String? mealName,
+      String? mealType,
+      bool? isFavorite}) async {
     print('[MealRepositoryImpl] Fetching meals...');
     final result = await remoteDataSource.fetchUserMeals(
         mealPreparationTime: mealPreparationTime,
         mealName: mealName,
-        mealType: mealType);
+        mealType: mealType,
+        isFavorite: isFavorite);
 
     return result.fold(
       (failure) {
@@ -35,10 +39,11 @@ class MealRepositoryImpl implements MealRepository {
   }
 
   @override
-  Future<Either<FirebaseFailure, void>> addMeal(MealEntity meal) async {
+  Future<Either<FirebaseFailure, void>> addFavoriteMeal(MealEntity meal) async {
     print('[MealRepositoryImpl] Adding meal: ${meal.name}');
     final mealModel = MealModel.fromEntity(meal);
-    final result = await remoteDataSource.addMeal(mealModel);
+    final result =
+        await remoteDataSource.addFavoriteMeal(mealData: mealModel.toJson());
 
     return result.fold(
       (failure) {

@@ -12,17 +12,20 @@ class MealRemoteDataSource {
 
   MealRemoteDataSource(this.storage, this.firestore);
 
-  Future<Either<FirebaseFailure, List<MealModel>>> fetchUserMeals({
-    int? mealPreparationTime,
-    String? mealName,
-    String? mealType,
-  }) async {
+  Future<Either<FirebaseFailure, List<MealModel>>> fetchUserMeals(
+      {int? mealPreparationTime,
+      String? mealName,
+      String? mealType,
+      bool? isFavorite}) async {
     try {
       final userId = await storage.read(key: "userId");
+
       Query<Map<String, dynamic>> query = firestore
           .collection(FirebaseConstants.usersCollectionName)
           .doc(userId)
-          .collection(FirebaseConstants.usersMealsCollectionName);
+          .collection(isFavorite!
+              ? FirebaseConstants.usersFavoriteMealsCollectionName
+              : FirebaseConstants.usersMealsCollectionName);
       CollectionReference<Map<String, dynamic>> mealsCollection = firestore
           .collection(FirebaseConstants.usersCollectionName)
           .doc(userId)
@@ -89,15 +92,17 @@ class MealRemoteDataSource {
     }
   }
 
-  Future<Either<FirebaseFailure, String>> addNewMeal({
+////////////////////edit function to add meal in favortie collection
+  Future<Either<FirebaseFailure, String>> addFavoriteMeal({
     required Map<String, dynamic> mealData,
   }) async {
     try {
+      mealData['is_favourite'] = true; // Set is_favourite to true
       final userId = await storage.read(key: "userId");
       final mealsRef = firestore
           .collection(FirebaseConstants.usersCollectionName)
           .doc(userId)
-          .collection(FirebaseConstants.usersMealsCollectionName);
+          .collection(FirebaseConstants.usersFavoriteMealsCollectionName);
       await mealsRef.add(mealData);
       return Right('Meal added successfully!');
     } on FirebaseException catch (e) {
@@ -108,17 +113,17 @@ class MealRemoteDataSource {
   }
 /////////////////////////////////////
 
-  Future<Either<FirebaseFailure, void>> addMeal(MealModel meal) async {
-    try {
-      final result = await addNewMeal(mealData: meal.toJson());
-      return result.fold(
-        (failure) => Left(failure),
-        (_) {
-          return const Right(null);
-        },
-      );
-    } catch (e) {
-      return Left(FirebaseFailure('Failed to add meal: $e'));
-    }
-  }
+  // Future<Either<FirebaseFailure, void>> addMeal(MealModel meal) async {
+  //   try {
+  //     final result = await addNewMeal(mealData: meal.toJson());
+  //     return result.fold(
+  //       (failure) => Left(failure),
+  //       (_) {
+  //         return const Right(null);
+  //       },
+  //     );
+  //   } catch (e) {
+  //     return Left(FirebaseFailure('Failed to add meal: $e'));
+  //   }
+  // }
 }

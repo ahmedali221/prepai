@@ -10,12 +10,16 @@ class MealNotifier extends StateNotifier<MealState> {
   MealNotifier(this.mealsUseCase) : super(MealState.initial());
 
   Future<void> fetchData(
-      {int? mealPreparationTime, String? mealName, String? mealType}) async {
+      {int? mealPreparationTime,
+      String? mealName,
+      String? mealType,
+      bool? isFavorite}) async {
     state = MealState.loading();
     final result = await mealsUseCase.call(
         mealPreparationTime: mealPreparationTime,
         mealName: mealName,
-        mealType: mealType);
+        mealType: mealType,
+        isFavorite: isFavorite);
 
     result.fold(
       (failure) {

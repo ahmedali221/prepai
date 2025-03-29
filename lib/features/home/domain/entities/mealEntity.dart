@@ -5,14 +5,16 @@ class MealEntity {
   final MealNutritionEntity nutrition;
   final Map<String, int> ingredients;
   final Map<String, String> steps;
+  bool? isFavorite = false;
 
-  const MealEntity({
+  MealEntity({
     required this.name,
     required this.preparationTime,
     required this.textSummary,
     required this.nutrition,
     required this.ingredients,
     required this.steps,
+    this.isFavorite,
   });
 }
 

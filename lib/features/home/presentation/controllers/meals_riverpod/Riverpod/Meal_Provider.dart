@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:prepai/Core/di/dep_inj.dart';
+import 'package:prepai/features/home/domain/entities/mealEntity.dart';
 
 import 'package:prepai/features/home/domain/use_cases/mealsUseCases.dart';
 

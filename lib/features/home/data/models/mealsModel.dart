@@ -7,6 +7,7 @@ class MealModel {
   final MealNutritionModel mealNutritions;
   final Map<String, int> mealIngredients;
   final Map<String, String> mealSteps;
+  final bool? isFavorite;
 
   MealModel({
     required this.mealName,
@@ -15,6 +16,7 @@ class MealModel {
     required this.mealNutritions,
     required this.mealIngredients,
     required this.mealSteps,
+    this.isFavorite,
   });
 
   // JSON Serialization
@@ -27,6 +29,7 @@ class MealModel {
           MealNutritionModel.fromJson(json['meal_nutritions'] ?? {}),
       mealIngredients: Map<String, int>.from(json['meal_ingredients'] ?? {}),
       mealSteps: Map<String, String>.from(json['meal_steps'] ?? {}),
+      isFavorite: json['is_favourite'] ?? false,
     );
   }
 
@@ -38,6 +41,7 @@ class MealModel {
       'meal_nutritions': mealNutritions.toJson(),
       'meal_ingredients': mealIngredients,
       'meal_steps': mealSteps,
+      'is_favourite': isFavorite
     };
   }
 
@@ -61,6 +65,7 @@ class MealModel {
       nutrition: mealNutritions.toEntity(),
       ingredients: mealIngredients,
       steps: mealSteps,
+      isFavorite: isFavorite,
     );
   }
 }

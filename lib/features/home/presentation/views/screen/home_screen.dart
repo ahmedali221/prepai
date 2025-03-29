@@ -59,8 +59,7 @@ class MyHomeScreen extends ConsumerWidget {
                     TextButton(
                       onPressed: () {
                         ref.read(mealProvider.notifier).fetchData();
-                        ref.read(isFilteredProvider.notifier).state =
-                            false; 
+                        ref.read(isFilteredProvider.notifier).state = false;
                       },
                       child: Text(
                         'Clear',
@@ -74,7 +73,7 @@ class MyHomeScreen extends ConsumerWidget {
                 ),
               ),
             Expanded(
-              child: RecipesBuilder(),
+              child: RecipesBuilder(false),
             ),
           ],
         ),

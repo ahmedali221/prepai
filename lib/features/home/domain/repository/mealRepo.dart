@@ -4,6 +4,9 @@ import '../entities/mealEntity.dart';
 
 abstract class MealRepository {
   Future<Either<FirebaseFailure, List<MealEntity>>> getMeals(
-      {int? mealPreparationTime, String? mealName, String? mealType});
-  Future<Either<FirebaseFailure, void>> addMeal(MealEntity meal);
+      {int? mealPreparationTime,
+      String? mealName,
+      String? mealType,
+      bool? isFavorite});
+  Future<Either<FirebaseFailure, void>> addFavoriteMeal(MealEntity meal);
 }

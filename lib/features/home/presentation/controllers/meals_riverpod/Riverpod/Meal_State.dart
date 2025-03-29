@@ -31,10 +31,8 @@ class MealState {
     Either<String, List<MealEntity>> meal,
   ) =>
       MealState(status: MealStatus.authenticated, meal: meal);
-  
+
   // Error state
   factory MealState.error(String message) =>
       MealState(status: MealStatus.error, errorMessage: message);
-  
-
 }
