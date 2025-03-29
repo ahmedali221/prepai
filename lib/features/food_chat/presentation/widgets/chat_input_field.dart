@@ -15,12 +15,13 @@ class ChatInputField extends StatefulWidget {
 
 class _ChatInputFieldState extends State<ChatInputField> {
   final TextEditingController _controller = TextEditingController();
+  String _selectedMealType = 'Breakfast'; 
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
       widget.ref
           .read(chatMessagesProvider.notifier)
-          .sendMessage(_controller.text);
+          .sendMessage(_controller.text, _selectedMealType); 
       _controller.clear();
     }
   }
@@ -35,7 +36,6 @@ class _ChatInputFieldState extends State<ChatInputField> {
           borderRadius: BorderRadius.circular(30.r),
           boxShadow: [
             BoxShadow(
-              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.1),
               blurRadius: 8.r,
               offset: Offset(0, 3.h),
@@ -59,6 +59,21 @@ class _ChatInputFieldState extends State<ChatInputField> {
                       EdgeInsets.symmetric(vertical: 14.h, horizontal: 20.w),
                 ),
               ),
+            ),
+            SizedBox(width: 8.w),
+            DropdownButton<String>(
+              value: _selectedMealType,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedMealType = newValue!;
+                });
+              },
+              items: ['Breakfast', 'Lunch', 'Dinner', 'Snack']
+                  .map((mealType) => DropdownMenuItem(
+                        value: mealType,
+                        child: Text(mealType),
+                      ))
+                  .toList(),
             ),
             SizedBox(width: 8.w),
             GestureDetector(

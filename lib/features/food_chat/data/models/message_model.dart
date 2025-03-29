@@ -4,6 +4,7 @@ class ChatMessage {
   final String sender;
   final bool isUser;
   final DateTime createdAt;
+  final String mealType; // New field
 
   ChatMessage({
     required this.id,
@@ -11,6 +12,7 @@ class ChatMessage {
     required this.sender,
     required this.isUser,
     required this.createdAt,
+    required this.mealType, // New field
   });
 
   // Convert to Map for Firestore
@@ -21,6 +23,7 @@ class ChatMessage {
       'sender': sender,
       'isUser': isUser,
       'createdAt': createdAt.toIso8601String(),
+      'mealType': mealType, // New field
     };
   }
 
@@ -32,6 +35,7 @@ class ChatMessage {
       sender: map['sender'] ?? '',
       isUser: map['isUser'] ?? false,
       createdAt: DateTime.tryParse(map['createdAt'] ?? '') ?? DateTime.now(),
+      mealType: map['mealType'] ?? 'unknown', // Default value if missing
     );
   }
 }
