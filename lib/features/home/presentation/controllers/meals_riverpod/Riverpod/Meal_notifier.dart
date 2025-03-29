@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:prepai/features/Meals/domain/use_cases/mealsUseCases.dart';
+import 'package:prepai/features/home/domain/use_cases/mealsUseCases.dart';
+
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_State.dart';
 
 class MealNotifier extends StateNotifier<MealState> {

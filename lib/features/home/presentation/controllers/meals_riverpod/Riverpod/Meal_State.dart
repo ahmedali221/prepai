@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:prepai/features/Meals/domain/entities/mealEntity.dart';
+import 'package:prepai/features/home/domain/entities/mealEntity.dart';
 
 enum MealStatus { initial, loading, authenticated, error }
 

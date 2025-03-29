@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:prepai/features/home/domain/repository/mealRepo.dart';
 import '../../../../Core/errors/firebase_errors.dart';
 import '../entities/mealEntity.dart';
-import '../repos/mealRepo.dart';
+
 
 class GetMealsUseCase {
   final MealRepository repository;

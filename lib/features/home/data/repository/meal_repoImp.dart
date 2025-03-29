@@ -1,9 +1,10 @@
 // features/meal/data/repositories/meal_repository_impl.dart
 import 'package:dartz/dartz.dart';
 import 'package:prepai/Core/errors/firebase_errors.dart';
+import 'package:prepai/features/home/data/datasources/remote_data_sources/meal_remote_dataSource.dart';
 import '../../domain/entities/mealEntity.dart';
-import '../../domain/repos/mealRepo.dart';
-import '../data_source/meal_remote_dataSource.dart';
+import '../../domain/repository/mealRepo.dart';
+
 import '../models/mealsModel.dart';
 
 class MealRepositoryImpl implements MealRepository {
