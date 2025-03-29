@@ -30,7 +30,12 @@ import 'package:prepai/features/home/domain/use_cases/post_user_data_use_case.da
 
 final getIt = GetIt.instance;
 
-void setupLocator() {
+void setupLocator() async {
+  getIt.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
+  getIt.registerLazySingleton<FirebaseFirestore>(
+      () => FirebaseFirestore.instance);
+  getIt.registerLazySingleton<FlutterSecureStorage>(
+      () => FlutterSecureStorage());
   // Core Services
   getIt.registerLazySingleton<UserProfileRemoteDataSourceImp>(
     () => UserProfileRemoteDataSourceImp(
@@ -120,9 +125,6 @@ void setupLocator() {
   getIt.registerLazySingleton<FoodChatRemoteDataSource>(
     () => FoodChatRemoteDataSourceImpl(getIt<GenerativeModel>()),
   );
-  getIt.registerLazySingleton<FirebaseFirestore>(
-      () => FirebaseFirestore.instance);
-
   getIt.registerLazySingleton<FoodChatRepository>(
     () => FoodChatRepositoryImpl(
         getIt<FoodChatRemoteDataSource>(), getIt<FirebaseFirestore>()),

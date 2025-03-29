@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/foundation.dart'; // Import for debugPrint
+import 'package:flutter/foundation.dart';
 import 'package:prepai/Core/di/dep_inj.dart';
 import 'package:prepai/features/food_chat/data/models/message_model.dart';
 import 'package:prepai/features/food_chat/domain/use_cases/get_food_suggestion.dart';
@@ -17,15 +17,14 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
   final _uuid = const Uuid();
 
   ChatNotifier(this._getFoodSuggestion, this._firestore) : super([]) {
-    _loadMessages(); // Load messages when initialized
+    _loadMessages(); 
   }
 
-  /// Load chat messages from Firestore
   Future<void> _loadMessages() async {
     try {
       final snapshot = await _firestore
           .collection('chats')
-          .orderBy('createdAt', descending: false) // Sort by time
+          .orderBy('createdAt', descending: false) 
           .get();
 
       final messages =
@@ -43,13 +42,13 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       isUser: true,
       createdAt: DateTime.now(),
       sender: 'user',
-      mealType: mealType, // Include meal type
+      mealType: mealType, 
     );
 
     await _saveMessageToFirestore(userMessage);
     state = [...state, userMessage];
 
-    final botResponse = await _getFoodSuggestion.call(text, mealType); // Pass mealType
+    final botResponse = await _getFoodSuggestion.call(text, mealType); 
 
     final botMessage = ChatMessage(
       id: _uuid.v4(),
@@ -57,7 +56,7 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       isUser: false,
       createdAt: DateTime.now(),
       sender: 'ai',
-      mealType: mealType, // Include meal type
+      mealType: mealType, 
     );
 
     await _saveMessageToFirestore(botMessage);
@@ -69,7 +68,7 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       await _firestore
           .collection('chats')
           .doc(message.id)
-          .set(message.toMap()); // Use `set` to avoid duplicates
+          .set(message.toMap()); 
     } catch (e) {
       debugPrint("Error saving chat message: $e");
     }
