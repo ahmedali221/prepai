@@ -47,6 +47,8 @@ class MealRemoteDataSource {
             "bread": 1,
             "meat": 2,
           },
+          "is_favourite":false,
+          "meal_type":"lunch",
         }
       ];
 
@@ -63,17 +65,14 @@ class MealRemoteDataSource {
       }
       if (mealType != null) {
         query = query.where('meal_type', isEqualTo: mealType);
-        print('Applied filter: meal_type = $mealType');
       }
       if (mealPreparationTime != null) {
         query = query.where('meal_preparation_time',
             isEqualTo: mealPreparationTime);
-        print('Applied filter: meal_preparation_time = $mealPreparationTime');
       }
 
       // Execute the query once
       QuerySnapshot<Map<String, dynamic>> mealsSnapshot = await query.get();
-      print('Query Result: ${mealsSnapshot.docs.length} docs found');
       if (mealsSnapshot.docs.isEmpty) {
         return Left(FirebaseFailure('No meals found for this user.'));
       }
@@ -82,13 +81,10 @@ class MealRemoteDataSource {
           .map((doc) => MealModel.fromJson(doc.data()))
           .toList();
 
-      print('Returning ${mealsList.length} meals');
       return Right(mealsList);
     } on FirebaseException catch (e) {
-      print('FirebaseException: ${e.message}');
       return Left(FirebaseFailure.fromFirestoreError(e));
     } on Exception catch (e) {
-      print('Exception: $e');
       return Left(FirebaseFailure('Unknown error: $e'));
     }
   }
@@ -118,12 +114,10 @@ class MealRemoteDataSource {
       return result.fold(
         (failure) => Left(failure),
         (_) {
-          print('[MealRemoteDataSource] Meal added successfully');
           return const Right(null);
         },
       );
     } catch (e) {
-      print('[MealRemoteDataSource] Error: $e');
       return Left(FirebaseFailure('Failed to add meal: $e'));
     }
   }

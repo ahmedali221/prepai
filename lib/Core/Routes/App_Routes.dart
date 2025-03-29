@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:prepai/features/Auth/presentation/pages/login_page.dart';
 import 'package:prepai/features/Auth/presentation/pages/sign_up_page.dart';
+import 'package:prepai/features/Meals/presentation/views/screen/meal_details_view.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/onboarding/onboarding_page.dart';
 import 'package:prepai/features/home/presentation/views/screen/favorites_screen.dart';
 import 'package:prepai/features/home/presentation/views/screen/home_screen.dart';
 import 'package:prepai/features/Splash%20&%20Onboarding/presentation/splash/splash_page.dart';
 import 'package:prepai/features/home/presentation/views/screen/controller_screen.dart';
 import 'package:prepai/features/home/presentation/views/screen/profile_screen.dart';
-
 
 class AppRouter {
   static const String kInitPage = '/';
@@ -19,6 +19,7 @@ class AppRouter {
   static const String kSignup = '/signup';
   static const String kFavourites = '/favourites';
   static const String kProfile = '/profile';
+  static const String kMealDetails = '/mealdetails';
 }
 
 final GoRouter router = GoRouter(
@@ -61,11 +62,18 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: AppRouter.kFavourites,
-      pageBuilder: (context, state) => const MaterialPage(child: FavoriteScreen()),
+      pageBuilder: (context, state) =>
+          const MaterialPage(child: FavoriteScreen()),
     ),
     GoRoute(
       path: AppRouter.kProfile,
-      pageBuilder: (context, state) => const MaterialPage(child: ProfileScreen()),
+      pageBuilder: (context, state) =>
+          const MaterialPage(child: ProfileScreen()),
+    ),
+    GoRoute(
+      path: AppRouter.kMealDetails,
+      pageBuilder: (context, state) =>
+          const MaterialPage(child: MealDetailsView(mealId: "")),
     ),
   ],
 );

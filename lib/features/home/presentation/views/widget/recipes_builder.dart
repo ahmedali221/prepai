@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:prepai/Core/Routes/App_Routes.dart';
+
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_Provider.dart';
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_State.dart';
 import '../../../../../Core/theme/app_colors.dart';
@@ -48,12 +51,14 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
                             .copyWith(color: AppColors.c8A8A8A),
                       )
                     : ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
                         itemCount: meals.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              context.go(AppRouter.kMealDetails);
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
@@ -131,11 +136,24 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
                                         ),
                                       ),
                                       IconButton(
-                                        icon: const Icon(
-                                          Icons.favorite_border,
-                                          color: AppColors.c001A3F,
+                                        icon: Icon(
+                                         true
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: true
+                                              ? Colors.red
+                                              : AppColors.c001A3F,
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          // setState(() {
+                                          //   meals[index].isFavourite =
+                                          //       !meals[index].isFavourite;
+
+                                          //   if (meals[index].isFavourite) {
+                                          //   } else {}
+                                          // });
+                                          // meals[index].isFavourite;
+                                        },
                                       ),
                                     ],
                                   ),

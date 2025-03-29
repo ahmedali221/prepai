@@ -4,11 +4,13 @@ class MealModel {
   final String mealName;
   final int mealPreparationTime;
   final String mealTextSummary;
+  bool isFavourite;
   final MealNutritionModel mealNutritions;
   final Map<String, int> mealIngredients;
   final Map<String, String> mealSteps;
 
-  const MealModel({
+  MealModel({
+    required this.isFavourite,
     required this.mealName,
     required this.mealPreparationTime,
     required this.mealTextSummary,
@@ -20,6 +22,7 @@ class MealModel {
   // JSON Serialization
   factory MealModel.fromJson(Map<String, dynamic> json) {
     return MealModel(
+      isFavourite:json['is_favourite'] ?? '', 
       mealName: json['meal_name'] ?? '',
       mealPreparationTime: json['meal_preparation_time'] ?? 0,
       mealTextSummary: json['meal_text_summary'] ?? '',
@@ -44,6 +47,7 @@ class MealModel {
   // Entity Conversion
   factory MealModel.fromEntity(MealEntity entity) {
     return MealModel(
+      isFavourite: false,
       mealName: entity.name,
       mealPreparationTime: entity.preparationTime,
       mealTextSummary: entity.textSummary,
