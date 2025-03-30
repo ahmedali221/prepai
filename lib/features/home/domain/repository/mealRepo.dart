@@ -9,4 +9,7 @@ abstract class MealRepository {
       String? mealType,
       bool? isFavorite});
   Future<Either<FirebaseFailure, void>> addFavoriteMeal(MealEntity meal);
+  Future<Either<FirebaseFailure, void>> removeFavoriteMeal({
+    required String mealId,
+  });
 }

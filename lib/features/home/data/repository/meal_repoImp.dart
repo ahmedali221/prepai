@@ -56,4 +56,21 @@ class MealRepositoryImpl implements MealRepository {
       },
     );
   }
+
+  /////////////////////////////////
+  Future<Either<FirebaseFailure, void>> removeFavoriteMeal({
+    required String mealId,
+  }) async {
+    final result = await remoteDataSource.removeFavoriteMeal(mealId: mealId);
+    return result.fold(
+      (failure) {
+        print('[MealRepositoryImpl] Error: ${failure.errorMessage}');
+        return Left(failure);
+      },
+      (_) {
+        print('[MealRepositoryImpl] Meal added successfully');
+        return Right(_);
+      },
+    );
+  }
 }

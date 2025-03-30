@@ -20,47 +20,59 @@ class MealRemoteDataSource {
     try {
       final userId = await storage.read(key: "userId");
 
-      Query<Map<String, dynamic>> query = firestore
-          .collection(FirebaseConstants.usersCollectionName)
-          .doc(userId)
-          .collection(isFavorite == true || isFavorite != null
-              ? FirebaseConstants.usersFavoriteMealsCollectionName
-              : FirebaseConstants.usersMealsCollectionName);
       CollectionReference<Map<String, dynamic>> mealsCollection = firestore
           .collection(FirebaseConstants.usersCollectionName)
           .doc(userId)
           .collection(FirebaseConstants.usersMealsCollectionName);
-      List<Map<String, dynamic>> fixedMeals = [
-        {
-          "meal_name": "Kofta",
-          "meal_nutrations": {
-            "carp": 100,
-            "fat": 50,
-            "kcal": 400,
-            "protein": 300,
-            "vitamens": 70,
-          },
-          "meal_preparartion_time": 14,
-          "meal_steps": {
-            "step_1": "buy bread",
-          },
-          "meal_text_summary":
-              "A flavorful Middle Eastern dish made from minced meat (usually beef or lamb) mixed with herbs, spices, and onions. It's often grilled or baked and served with rice, salad, or tahini sauce.",
-          "meals_ingrediants": {
-            "bread": 1,
-            "meat": 2,
-          },
-          "is_favourite": false,
-          "meal_type": "lunch",
-        }
-      ];
 
-      DocumentReference<Map<String, dynamic>> docRef =
-          mealsCollection.doc(fixedMeals[0]['meal_name']);
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await docRef.get();
-      if (!snapshot.exists) {
-        await docRef.set(fixedMeals[0]);
+      CollectionReference<Map<String, dynamic>> favoriteMealsCollection =
+          firestore
+              .collection(FirebaseConstants.usersCollectionName)
+              .doc(userId)
+              .collection(FirebaseConstants.usersFavoriteMealsCollectionName);
+
+      // التحقق مما إذا كانت هناك وجبات موجودة بالفعل
+      QuerySnapshot<Map<String, dynamic>> existingMeals =
+          await mealsCollection.get();
+
+      if (existingMeals.docs.isEmpty) {
+        print("No meals found, adding default meal...");
+        // إضافة وجبة افتراضية فقط إذا لم تكن هناك وجبات
+        List<Map<String, dynamic>> fixedMeals = [
+          {
+            "meal_name": "Kofta",
+            "meal_nutrations": {
+              "carp": 100,
+              "fat": 50,
+              "kcal": 400,
+              "protein": 300,
+              "vitamens": 70,
+            },
+            "meal_preparation_time": 14,
+            "meal_steps": {
+              "step_1": "buy bread",
+            },
+            "meal_text_summary":
+                "A flavorful Middle Eastern dish made from minced meat (usually beef or lamb) mixed with herbs, spices, and onions. It's often grilled or baked and served with rice, salad, or tahini sauce.",
+            "meals_ingredients": {
+              "bread": 1,
+              "meat": 2,
+            },
+            "is_favourite": false,
+            "meal_type": "Lunch",
+          }
+        ];
+
+        DocumentReference<Map<String, dynamic>> docRef =
+            mealsCollection.doc(); // إنشاء ID جديد للوجبة
+        fixedMeals[0]['meal_id'] = docRef.id; // تخزين الـ meal_id داخل البيانات
+        await docRef.set(fixedMeals[0]); // حفظ الوجبة في Firestore
       }
+
+      // إنشاء استعلام للبحث عن الوجبات مع الفلاتر المطلوبة
+      Query<Map<String, dynamic>> query =
+          isFavorite == true ? favoriteMealsCollection : mealsCollection;
+
       if (mealName != null) {
         query = query
             .where('meal_name', isGreaterThanOrEqualTo: mealName)
@@ -74,7 +86,7 @@ class MealRemoteDataSource {
             isEqualTo: mealPreparationTime);
       }
 
-      // Execute the query once
+      // جلب البيانات
       QuerySnapshot<Map<String, dynamic>> mealsSnapshot = await query.get();
       if (mealsSnapshot.docs.isEmpty) {
         return Left(FirebaseFailure('No meals found for this user.'));
@@ -83,7 +95,8 @@ class MealRemoteDataSource {
       List<MealModel> mealsList = mealsSnapshot.docs
           .map((doc) => MealModel.fromJson(doc.data()))
           .toList();
-      print("momo $mealsList");
+
+      print("Fetched meals: $mealsList");
       return Right(mealsList);
     } on FirebaseException catch (e) {
       return Left(FirebaseFailure.fromFirestoreError(e));
@@ -97,13 +110,26 @@ class MealRemoteDataSource {
     required Map<String, dynamic> mealData,
   }) async {
     try {
-      mealData['is_favourite'] = true; // Set is_favourite to true
+      mealData['is_favourite'] = true; // تعيين كوجبة مفضلة
       final userId = await storage.read(key: "userId");
-      final mealsRef = firestore
+
+      // استخراج meal_id من بيانات الوجبة
+      final String mealId = mealData['meal_id'];
+
+      final mealRef = firestore
           .collection(FirebaseConstants.usersCollectionName)
           .doc(userId)
-          .collection(FirebaseConstants.usersFavoriteMealsCollectionName);
-      await mealsRef.add(mealData);
+          .collection(FirebaseConstants.usersFavoriteMealsCollectionName)
+          .doc(mealId);
+      // استخدم نفس `meal_id`
+      await firestore
+          .collection(FirebaseConstants.usersCollectionName)
+          .doc(userId)
+          .collection(FirebaseConstants.usersMealsCollectionName)
+          .doc(mealId)
+          .update({'is_favourite': true});
+
+      await mealRef.set(mealData); // استخدم `set()` بدلًا من `add()`
       return Right('Meal added successfully!');
     } on FirebaseException catch (e) {
       return Left(FirebaseFailure.fromFirestoreError(e));
@@ -111,7 +137,53 @@ class MealRemoteDataSource {
       return Left(FirebaseFailure('Unknown error: $e'));
     }
   }
+  //////////////////////////////////////////////
+
+  Future<Either<FirebaseFailure, void>> updateMealFavoriteStatus({
+    required String mealId,
+    required bool isFavorite,
+  }) async {
+    try {
+      final userId = await storage.read(key: "userId");
+
+      await firestore
+          .collection(FirebaseConstants.usersCollectionName)
+          .doc(userId)
+          .collection(FirebaseConstants.usersMealsCollectionName)
+          .doc(mealId)
+          .update({'is_favourite': isFavorite});
+
+      return const Right(null);
+    } on FirebaseException catch (e) {
+      return Left(FirebaseFailure.fromFirestoreError(e));
+    } on Exception catch (e) {
+      return Left(FirebaseFailure('Unknown error: $e'));
+    }
+  }
+
 /////////////////////////////////////
+  Future<Either<FirebaseFailure, void>> removeFavoriteMeal({
+    required String mealId,
+  }) async {
+    try {
+      final userId = await storage.read(key: "userId");
+      final mealRef = firestore
+          .collection(FirebaseConstants.usersCollectionName)
+          .doc(userId)
+          .collection(FirebaseConstants.usersFavoriteMealsCollectionName)
+          .doc(mealId);
+      await firestore
+          .collection(FirebaseConstants.usersCollectionName)
+          .doc(userId)
+          .collection(FirebaseConstants.usersMealsCollectionName)
+          .doc(mealId)
+          .update({'is_favourite': false});
+      await mealRef.delete();
+      return Right(null);
+    } on FirebaseException catch (e) {
+      return Left(FirebaseFailure.fromFirestoreError(e));
+    }
+  }
 
   // Future<Either<FirebaseFailure, void>> addMeal(MealModel meal) async {
   //   try {

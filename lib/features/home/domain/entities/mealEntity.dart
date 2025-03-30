@@ -6,6 +6,7 @@ class MealEntity {
   final Map<String, int> ingredients;
   final Map<String, String> steps;
   bool? isFavorite = false;
+  String? id;
 
   MealEntity({
     required this.name,
@@ -15,6 +16,7 @@ class MealEntity {
     required this.ingredients,
     required this.steps,
     this.isFavorite,
+    this.id,
   });
 }
 

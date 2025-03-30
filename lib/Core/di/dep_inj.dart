@@ -27,6 +27,7 @@ import 'package:prepai/features/home/domain/use_cases/fetch_user_data_use_case.d
 import 'package:prepai/features/home/domain/use_cases/logout_use_case.dart';
 import 'package:prepai/features/home/domain/use_cases/mealsUseCases.dart';
 import 'package:prepai/features/home/domain/use_cases/post_user_data_use_case.dart';
+import 'package:prepai/features/home/domain/use_cases/remove_favorite_meal_use_case.dart';
 
 final getIt = GetIt.instance;
 
@@ -119,8 +120,11 @@ void setupLocator() async {
   getIt.registerLazySingleton<AddFavoriteMealsUseCase>(
     () => AddFavoriteMealsUseCase(getIt()),
   );
-  /////////////////////////////////////////////////////
-
+  //////////////////////////remove favorite meal///////////////////////////
+  ///
+  getIt.registerLazySingleton<RemoveFavoriteMealsUseCase>(
+    () => RemoveFavoriteMealsUseCase(getIt()),
+  );
   // 🔹 Register Food Chat Dependencies
   getIt.registerLazySingleton<FoodChatRemoteDataSource>(
     () => FoodChatRemoteDataSourceImpl(getIt<GenerativeModel>()),

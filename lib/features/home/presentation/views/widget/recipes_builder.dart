@@ -9,6 +9,7 @@ import 'package:prepai/features/home/presentation/controllers/add_favorite_meal_
 
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_Provider.dart';
 import 'package:prepai/features/home/presentation/controllers/meals_riverpod/Riverpod/Meal_State.dart';
+import 'package:prepai/features/home/presentation/controllers/remove_favorite_meal_riverpod/remove_favorite_meal_provider.dart';
 import '../../../../../Core/theme/app_colors.dart';
 import '../../../../../Core/theme/app_styles.dart';
 
@@ -155,40 +156,40 @@ class _RecipesBuilderState extends ConsumerState<RecipesBuilder> {
                                               : AppColors.c001A3F,
                                         ),
                                         onPressed: () async {
-                                          ref
-                                              .read(addFavoriteMealProvider
-                                                  .notifier)
-                                              .addFavoriteMeal(meals[index]);
                                           setState(() {
                                             meals[index].isFavorite =
                                                 !meals[index].isFavorite!;
                                           });
-                                          final userId =
-                                              await storage.read(key: "userId");
+                                          if (meals[index].isFavorite!) {
+                                            ref
+                                                .read(addFavoriteMealProvider
+                                                    .notifier)
+                                                .addFavoriteMeal(meals[index]);
+                                          } else {
+                                            print('in delete');
+                                            print(meals[index].id!);
 
-                                          firestore
-                                              .collection(FirebaseConstants
-                                                  .usersCollectionName)
-                                              .doc(userId)
-                                              .collection(FirebaseConstants
-                                                  .usersMealsCollectionName)
-                                              .doc(meals[index].name)
-                                              .update({
-                                            'is_favourite':
-                                                meals[index].isFavorite
-                                          });
+                                            ref
+                                                .read(removeFavoriteMealProvider
+                                                    .notifier)
+                                                .removeFavoriteMeal(
+                                                    mealId: meals[index].id!);
+                                          }
 
-                                          // setState(() {
-                                          //   isFavorite = !isFavorite;
+                                          // final userId =
+                                          //     await storage.read(key: "userId");
+
+                                          // firestore
+                                          //     .collection(FirebaseConstants
+                                          //         .usersCollectionName)
+                                          //     .doc(userId)
+                                          //     .collection(FirebaseConstants
+                                          //         .usersMealsCollectionName)
+                                          //     .doc(meals[index].id)
+                                          //     .update({
+                                          //   'is_favourite':
+                                          //       meals[index].isFavorite
                                           // });
-                                          // setState(() {
-                                          //   meals[index].isFavourite =
-                                          //       !meals[index].isFavourite;
-
-                                          //   if (meals[index].isFavourite) {
-                                          //   } else {}
-                                          // });
-                                          // meals[index].isFavourite;
                                         },
                                       ),
                                     ],
